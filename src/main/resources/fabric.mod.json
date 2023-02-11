@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "mdlrbckrms",
+  "version": "${version}",
+
+  "name": "Modular Backrooms",
+  "description": "TODO",
+  "authors": [
+    "ona li toki e jan Epiphany tawa mi"
+  ],
+  "contact": {
+    "homepage": "TODO",
+    "sources": "TODO"
+  },
+
+  "license": "MIT",
+  "icon": "assets/mdlrbckrms/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "net.epiphany.mdlrbckrms.ModularBackrooms"
+    ]
+  },
+  "mixins": [
+    "mdlrbckrms.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.11",
+    "fabric-api": "*",
+    "minecraft": "~1.19.3",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}

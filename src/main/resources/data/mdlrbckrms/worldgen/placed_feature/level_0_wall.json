@@ -1,0 +1,28 @@
+{
+    "feature": {
+        "type": "mdlrbckrms:wall",
+        "config": {
+            "blockID": "minecraft:smooth_sandstone"
+        }
+    },
+    "placement": [
+        {
+            "type": "noise_based_count",
+            "noise_factor": 2.0,
+            "noise_offset": 0.5,
+            "noise_to_count_ratio": 5
+        },
+        {
+            "type": "height_range",
+            "height": {
+                "type": "constant",
+                "value": {
+                    "absolute": -2
+                }
+            }
+        },
+        {
+            "type": "minecraft:in_square"
+        }
+    ]
+}
