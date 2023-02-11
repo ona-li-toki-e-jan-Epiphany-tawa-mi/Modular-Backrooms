@@ -1,0 +1,8 @@
+{
+    "maximum_hum_buzz": {
+        "subtitle": "subtitles.mdlrbckrms.maximum_hum_buzz",
+        "sounds": [
+            "mdlrbckrms:maximum_hum_buzz"
+        ]
+    }
+}

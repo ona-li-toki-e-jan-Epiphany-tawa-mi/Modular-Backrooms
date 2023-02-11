@@ -8,11 +8,13 @@
         "sky_color": 10196814,
         "water_color": 0,
         "water_fog_color": 0,
-        "grass_color_modifier": "none"
+        "grass_color_modifier": "none",
+        "ambient_sound": "mdlrbckrms:maximum_hum_buzz"
     },
     "carvers": {},
     "features": [
         [
+            "mdlrbckrms:level_0_subwall",
             "mdlrbckrms:level_0_chunk_wall"
         ],
         [],
