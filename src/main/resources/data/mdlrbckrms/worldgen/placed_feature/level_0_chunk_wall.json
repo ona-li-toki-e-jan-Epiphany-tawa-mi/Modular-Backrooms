@@ -1,16 +1,20 @@
 {
     "feature": {
-        "type": "mdlrbckrms:wall",
+        "type": "mdlrbckrms:chunk_wall",
         "config": {
-            "blockID": "minecraft:smooth_sandstone"
+            "blockID": "minecraft:smooth_sandstone",
+            "height": 4,
+            "wallChance": 0.8,
+            "doorChance": 0.65
         }
     },
     "placement": [
         {
-            "type": "noise_based_count",
-            "noise_factor": 2.0,
-            "noise_offset": 0.5,
-            "noise_to_count_ratio": 5
+            "type": "count",
+            "count": {
+                "type": "constant",
+                "value": 1
+            }
         },
         {
             "type": "height_range",
@@ -20,9 +24,6 @@
                     "absolute": -2
                 }
             }
-        },
-        {
-            "type": "minecraft:in_square"
         }
     ]
 }
