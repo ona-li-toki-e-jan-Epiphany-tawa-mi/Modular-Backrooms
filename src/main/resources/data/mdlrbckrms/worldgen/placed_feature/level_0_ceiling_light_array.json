@@ -1,0 +1,29 @@
+{
+    "feature": {
+        "type": "mdlrbckrms:ceiling_light_array",
+        "config": {
+            "blockID": "minecraft:sea_lantern",
+            "length": 3,
+            "columns": 2,
+            "rows": 3
+        }
+    },
+    "placement": [
+        {
+            "type": "height_range",
+            "height": {
+                "type": "constant",
+                "value": {
+                    "absolute": 2
+                }
+            }
+        },
+        {
+            "type": "count",
+            "count": {
+                "type": "constant",
+                "value": 1
+            }
+        }
+    ]
+}
