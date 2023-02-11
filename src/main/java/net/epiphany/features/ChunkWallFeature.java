@@ -12,6 +12,9 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
+/**
+ * Used to conditionally generate walls on the south and east side of all chunks to form walls throught a level.
+ */
 public class ChunkWallFeature extends Feature<ChunkWallConfig> {
     public static final Identifier WALL_ID = new Identifier(ModularBackrooms.MOD_ID, "chunk_wall");
     public static final Feature<ChunkWallConfig> WALL_FEATURE = new ChunkWallFeature(ChunkWallConfig.CODEC);
@@ -44,6 +47,16 @@ public class ChunkWallFeature extends Feature<ChunkWallConfig> {
         return true;
     }
 
+    /**
+     * Generates a 16 block long wall, optionally with a door, starting at the given block and moving either south or east.
+     * 
+     * @param world        The world to write the wall to.
+     * @param block        The block to make the wall out of.
+     * @param wallPosition The starting position of the wall.
+     * @param height       How tall the wall will be.
+     * @param faceSouth    Whether the wall will generate to the south or east of the starting position.
+     * @param generateDoor Whether to generate a 4 wide opening in the middle of the wall from bottom to top.
+     */
     protected void generateWall(StructureWorldAccess world, BlockState block, BlockPos wallPosition, int height, 
             boolean faceSouth, boolean generateDoor) {
         for (int x = 0; x <= 16; x++) {

@@ -24,6 +24,20 @@
                 "type": "constant",
                 "value": 1
             }
+        },
+        {
+            "type": "random_offset",
+            "xz_spread": {
+                "type": "biased_to_bottom",
+                "value": {
+                    "min_inclusive": 0,
+                    "max_inclusive": 1
+                }
+            },
+            "y_spread" : {
+                "type": "constant",
+                "value": 0
+            }
         }
     ]
 }

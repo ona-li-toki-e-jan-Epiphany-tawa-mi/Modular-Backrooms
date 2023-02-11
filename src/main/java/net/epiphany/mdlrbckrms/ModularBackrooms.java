@@ -2,7 +2,6 @@ package net.epiphany.mdlrbckrms;
 
 import net.epiphany.features.CeilingLightArrayFeature;
 import net.epiphany.features.ChunkWallFeature;
-import net.epiphany.mdlrbckrms.level0.Level0;
 import net.epiphany.mdlrbckrms.level0.Level0ChunkGenerator;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.registry.Registries;
@@ -20,6 +19,6 @@ public class ModularBackrooms implements ModInitializer {
 		Registry.register(Registries.FEATURE, ChunkWallFeature.WALL_ID, ChunkWallFeature.WALL_FEATURE);
 		Registry.register(Registries.FEATURE, CeilingLightArrayFeature.LIGHT_ARRAY_ID, CeilingLightArrayFeature.LIGHT_ARRAY_FEATURE);
 
-		Registry.register(Registries.CHUNK_GENERATOR, Level0.CHUNK_GENERATOR_ID, Level0ChunkGenerator.CODEC);
+		Registry.register(Registries.CHUNK_GENERATOR, Level0ChunkGenerator.CHUNK_GENERATOR_ID, Level0ChunkGenerator.CODEC);
 	}
 }

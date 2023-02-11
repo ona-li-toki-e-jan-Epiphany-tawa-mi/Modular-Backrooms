@@ -8,9 +8,10 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.epiphany.mdlrbckrms.ChunkGeneratorBase;
-import net.minecraft.block.BlockState;
+import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.entry.RegistryEntry;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ChunkRegion;
 import net.minecraft.world.HeightLimitView;
@@ -27,6 +28,8 @@ import net.minecraft.world.gen.chunk.VerticalBlockSample;
 import net.minecraft.world.gen.noise.NoiseConfig;
 
 public class Level0ChunkGenerator extends ChunkGeneratorBase {
+    public static final Identifier CHUNK_GENERATOR_ID = new Identifier(ModularBackrooms.MOD_ID, Level0.LEVEL_0_ID);
+    
     public static final Codec<Level0ChunkGenerator> CODEC = RecordCodecBuilder.create((instance) ->
         instance.group(Biome.REGISTRY_CODEC.fieldOf("biome").forGetter(o -> o.biome))
                 .apply(instance, Level0ChunkGenerator::new));

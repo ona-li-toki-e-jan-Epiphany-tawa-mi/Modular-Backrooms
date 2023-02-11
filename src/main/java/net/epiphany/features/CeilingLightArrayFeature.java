@@ -11,6 +11,9 @@ import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
+/**
+ * Used to generate arrays of light fixtures within the ceiling.
+ */
 public class CeilingLightArrayFeature extends Feature<CeilingLightArrayConfig> {
     public static final Identifier LIGHT_ARRAY_ID = new Identifier(ModularBackrooms.MOD_ID, "ceiling_light_array");
     public static final Feature<CeilingLightArrayConfig> LIGHT_ARRAY_FEATURE = new CeilingLightArrayFeature(CeilingLightArrayConfig.CODEC);
@@ -32,9 +35,13 @@ public class CeilingLightArrayFeature extends Feature<CeilingLightArrayConfig> {
         int columns = config.columns();
         int rows = config.rows();
 
+        // Calculates how many blocks need to be in between each light in each row and column and how far from the wall they 
+        //   should be.
         int columnSpacing = (16 - columns) / (columns + 1);
         int rowSpacing = (16 - rows) / (rows + 1);
+        // Used to center lights.
         int lightCenterOffset = length / 2;
+        // Offset by (1,0,1) to account for chunk walls.
         BlockPos columnPosition = context.getOrigin().add(1, 0, 1).south(columnSpacing);
         
         for (int column = 0; column < columns; column++) {
