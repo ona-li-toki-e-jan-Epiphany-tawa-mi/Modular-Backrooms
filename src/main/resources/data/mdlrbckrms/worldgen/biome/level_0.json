@@ -9,7 +9,13 @@
         "water_color": 0,
         "water_fog_color": 0,
         "grass_color_modifier": "none",
-        "ambient_sound": "mdlrbckrms:maximum_hum_buzz"
+        "ambient_sound": "mdlrbckrms:maximum_hum_buzz",
+        "music": {
+            "sound": "",
+            "min_delay": 0,
+            "max_delay": 0,
+            "replace_current_music": false
+        }
     },
     "carvers": {},
     "features": [
