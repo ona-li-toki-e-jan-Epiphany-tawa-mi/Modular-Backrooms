@@ -7,7 +7,7 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager.Builder;
@@ -36,7 +36,7 @@ public class CeilingLight extends Block {
         FabricBlockSettings.of(Material.REDSTONE_LAMP)
                            .luminance(state -> state.get(ON) ? 15 : 0)
                            .ticksRandomly()
-                           .strength(-1));
+                           .strength(-1, 8960000));
 
     public CeilingLight(Settings settings) {
         super(settings);
@@ -47,8 +47,13 @@ public class CeilingLight extends Block {
 
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos position, Random random) {
-        if (random.nextFloat() < (1.0f / 9.0f))
-            cascadeSetLightState(state, world, position, false);
+        if (random.nextFloat() < (1.0f / 50.0f)) {
+            cascadeSetLightState(state, world, position, false, random);
+            world.playSound( null
+                           , position
+                           , Sounds.FLUORESCENT_FLICKER, SoundCategory.BLOCKS
+                           , 2.0f, 1.0f + 0.025f * random.nextBetween(-1, 1));
+        }
     }
 
     @Override
@@ -64,28 +69,17 @@ public class CeilingLight extends Block {
      * @param position   The position of the light.
      * @param lightState true for on, false for off.
      */
-    private void cascadeSetLightState(BlockState state, ServerWorld world, BlockPos position, boolean lightState) {
-        cascadeSetLightState(state, world, position, lightState, true);
-    }
-        
-    /**
-     * Switches adjacent ceiling lights to be on or off in unison.
-     * 
-     * @param state      The sate of the light block.
-     * @param world      The world the light is in.
-     * @param position   The position of the light.
-     * @param lightState true for on, false for off.
-     * @param playSound  Whether to play the buzzing sound when turning off, only plays once.
-     */
-    private void cascadeSetLightState(BlockState state, ServerWorld world, BlockPos position, boolean lightState, boolean playSound) {
-        if (state.getBlock().equals(CEILING_LIGHT) && state.get(ON) != lightState) {
+    private void cascadeSetLightState(BlockState state, ServerWorld world, BlockPos position, boolean lightState, Random random) {
+        if (CEILING_LIGHT.equals(state.getBlock()) && state.get(ON) != lightState) {
             world.setBlockState(position, state.with(ON, lightState));
             
             if (!lightState) {
-                if (playSound)
-                    world.playSound(null, position, Sounds.FLUORESCENT_FLICKER, SoundCategory.BLOCKS, 1.0f, 1.0f);
-                // TODO: Add cool particle effect.
-                //world.addParticle(ParticleTypes.CLOUD, position.getX(), position.getY() - 1, position.getZ(), -0.01, -0.01, -0.01);
+                // Shoots out sparks.
+                world.spawnParticles( ParticleTypes.CRIT
+                                    , position.getX() + 0.5, position.getY() + 0.5, position.getZ() + 0.5
+                                    , random.nextBetween(1, 3)
+                                    , 0.25, 0.25, 0.25
+                                    , 1.0);
                 // Schedules the light to turn back on in a 1/4 of a second for a flicker effect.
                 world.scheduleBlockTick(position, CEILING_LIGHT, 5);
             }
@@ -93,7 +87,7 @@ public class CeilingLight extends Block {
             // TODO Look for better way to cascade flicker to other lights.
             for (Direction direction : AbstractBlock.DIRECTIONS) {
                 BlockPos otherBlockPosition = position.offset(direction);
-                cascadeSetLightState(world.getBlockState(otherBlockPosition), world, otherBlockPosition, lightState, false); 
+                cascadeSetLightState(world.getBlockState(otherBlockPosition), world, otherBlockPosition, lightState, random); 
             }
         }
 
