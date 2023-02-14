@@ -1,4 +1,4 @@
-package net.epiphany.mdlrbckrms.level0;
+package net.epiphany.mdlrbckrms.levels.level0;
 
 /**
  * Methods and values used throughout Level 0's code.

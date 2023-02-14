@@ -1,4 +1,4 @@
-package net.epiphany.mdlrbckrms;
+package net.epiphany.mdlrbckrms.levels;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;

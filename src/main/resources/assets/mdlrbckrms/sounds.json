@@ -4,5 +4,11 @@
         "sounds": [
             "mdlrbckrms:maximum_hum_buzz"
         ]
+    },
+    "fluorescent_flicker": {
+        "subtitle": "subtitles.mdlrbckrms.fluorescent_flicker",
+        "sounds": [
+            "mdlrbckrms:fluorescent_flicker"
+        ]
     }
 }

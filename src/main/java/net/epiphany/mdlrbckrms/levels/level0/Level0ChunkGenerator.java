@@ -1,4 +1,4 @@
-package net.epiphany.mdlrbckrms.level0;
+package net.epiphany.mdlrbckrms.levels.level0;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -7,8 +7,8 @@ import java.util.concurrent.Executor;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.epiphany.mdlrbckrms.ChunkGeneratorBase;
 import net.epiphany.mdlrbckrms.ModularBackrooms;
+import net.epiphany.mdlrbckrms.levels.ChunkGeneratorBase;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;

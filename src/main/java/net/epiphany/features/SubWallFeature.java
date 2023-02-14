@@ -35,7 +35,7 @@ public class SubWallFeature extends Feature<SubWallConfig> {
         BlockState topBlockState = Registries.BLOCK.get(config.topBlockID()).getDefaultState(); 
         int height = random.nextBetween(config.minimumHeight(), config.maximumHeight());
         int length = random.nextBetween(config.minimumLength(), config.maximumLength());
-        boolean faceSouth = config.faceSouthChance() > random.nextFloat();
+        boolean faceSouth = random.nextFloat() < config.faceSouthChance();
 
         BlockPos wallPosition = context.getOrigin();
 

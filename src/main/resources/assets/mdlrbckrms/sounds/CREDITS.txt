@@ -1,1 +1,2 @@
 maximum_hum_buzz.ogg is a modified version (without the jingling) of "The Backrooms - Sound Effect" from Echo SFX at <https://www.echosfx.com/free-sound-effects/the-backrooms-sound-effect?rq=backrooms>.
+fluorescent_flicker.ogg is a modified version of "Fluorescent Lights Flickering - Sound Effect" from Echo SFX at <https://www.echosfx.com/free-sound-effects/fluorescent-lights-flickering-sound-effect?rq=short>.

@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "on=true": { "model": "mdlrbckrms:block/ceiling_light_on" },
+        "on=false": { "model": "mdlrbckrms:block/ceiling_light_off" }
+    }
+}

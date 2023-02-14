@@ -2,7 +2,7 @@
     "feature": {
         "type": "mdlrbckrms:ceiling_light_array",
         "config": {
-            "blockID": "minecraft:sea_lantern",
+            "blockID": "mdlrbckrms:ceiling_light",
             "length": 3,
             "columns": 2,
             "rows": 3

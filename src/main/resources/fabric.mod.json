@@ -22,9 +22,7 @@
       "net.epiphany.mdlrbckrms.ModularBackrooms"
     ]
   },
-  "mixins": [
-    "mdlrbckrms.mixins.json"
-  ],
+  "mixins": [],
 
   "depends": {
     "fabricloader": ">=0.14.11",
