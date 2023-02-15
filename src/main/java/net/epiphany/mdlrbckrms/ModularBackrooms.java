@@ -2,6 +2,7 @@ package net.epiphany.mdlrbckrms;
 
 import net.epiphany.mdlrbckrms.blocks.Blocks;
 import net.epiphany.mdlrbckrms.features.Features;
+import net.epiphany.mdlrbckrms.items.Items;
 import net.epiphany.mdlrbckrms.levels.Levels;
 import net.fabricmc.api.ModInitializer;
 
@@ -18,5 +19,6 @@ public class ModularBackrooms implements ModInitializer {
 		Features.registerFeatures();
 		Blocks.registerBlocks();
 		Sounds.registerSounds();
+		Items.registerItems();
 	}
 }

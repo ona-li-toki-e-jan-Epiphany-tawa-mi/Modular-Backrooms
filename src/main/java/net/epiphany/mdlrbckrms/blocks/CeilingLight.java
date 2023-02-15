@@ -2,11 +2,13 @@ package net.epiphany.mdlrbckrms.blocks;
 
 import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.epiphany.mdlrbckrms.Sounds;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
+import net.minecraft.item.BlockItem;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -37,6 +39,7 @@ public class CeilingLight extends Block {
                            .luminance(state -> state.get(ON) ? 15 : 0)
                            .ticksRandomly()
                            .strength(Blocks.UNBREAKABLE, Blocks.UNBLASTABLE));
+    public static final BlockItem CEILING_LIGHT_ITEM = new BlockItem(CeilingLight.CEILING_LIGHT, new FabricItemSettings());
 
     public CeilingLight(Settings settings) {
         super(settings);
@@ -47,12 +50,12 @@ public class CeilingLight extends Block {
 
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos position, Random random) {
-        if (random.nextFloat() < (1.0f / 50.0f)) {
+        if (random.nextFloat() < (1.0f / 100.0f)) {
             cascadeSetLightState(state, world, position, false, random);
             world.playSound( null
                            , position
                            , Sounds.FLUORESCENT_FLICKER, SoundCategory.BLOCKS
-                           , 2.0f, 1.0f + 0.025f * random.nextBetween(-1, 1));
+                           , 1.0f, 1.0f + 0.025f * random.nextBetween(-1, 1));
         }
     }
 
