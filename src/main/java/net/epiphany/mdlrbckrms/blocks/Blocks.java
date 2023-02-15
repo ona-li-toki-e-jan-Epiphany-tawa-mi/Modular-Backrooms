@@ -11,6 +11,15 @@ import net.minecraft.registry.Registry;
  */
 public class Blocks {
     /**
+     * A really high blast resistance for blocks that cannot be blown up.
+     */
+    public static final float UNBLASTABLE = 8960000.0f;
+    /**
+     * A resistance value such that a block cannot be broken by mining.
+     */
+    public static final float UNBREAKABLE = -1.0f;
+
+    /**
      * Registers all custom blocks.
      */
     public static void registerBlocks() {

@@ -36,7 +36,7 @@ public class CeilingLight extends Block {
         FabricBlockSettings.of(Material.REDSTONE_LAMP)
                            .luminance(state -> state.get(ON) ? 15 : 0)
                            .ticksRandomly()
-                           .strength(-1, 8960000));
+                           .strength(Blocks.UNBREAKABLE, Blocks.UNBLASTABLE));
 
     public CeilingLight(Settings settings) {
         super(settings);
