@@ -11,11 +11,7 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-	// Add repositories to retrieve artifacts from in here.
-	// You should only use this when depending on other mods because
-	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
-	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
-	// for more information about repositories.
+	maven { url 'https://jitpack.io' } // For Immersive Portals.
 }
 
 dependencies {
@@ -31,6 +27,18 @@ dependencies {
 	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
 
 	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
+
+	// Dependency of Immersive Portals Core.
+	modImplementation ('com.github.iPortalTeam.ImmersivePortalsMod:imm_ptl_core:v2.5.1-mc1.19.3'){
+		exclude(group: "net.fabricmc.fabric-api")
+		transitive(false)
+	}
+
+	// Dependency of the Miscellaneous Utility Library from qouteall for Immersive Portals.
+	modImplementation ('com.github.iPortalTeam.ImmersivePortalsMod:q_misc_util:v2.5.1-mc1.19.3'){
+		exclude(group: "net.fabricmc.fabric-api")
+		transitive(false)
+	}
 }
 
 processResources {

@@ -90,6 +90,5 @@ public class CeilingLight extends Block {
                 cascadeSetLightState(world.getBlockState(otherBlockPosition), world, otherBlockPosition, lightState, random); 
             }
         }
-
     }
 }
