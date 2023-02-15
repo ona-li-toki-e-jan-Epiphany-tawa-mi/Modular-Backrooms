@@ -1,0 +1,137 @@
+package net.epiphany.mdlrbckrms.features;
+
+import java.util.Optional;
+
+import com.mojang.serialization.Codec;
+
+import net.epiphany.mdlrbckrms.ModularBackrooms;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.DoorBlock;
+import net.minecraft.block.enums.DoorHinge;
+import net.minecraft.block.enums.DoubleBlockHalf;
+import net.minecraft.registry.Registries;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3i;
+import net.minecraft.util.math.random.Random;
+import net.minecraft.world.StructureWorldAccess;
+import net.minecraft.world.WorldAccess;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.util.FeatureContext;
+
+/**
+ * Used to generate random doors in the walls of the backrooms.
+ */
+public class WalledDoorFeature extends Feature<WalledDoorConfig> {
+    public static final Identifier WALLED_DOOR_ID = new Identifier(ModularBackrooms.MOD_ID, "walled_door");
+    public static final Feature<WalledDoorConfig> WALLED_DOOR_FEATURE = new WalledDoorFeature(WalledDoorConfig.CODEC);
+
+    public WalledDoorFeature(Codec<WalledDoorConfig> configCodec) {
+        super(configCodec);
+    }
+
+    
+
+    /**
+     * The positions of the block neighboring the possible door on the x-axis.
+     */
+    private static final Vec3i[] X_AXIS_NEIGHBOR_POSITIONS = { new Vec3i(-1, 0, 0), new Vec3i(-1, 1, 0)
+                                                             , new Vec3i(1, 0, 0), new Vec3i(1, 1, 0)};
+    /**
+     * The positions of the block neighboring the possible door on the z-axis.
+     */
+    private static final Vec3i[] Z_AXIS_NEIGHBOR_POSITIONS = { new Vec3i(0, 0, -1), new Vec3i(0, 1, -1)
+                                                             , new Vec3i(0, 0, 1), new Vec3i(0, 1, 1)};
+
+    @Override
+    public boolean generate(FeatureContext<WalledDoorConfig> context) {
+        WalledDoorConfig config = context.getConfig();
+        Identifier doorBlockID = config.doorID();
+        BlockState defaultDoorState = Registries.BLOCK.get(doorBlockID).getDefaultState();
+    
+        // Checks to make sure the block ID is actually a door.
+        if (defaultDoorState == null || !(defaultDoorState.getBlock() instanceof DoorBlock))
+            throw new IllegalStateException(doorBlockID + " could not be parsed to a valid door block identifier!");
+
+
+        StructureWorldAccess world = context.getWorld();
+        BlockPos doorPosition = context.getOrigin();
+
+        // Checks if door is being placed in already existing blocks (wall check part 1).
+        if (world.getBlockState(doorPosition).isAir() || world.getBlockState(doorPosition.up()).isAir())
+            return false;
+
+
+        // Checks if blocks surround the door on either the x or z axis, inidicating that is indeed in a wall.
+        boolean walledInOnXAxis = true
+              , walledInOnZAxis = true;
+
+        for (Vec3i possibleWallBlock : X_AXIS_NEIGHBOR_POSITIONS)
+            if (world.getBlockState(doorPosition.add(possibleWallBlock)).isAir()) {
+                walledInOnXAxis = false;
+                break;
+            }
+        for (Vec3i possibleWallBlock : Z_AXIS_NEIGHBOR_POSITIONS)
+            if (world.getBlockState(doorPosition.add(possibleWallBlock)).isAir()) {
+                walledInOnZAxis = false;
+                break;
+            }
+
+        if ((walledInOnXAxis && walledInOnZAxis) || (!walledInOnXAxis && !walledInOnZAxis))
+            return false;
+
+
+        // Checks in what directions are avalible to place in (not walled off) and chooses a facing for the door.
+        Random random = context.getRandom();
+        Optional<Direction> doorFacing;
+
+        if (walledInOnXAxis) {
+            doorFacing = determineFacing(world, random, doorPosition, Direction.NORTH);
+        } else 
+            doorFacing = determineFacing(world, random, doorPosition, Direction.EAST);
+
+        if (!doorFacing.isPresent())
+            return false;
+
+
+        // Acutally places the door.
+        BlockState directedDoorState = defaultDoorState.with(DoorBlock.FACING, doorFacing.get())
+                                                       .with(DoorBlock.HINGE, random.nextBoolean() ? DoorHinge.LEFT
+                                                                                                   : DoorHinge.RIGHT);
+        world.setBlockState(doorPosition, directedDoorState.with(DoorBlock.HALF, DoubleBlockHalf.LOWER), 0);
+        world.setBlockState(doorPosition, directedDoorState.with(DoorBlock.HALF, DoubleBlockHalf.UPPER), 0);
+
+        return true;
+    }
+
+    /**
+     * Determines whether a door can face in the given direction or it's opposite, or neither.
+     * 
+     * Should both directions be possible one will be chosen at random.
+     * 
+     * @param world      The world the door will be generated in.
+     * @param random     Random number generator.
+     * @param doorOrigin The position of the lower half of the door.
+     * @param direction  The direction the door will face in, also checks and can return it's opposite.
+     * @return Optionally, the direction the door can face.
+     */
+    private Optional<Direction> determineFacing(WorldAccess world, Random random, BlockPos doorOrigin, Direction direction) {
+        Direction opposite = direction.getOpposite();
+
+        boolean canFaceDirection = world.getBlockState(doorOrigin.offset(direction)).isAir() 
+                                && world.getBlockState(doorOrigin.offset(direction).up()).isAir()
+              , canFaceOpposite  = world.getBlockState(doorOrigin.offset(opposite)).isAir() 
+                                && world.getBlockState(doorOrigin.offset(opposite).up()).isAir();
+        
+        if (!canFaceDirection && !canFaceOpposite)
+            return Optional.empty();
+
+        if (canFaceDirection && canFaceOpposite) {
+            return Optional.of(random.nextBoolean() ? direction : opposite);
+        } else if (canFaceDirection) {
+            return Optional.of(direction);
+        } else
+            return Optional.of(opposite);
+    }
+}

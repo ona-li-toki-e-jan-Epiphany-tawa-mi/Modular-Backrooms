@@ -20,12 +20,14 @@
     "carvers": {},
     "features": [
         [
-            "mdlrbckrms:level_0_subwall",
-            "mdlrbckrms:level_0_chunk_wall"
+            "mdlrbckrms:level_0_chunk_wall",
+            "mdlrbckrms:level_0_subwall"
         ],
         [],
         [],
-        [],
+        [
+            
+        ],
         [],
         [],
         [],
