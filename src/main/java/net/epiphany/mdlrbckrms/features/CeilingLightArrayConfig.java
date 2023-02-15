@@ -1,4 +1,4 @@
-package net.epiphany.features;
+package net.epiphany.mdlrbckrms.features;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

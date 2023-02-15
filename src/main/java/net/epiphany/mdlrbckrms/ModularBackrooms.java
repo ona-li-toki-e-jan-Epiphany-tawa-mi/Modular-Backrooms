@@ -1,8 +1,7 @@
 package net.epiphany.mdlrbckrms;
 
-import net.epiphany.Sounds;
-import net.epiphany.features.Features;
 import net.epiphany.mdlrbckrms.blocks.Blocks;
+import net.epiphany.mdlrbckrms.features.Features;
 import net.epiphany.mdlrbckrms.levels.Levels;
 import net.fabricmc.api.ModInitializer;
 

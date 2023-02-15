@@ -1,4 +1,4 @@
-package net.epiphany.features;
+package net.epiphany.mdlrbckrms.features;
 
 import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.minecraft.registry.Registries;

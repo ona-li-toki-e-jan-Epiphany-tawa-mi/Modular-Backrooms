@@ -1,7 +1,7 @@
 package net.epiphany.mdlrbckrms.blocks;
 
-import net.epiphany.Sounds;
 import net.epiphany.mdlrbckrms.ModularBackrooms;
+import net.epiphany.mdlrbckrms.Sounds;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
