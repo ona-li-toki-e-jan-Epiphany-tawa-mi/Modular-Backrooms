@@ -9,6 +9,19 @@ import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * TODO List:
+ * - Better textures.
+ * - Exits and "exits."
+ * - Hallucinations.
+ * - Prevent Minecraft's music from playing in Backrooms.
+ * - Do something special if a player tries to sleep.
+ * - Set daytime to a fixed time.
+ * - Make non-linear space with immersive portals.
+ * - (Possibly) change placement of walls and openings through time.
+ * - Add entrances to Backrooms.
+ */
+
 public class ModularBackrooms implements ModInitializer {
 	public static final String MOD_ID = "mdlrbckrms";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);

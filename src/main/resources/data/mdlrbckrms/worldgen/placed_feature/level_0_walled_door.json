@@ -1,13 +1,8 @@
 {
     "feature": {
-        "type": "mdlrbckrms:divider_wall",
+        "type": "mdlrbckrms:walled_door",
         "config": {
-            "mainBlockID": "minecraft:smooth_sandstone",
-            "topBlockID": "minecraft:smooth_sandstone_slab",
-            "minHeight": 3,
-            "maxHeight": 4,
-            "minLength": 3,
-            "maxLength": 5
+            "doorBlockID": "minecraft:dark_oak_door"
         }
     },
     "placement": [
@@ -24,15 +19,11 @@
             "type": "count",
             "count": {
                 "type": "constant",
-                "value": 1
+                "value": 2
             }
         },
         {
             "type": "in_square"
-        },
-        {
-            "type": "rarity_filter",
-            "chance": 3
         }
     ]
 }

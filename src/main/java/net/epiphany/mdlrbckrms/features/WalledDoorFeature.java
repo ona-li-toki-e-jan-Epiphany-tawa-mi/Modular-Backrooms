@@ -102,7 +102,7 @@ public class WalledDoorFeature extends Feature<WalledDoorConfig> {
                                                        .with(DoorBlock.HINGE, random.nextBoolean() ? DoorHinge.LEFT
                                                                                                    : DoorHinge.RIGHT);
         world.setBlockState(doorOrigin, directedDoorState.with(DoorBlock.HALF, DoubleBlockHalf.LOWER), 0);
-        world.setBlockState(doorOrigin, directedDoorState.with(DoorBlock.HALF, DoubleBlockHalf.UPPER), 0);
+        world.setBlockState(doorOrigin.up(), directedDoorState.with(DoorBlock.HALF, DoubleBlockHalf.UPPER), 0);
 
         return true;
     }

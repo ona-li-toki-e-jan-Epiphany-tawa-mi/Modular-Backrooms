@@ -4,8 +4,8 @@
         "config": {
             "blockID": "minecraft:smooth_sandstone",
             "height": 4,
-            "wallChance": 0.8,
-            "openingChance": 0.65
+            "wallChance": 0.9,
+            "openingChance": 0.50
         }
     },
     "placement": [

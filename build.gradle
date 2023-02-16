@@ -29,7 +29,7 @@ dependencies {
 	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
 
 	// Dependency of Immersive Portals Core.
-	modImplementation ('com.github.iPortalTeam.ImmersivePortalsMod:imm_ptl_core:v2.5.1-mc1.19.3'){
+	/*modImplementation ('com.github.iPortalTeam.ImmersivePortalsMod:imm_ptl_core:v2.5.1-mc1.19.3'){
 		exclude(group: "net.fabricmc.fabric-api")
 		transitive(false)
 	}
@@ -38,7 +38,7 @@ dependencies {
 	modImplementation ('com.github.iPortalTeam.ImmersivePortalsMod:q_misc_util:v2.5.1-mc1.19.3'){
 		exclude(group: "net.fabricmc.fabric-api")
 		transitive(false)
-	}
+	}*/
 }
 
 processResources {

@@ -10,7 +10,7 @@ import net.minecraft.world.gen.feature.FeatureConfig;
  * Configuration options for divider walls.
  */
 public record DividerWallConfig(Identifier mainBlockID, Identifier topBlockID, int minimumHeight, int maximumHeight
-        , int minimumLength, int maximumLength, float faceSouthChance) implements FeatureConfig {
+        , int minimumLength, int maximumLength) implements FeatureConfig {
     public static Codec<DividerWallConfig> CODEC = RecordCodecBuilder.create(
         instance ->
                 instance.group( Identifier.CODEC.fieldOf("mainBlockID").forGetter(DividerWallConfig::mainBlockID)
@@ -18,8 +18,7 @@ public record DividerWallConfig(Identifier mainBlockID, Identifier topBlockID, i
                               , Codec.INT.fieldOf("minHeight").forGetter(DividerWallConfig::minimumHeight)
                               , Codec.INT.fieldOf("maxHeight").forGetter(DividerWallConfig::maximumHeight)
                               , Codec.INT.fieldOf("minLength").forGetter(DividerWallConfig::minimumLength)
-                              , Codec.INT.fieldOf("maxLength").forGetter(DividerWallConfig::maximumLength)
-                              , Codec.FLOAT.fieldOf("faceSouthChance").forGetter(DividerWallConfig::faceSouthChance))
+                              , Codec.INT.fieldOf("maxLength").forGetter(DividerWallConfig::maximumLength))
                         .apply(instance, DividerWallConfig::new));
 
     /**
@@ -29,17 +28,15 @@ public record DividerWallConfig(Identifier mainBlockID, Identifier topBlockID, i
      * @param maximumHeight   The maximum height of the wall.
      * @param minimumLength   The minimum length of the wall.
      * @param maximumLength   The maximum length of the wall.
-     * @param faceSouthChance The chance that the door should face south instead of east.
      */
     public DividerWallConfig(Identifier mainBlockID, Identifier topBlockID, int minimumHeight, int maximumHeight
-            , int minimumLength, int maximumLength, float faceSouthChance) {
+            , int minimumLength, int maximumLength) {
         this.mainBlockID     = mainBlockID;
         this.topBlockID      = topBlockID;
         this.minimumHeight   = minimumHeight;
         this.maximumHeight   = maximumHeight;
         this.minimumLength   = minimumLength;
         this.maximumLength   = maximumLength;
-        this.faceSouthChance = faceSouthChance;
     }
 
     /**
@@ -82,12 +79,5 @@ public record DividerWallConfig(Identifier mainBlockID, Identifier topBlockID, i
      */
     public int maximumLength() {
         return maximumLength;
-    }
-
-    /**
-     * @return The chance that the door should face south instead of east.
-     */
-    public float faceSouthChance() {
-        return faceSouthChance;
     }
 }
