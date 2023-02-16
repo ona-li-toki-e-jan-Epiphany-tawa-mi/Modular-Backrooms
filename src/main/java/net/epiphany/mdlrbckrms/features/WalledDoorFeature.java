@@ -86,21 +86,48 @@ public class WalledDoorFeature extends Feature<WalledDoorConfig> {
 
         // Checks in what directions are avalible to place in (not walled off) and chooses a facing for the door.
         Random random = context.getRandom();
-        Optional<Direction> doorFacing;
+        Optional<Direction> possibleDoorFacing;
 
         if (walledInOnXAxis) {
-            doorFacing = determineFacing(world, random, doorOrigin, Direction.NORTH);
+            possibleDoorFacing = determineFacing(world, random, doorOrigin, Direction.NORTH);
         } else 
-            doorFacing = determineFacing(world, random, doorOrigin, Direction.EAST);
+            possibleDoorFacing = determineFacing(world, random, doorOrigin, Direction.EAST);
 
-        if (!doorFacing.isPresent())
+        if (!possibleDoorFacing.isPresent())
             return false;
 
 
+        Direction doorFacing = possibleDoorFacing.get();
+        DoorHinge doorHinge = random.nextBoolean() ? DoorHinge.LEFT : DoorHinge.RIGHT;
+        boolean doorToRight = world.getBlockState(doorOrigin.offset(doorFacing.rotateYClockwise())).getBlock() instanceof DoorBlock
+              , doorToLeft  = world.getBlockState(doorOrigin.offset(doorFacing.rotateYCounterclockwise())).getBlock() instanceof DoorBlock;
+
+        // Ensures that if the door generates next to another door it will match up or not generate. Also prevents any doors larger
+        //   than double-doors.
+        if (doorToRight && doorToLeft) {
+            return false;
+        
+        } else if (doorToRight || doorToLeft) {
+            BlockPos otherDoorPosition = doorOrigin.offset(doorToRight ? doorFacing.rotateYClockwise() 
+                                                                       : doorFacing.rotateYCounterclockwise());
+            BlockState otherDoorState = world.getBlockState(otherDoorPosition);
+            DoorHinge otherDoorHinge = otherDoorState.get(DoorBlock.HINGE);
+
+            // Ensures both doors hinge correctly.
+            if (doorToRight && !DoorHinge.RIGHT.equals(otherDoorHinge)) {
+                return false;
+            } else if (doorToLeft && !DoorHinge.LEFT.equals(otherDoorHinge)) {
+                return false;
+            } else 
+                doorHinge = DoorHinge.LEFT.equals(otherDoorHinge) ? DoorHinge.RIGHT : DoorHinge.LEFT;
+
+            doorFacing = otherDoorState.get(DoorBlock.FACING);
+        }
+
+
         // Acutally places the door.
-        BlockState directedDoorState = defaultDoorState.with(DoorBlock.FACING, doorFacing.get())
-                                                       .with(DoorBlock.HINGE, random.nextBoolean() ? DoorHinge.LEFT
-                                                                                                   : DoorHinge.RIGHT);
+        BlockState directedDoorState = defaultDoorState.with(DoorBlock.FACING, doorFacing)
+                                                       .with(DoorBlock.HINGE, doorHinge);
         world.setBlockState(doorOrigin, directedDoorState.with(DoorBlock.HALF, DoubleBlockHalf.LOWER), 0);
         world.setBlockState(doorOrigin.up(), directedDoorState.with(DoorBlock.HALF, DoubleBlockHalf.UPPER), 0);
 
