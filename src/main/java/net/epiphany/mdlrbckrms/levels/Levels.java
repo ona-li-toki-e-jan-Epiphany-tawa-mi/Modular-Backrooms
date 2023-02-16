@@ -6,9 +6,16 @@ import java.util.Set;
 import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.epiphany.mdlrbckrms.levels.level0.Level0;
 import net.epiphany.mdlrbckrms.levels.level0.Level0ChunkGenerator;
+import net.minecraft.entity.Entity;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ChunkTicketType;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 
 /**
@@ -44,5 +51,73 @@ public class Levels {
     public static boolean isBackrooms(World world) {
         Identifier dimensionIdentifier = world.getDimensionKey().getValue();
         return backroomsLevels.contains(dimensionIdentifier);
+    }
+
+    // TODO Move following methods into separate helper class.
+
+    /**
+     * Tests to see if the world is the dimension specfied by the given identifier.
+     * 
+     * @param world     The world to test.
+     * @param dimension The dimension to test for.
+     * @return Whether the world is the specified dimension.
+     */
+    public static boolean isDimension(World world, Identifier dimension) {
+        Identifier dimensionIdentifier = world.getDimensionKey().getValue();
+        return dimensionIdentifier.equals(dimension);
+    }
+
+    /**
+     * Teleports an entity into the given dimension.
+     * 
+     * @param entity    The entity to teleport.
+     * @param dimension The dimension to teleport it into.
+     */
+    public static void teleportToDimension(Entity entity, Identifier dimension) {
+        teleportToDimension(entity, dimension, true);
+    }
+
+    /**
+     * Teleports an entity into the given dimension.
+     * 
+     * @param entity    The entity to teleport.
+     * @param dimension The dimension to teleport it into.
+     * @param loadChunk Whether to load the destination chunk.
+     */
+    public static void teleportToDimension(Entity entity, Identifier dimension, boolean loadChunk) {
+        World currentWorld = entity.getWorld();
+        ServerWorld newWorld = currentWorld.getServer().getWorld(RegistryKey.of(RegistryKeys.WORLD, dimension));
+        
+        if (currentWorld.getDimensionKey().equals(newWorld.getDimensionKey()))
+            return;
+
+
+        // Need to tell chunk manager to load destination chunk so that the teleport can finish.
+        newWorld.getChunkManager().addTicket( ChunkTicketType.POST_TELEPORT
+                                            , new ChunkPos(entity.getBlockPos()), 1
+                                            , entity.getId());
+        
+        // If the entity is a player we need to use a special method so that everything is properly synced.
+        if (entity instanceof ServerPlayerEntity playerEntity) {
+            playerEntity.teleport( newWorld
+                                 , playerEntity.getX(), playerEntity.getY(), playerEntity.getZ()
+                                 , playerEntity.getYaw(), playerEntity.getPitch());
+
+        } else
+            entity.moveToWorld(newWorld);
+    }
+
+    /**
+     * Teleports an entity into the given dimension at the given coordinates.
+     * 
+     * @param entity    The entity to teleport.
+     * @param dimension The dimension to teleport it into.
+     * @param x         Destination x-coordinate.
+     * @param y         Destination y-coordinate.
+     * @param z         Destination z-coordinate.
+     */
+    public static void teleportToDimensionAndCoordinates(Entity entity, Identifier dimension, double x, double y, double z) {
+        entity.teleport(x, y, z);
+        teleportToDimension(entity, dimension, false);
     }
 }
