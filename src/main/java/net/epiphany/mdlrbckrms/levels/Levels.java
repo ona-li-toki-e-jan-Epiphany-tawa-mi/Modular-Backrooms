@@ -68,13 +68,14 @@ public class Levels {
     }
 
     /**
-     * Teleports an entity into the given dimension.
+     * Teleports an entity into the given dimension at their location.
      * 
      * @param entity    The entity to teleport.
      * @param dimension The dimension to teleport it into.
      */
     public static void teleportToDimension(Entity entity, Identifier dimension) {
-        teleportToDimension(entity, dimension, true);
+        // TODO Make handle dimensional coordinate scaling.
+        teleportToDimension(entity, dimension, entity.getX(), entity.getY(), entity.getZ());
     }
 
     /**
@@ -82,43 +83,32 @@ public class Levels {
      * 
      * @param entity    The entity to teleport.
      * @param dimension The dimension to teleport it into.
-     * @param loadChunk Whether to load the destination chunk.
+     * @param x         The destination x-coordinate.
+     * @param y         The destination y-coordinate.
+     * @param z         The destination z-coordinate.
      */
-    public static void teleportToDimension(Entity entity, Identifier dimension, boolean loadChunk) {
+    public static void teleportToDimension(Entity entity, Identifier dimension, double x, double y, double z) {
         World currentWorld = entity.getWorld();
         ServerWorld newWorld = currentWorld.getServer().getWorld(RegistryKey.of(RegistryKeys.WORLD, dimension));
         
         if (currentWorld.getDimensionKey().equals(newWorld.getDimensionKey()))
             return;
 
-
-        // Need to tell chunk manager to load destination chunk so that the teleport can quick.
-        if (loadChunk)
-            newWorld.getChunkManager().addTicket( ChunkTicketType.POST_TELEPORT
-                                                , new ChunkPos(entity.getBlockPos()), 1
-                                                , entity.getId());
+        
+        // Preload destination chunk for speedy transport baby ;).
+        newWorld.getChunkManager().addTicket( ChunkTicketType.POST_TELEPORT
+                                            , new ChunkPos(entity.getBlockPos()), 1
+                                            , entity.getId());
         
         // If the entity is a player we need to use a special method so that everything is properly synced.
         if (entity instanceof ServerPlayerEntity playerEntity) {
             playerEntity.teleport( newWorld
-                                 , playerEntity.getX(), playerEntity.getY(), playerEntity.getZ()
+                                 , x, y, z
                                  , playerEntity.getYaw(), playerEntity.getPitch());
 
-        } else
+        } else {
             entity.moveToWorld(newWorld);
-    }
-
-    /**
-     * Teleports an entity into the given dimension at the given coordinates.
-     * 
-     * @param entity    The entity to teleport.
-     * @param dimension The dimension to teleport it into.
-     * @param x         Destination x-coordinate.
-     * @param y         Destination y-coordinate.
-     * @param z         Destination z-coordinate.
-     */
-    public static void teleportToDimensionAndCoordinates(Entity entity, Identifier dimension, double x, double y, double z) {
-        entity.teleport(x, y, z);
-        teleportToDimension(entity, dimension, false);
+            entity.teleport(x, y, z);
+        }
     }
 }
