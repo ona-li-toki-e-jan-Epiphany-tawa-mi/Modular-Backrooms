@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
  * - Hallucinations.
  * - Prevent Minecraft's music from playing in Backrooms.
  * - Do something special if a player tries to sleep.
- * - Set daytime to a fixed time.
  * - Make non-linear space with immersive portals.
  * - (Possibly) change placement of walls and openings through time.
  * - Add entrances to Backrooms.

@@ -88,7 +88,6 @@ public class FluorescentLight extends Block {
                 world.scheduleBlockTick(position, FLUORESCENT_LIGHT, 5);
             }
 
-            // TODO Look for better way to cascade flicker to other lights.
             for (Direction direction : AbstractBlock.DIRECTIONS) {
                 BlockPos otherBlockPosition = position.offset(direction);
                 cascadeSetLightState(world.getBlockState(otherBlockPosition), world, otherBlockPosition, lightState, random); 
