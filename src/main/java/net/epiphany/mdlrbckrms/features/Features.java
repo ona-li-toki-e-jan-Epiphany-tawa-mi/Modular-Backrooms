@@ -14,9 +14,9 @@ public class Features {
     public static void registerFeatures() {
         ModularBackrooms.LOGGER.debug("Registering features");
 
-        Registry.register(Registries.FEATURE, ChunkWallFeature.WALL_ID, ChunkWallFeature.WALL_FEATURE);
-        Registry.register(Registries.FEATURE, CeilingLightArrayFeature.LIGHT_ARRAY_ID, CeilingLightArrayFeature.LIGHT_ARRAY_FEATURE);
-        Registry.register(Registries.FEATURE, SubWallFeature.SUBWALL_ID, SubWallFeature.SUBWALL_FEATURE);
+        Registry.register(Registries.FEATURE, ChunkWallFeature.CHUNK_WALL_ID, ChunkWallFeature.CHUNK_WALL_FEATURE);
+        Registry.register(Registries.FEATURE, FluorescentLightArrayFeature.FLUORESCENT_LIGHT_ARRAY_ID, FluorescentLightArrayFeature.FLUORESCENT_LIGHT_ARRAY_FEATURE);
+        Registry.register(Registries.FEATURE, DividerWallFeature.DIVIDER_WALL_ID, DividerWallFeature.DIVIDER_WALL_FEATURE);
         Registry.register(Registries.FEATURE, WalledDoorFeature.WALLED_DOOR_ID, WalledDoorFeature.WALLED_DOOR_FEATURE);
 
         ModularBackrooms.LOGGER.debug("Feature registration complete");

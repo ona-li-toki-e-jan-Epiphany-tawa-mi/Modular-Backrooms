@@ -2,7 +2,7 @@ package net.epiphany.mdlrbckrms.items;
 
 import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.epiphany.mdlrbckrms.blocks.Blocks;
-import net.epiphany.mdlrbckrms.blocks.CeilingLight;
+import net.epiphany.mdlrbckrms.blocks.FluorescentLight;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -17,7 +17,7 @@ public class Items {
     public static final Identifier BACKROOMS_ITEM_GROUP_ID = new Identifier(ModularBackrooms.MOD_ID, "backrooms_item_group");
     private static final ItemGroup BACKROOMS_ITEM_GROUP = 
         FabricItemGroup.builder(BACKROOMS_ITEM_GROUP_ID)
-                       .icon(() -> new ItemStack(CeilingLight.CEILING_LIGHT_ITEM))
+                       .icon(() -> new ItemStack(FluorescentLight.FLUORESCENT_LIGHT_ITEM))
                        .build();
 
     /**

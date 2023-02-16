@@ -27,7 +27,7 @@ public class Levels {
     public static void registerLevels() {
         ModularBackrooms.LOGGER.debug("Registering backrooms levels");
 
-        Registry.register(Registries.CHUNK_GENERATOR, Level0ChunkGenerator.CHUNK_GENERATOR_ID, Level0ChunkGenerator.CODEC);
+        Registry.register(Registries.CHUNK_GENERATOR, Level0ChunkGenerator.LEVEL_0_CHUNK_GENERATOR_ID, Level0ChunkGenerator.CODEC);
         backroomsLevels.add(Level0.LEVEL_0_DIMENSION_ID);
 
         ModularBackrooms.LOGGER.debug("Backrooms level registration complete");

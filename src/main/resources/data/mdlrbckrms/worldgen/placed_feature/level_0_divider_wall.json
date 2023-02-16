@@ -1,8 +1,8 @@
 {
     "feature": {
-        "type": "mdlrbckrms:subwall",
+        "type": "mdlrbckrms:divider_wall",
         "config": {
-            "blockID": "minecraft:smooth_sandstone",
+            "mainBlockID": "minecraft:smooth_sandstone",
             "topBlockID": "minecraft:smooth_sandstone_slab",
             "minHeight": 3,
             "maxHeight": 4,

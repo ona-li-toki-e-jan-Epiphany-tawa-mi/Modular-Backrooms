@@ -47,19 +47,21 @@ public class WalledDoorFeature extends Feature<WalledDoorConfig> {
     @Override
     public boolean generate(FeatureContext<WalledDoorConfig> context) {
         WalledDoorConfig config = context.getConfig();
+
         Identifier doorBlockID = config.doorID();
         BlockState defaultDoorState = Registries.BLOCK.get(doorBlockID).getDefaultState();
-    
         // Checks to make sure the block ID is actually a door.
         if (defaultDoorState == null || !(defaultDoorState.getBlock() instanceof DoorBlock))
             throw new IllegalStateException(doorBlockID + " could not be parsed to a valid door block identifier!");
 
 
+            
+
         StructureWorldAccess world = context.getWorld();
-        BlockPos doorPosition = context.getOrigin();
+        BlockPos doorOrigin = context.getOrigin();
 
         // Checks if door is being placed in already existing blocks (wall check part 1).
-        if (world.getBlockState(doorPosition).isAir() || world.getBlockState(doorPosition.up()).isAir())
+        if (world.getBlockState(doorOrigin).isAir() || world.getBlockState(doorOrigin.up()).isAir())
             return false;
 
 
@@ -68,12 +70,12 @@ public class WalledDoorFeature extends Feature<WalledDoorConfig> {
               , walledInOnZAxis = true;
 
         for (Vec3i possibleWallBlock : X_AXIS_NEIGHBOR_POSITIONS)
-            if (world.getBlockState(doorPosition.add(possibleWallBlock)).isAir()) {
+            if (world.getBlockState(doorOrigin.add(possibleWallBlock)).isAir()) {
                 walledInOnXAxis = false;
                 break;
             }
         for (Vec3i possibleWallBlock : Z_AXIS_NEIGHBOR_POSITIONS)
-            if (world.getBlockState(doorPosition.add(possibleWallBlock)).isAir()) {
+            if (world.getBlockState(doorOrigin.add(possibleWallBlock)).isAir()) {
                 walledInOnZAxis = false;
                 break;
             }
@@ -87,9 +89,9 @@ public class WalledDoorFeature extends Feature<WalledDoorConfig> {
         Optional<Direction> doorFacing;
 
         if (walledInOnXAxis) {
-            doorFacing = determineFacing(world, random, doorPosition, Direction.NORTH);
+            doorFacing = determineFacing(world, random, doorOrigin, Direction.NORTH);
         } else 
-            doorFacing = determineFacing(world, random, doorPosition, Direction.EAST);
+            doorFacing = determineFacing(world, random, doorOrigin, Direction.EAST);
 
         if (!doorFacing.isPresent())
             return false;
@@ -99,8 +101,8 @@ public class WalledDoorFeature extends Feature<WalledDoorConfig> {
         BlockState directedDoorState = defaultDoorState.with(DoorBlock.FACING, doorFacing.get())
                                                        .with(DoorBlock.HINGE, random.nextBoolean() ? DoorHinge.LEFT
                                                                                                    : DoorHinge.RIGHT);
-        world.setBlockState(doorPosition, directedDoorState.with(DoorBlock.HALF, DoubleBlockHalf.LOWER), 0);
-        world.setBlockState(doorPosition, directedDoorState.with(DoorBlock.HALF, DoubleBlockHalf.UPPER), 0);
+        world.setBlockState(doorOrigin, directedDoorState.with(DoorBlock.HALF, DoubleBlockHalf.LOWER), 0);
+        world.setBlockState(doorOrigin, directedDoorState.with(DoorBlock.HALF, DoubleBlockHalf.UPPER), 0);
 
         return true;
     }

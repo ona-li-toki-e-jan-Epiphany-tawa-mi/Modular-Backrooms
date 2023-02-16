@@ -21,7 +21,7 @@
     "features": [
         [
             "mdlrbckrms:level_0_chunk_wall",
-            "mdlrbckrms:level_0_subwall"
+            "mdlrbckrms:level_0_divider_wall"
         ],
         [],
         [],
@@ -32,7 +32,7 @@
         [],
         [],
         [
-            "mdlrbckrms:level_0_ceiling_light_array"
+            "mdlrbckrms:level_0_fluorescent_light_array"
         ],
         [],
         [],

@@ -7,16 +7,16 @@ import net.minecraft.util.Identifier;
 import net.minecraft.world.gen.feature.FeatureConfig;
 
 /**
- * Configuration options for ceiling light arrays.
+ * Configuration options for fluorescent light arrays.
  */
-public record CeilingLightArrayConfig(Identifier blockID, int length, int columns, int rows) implements FeatureConfig {
-    public static Codec<CeilingLightArrayConfig> CODEC = RecordCodecBuilder.create(
+public record FluorescentLightArrayConfig(Identifier lightBlockID, int length, int columns, int rows) implements FeatureConfig {
+    public static Codec<FluorescentLightArrayConfig> CODEC = RecordCodecBuilder.create(
         instance ->
-                instance.group( Identifier.CODEC.fieldOf("blockID").forGetter(CeilingLightArrayConfig::blockID)
-                              , Codec.INT.fieldOf("length").forGetter(CeilingLightArrayConfig::length)
-                              , Codec.INT.fieldOf("columns").forGetter(CeilingLightArrayConfig::columns)
-                              , Codec.INT.fieldOf("rows").forGetter(CeilingLightArrayConfig::rows))
-                        .apply(instance, CeilingLightArrayConfig::new));
+                instance.group( Identifier.CODEC.fieldOf("lightBlockID").forGetter(FluorescentLightArrayConfig::lightBlockID)
+                              , Codec.INT.fieldOf("length").forGetter(FluorescentLightArrayConfig::length)
+                              , Codec.INT.fieldOf("columns").forGetter(FluorescentLightArrayConfig::columns)
+                              , Codec.INT.fieldOf("rows").forGetter(FluorescentLightArrayConfig::rows))
+                        .apply(instance, FluorescentLightArrayConfig::new));
 
     /**
      * @param blockID The ID of the block to use as lights.
@@ -24,8 +24,8 @@ public record CeilingLightArrayConfig(Identifier blockID, int length, int column
      * @param columns How many columns of lights to make.
      * @param rows    How many rows of lights to make.
      */
-    public CeilingLightArrayConfig(Identifier blockID, int length, int columns, int rows) {
-        this.blockID = blockID;
+    public FluorescentLightArrayConfig(Identifier lightBlockID, int length, int columns, int rows) {
+        this.lightBlockID = lightBlockID;
         this.length = length;
         this.columns = columns;
         this.rows = rows;
@@ -34,8 +34,8 @@ public record CeilingLightArrayConfig(Identifier blockID, int length, int column
     /**
      * @return The ID of the block to use as lights.
      */
-    public Identifier blockID() {
-        return blockID;
+    public Identifier lightBlockID() {
+        return lightBlockID;
     }
 
     /**

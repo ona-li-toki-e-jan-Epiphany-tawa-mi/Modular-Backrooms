@@ -28,7 +28,7 @@ import net.minecraft.world.gen.chunk.VerticalBlockSample;
 import net.minecraft.world.gen.noise.NoiseConfig;
 
 public class Level0ChunkGenerator extends ChunkGeneratorBase {
-    public static final Identifier CHUNK_GENERATOR_ID = new Identifier(ModularBackrooms.MOD_ID, Level0.LEVEL_0_ID);
+    public static final Identifier LEVEL_0_CHUNK_GENERATOR_ID = new Identifier(ModularBackrooms.MOD_ID, Level0.LEVEL_0_ID);
     
     public static final Codec<Level0ChunkGenerator> CODEC = RecordCodecBuilder.create((instance) ->
         instance.group(Biome.REGISTRY_CODEC.fieldOf("biome").forGetter(o -> o.biome))

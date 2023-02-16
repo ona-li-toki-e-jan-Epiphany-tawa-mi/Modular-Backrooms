@@ -24,8 +24,8 @@ public class Blocks {
     public static void registerBlocks() {
         ModularBackrooms.LOGGER.debug("Registering blocks and block items");
 
-        Registry.register(Registries.BLOCK, CeilingLight.CEILING_LIGHT_ID, CeilingLight.CEILING_LIGHT);
-        Registry.register(Registries.ITEM, CeilingLight.CEILING_LIGHT_ID, CeilingLight.CEILING_LIGHT_ITEM);
+        Registry.register(Registries.BLOCK, FluorescentLight.FLUORESCENT_LIGHT_ID, FluorescentLight.FLUORESCENT_LIGHT);
+        Registry.register(Registries.ITEM, FluorescentLight.FLUORESCENT_LIGHT_ID, FluorescentLight.FLUORESCENT_LIGHT_ITEM);
 
         ModularBackrooms.LOGGER.debug("Block and block item registration complete");
     }
@@ -34,6 +34,6 @@ public class Blocks {
      * Registers the Backrooms block items under their item group for the creative menu.
      */
     public static void registerBlockItemUnderGroup(FabricItemGroupEntries content) {
-        content.add(CeilingLight.CEILING_LIGHT_ITEM);
+        content.add(FluorescentLight.FLUORESCENT_LIGHT_ITEM);
     }
 }

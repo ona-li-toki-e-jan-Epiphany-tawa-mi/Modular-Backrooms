@@ -1,8 +1,8 @@
 {
     "feature": {
-        "type": "mdlrbckrms:ceiling_light_array",
+        "type": "mdlrbckrms:fluorescent_light_array",
         "config": {
-            "blockID": "mdlrbckrms:ceiling_light",
+            "lightBlockID": "mdlrbckrms:fluorescent_light",
             "length": 3,
             "columns": 2,
             "rows": 3
