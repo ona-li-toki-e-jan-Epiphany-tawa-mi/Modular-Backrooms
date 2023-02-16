@@ -92,10 +92,11 @@ public class Levels {
             return;
 
 
-        // Need to tell chunk manager to load destination chunk so that the teleport can finish.
-        newWorld.getChunkManager().addTicket( ChunkTicketType.POST_TELEPORT
-                                            , new ChunkPos(entity.getBlockPos()), 1
-                                            , entity.getId());
+        // Need to tell chunk manager to load destination chunk so that the teleport can quick.
+        if (loadChunk)
+            newWorld.getChunkManager().addTicket( ChunkTicketType.POST_TELEPORT
+                                                , new ChunkPos(entity.getBlockPos()), 1
+                                                , entity.getId());
         
         // If the entity is a player we need to use a special method so that everything is properly synced.
         if (entity instanceof ServerPlayerEntity playerEntity) {
