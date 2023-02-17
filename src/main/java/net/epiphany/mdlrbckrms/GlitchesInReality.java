@@ -2,10 +2,14 @@ package net.epiphany.mdlrbckrms;
 
 import net.epiphany.mdlrbckrms.levels.Levels;
 import net.epiphany.mdlrbckrms.levels.level0.Level0;
+import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.random.Random;
 
 /**
@@ -17,6 +21,7 @@ public class GlitchesInReality {
      */
     public static void registerGlitches() {
         ServerLivingEntityEvents.ALLOW_DEATH.register(GlitchesInReality::onAllowDeathEvent);
+        ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register(GlitchesInReality::onAfterPlayerChangeWorldEvent);
     }
 
     /**
@@ -32,6 +37,14 @@ public class GlitchesInReality {
         //return random.nextInt(1_000_000_000) == 0;
     }
 
+    /**
+     * Sends an entity to somewhere in Level 0.
+     * @param entity The entity to send.
+     */
+    private static void sendToLevel0(Entity entity) {
+        Levels.teleportToDimension(entity, Level0.LEVEL_0_DIMENSION_ID, entity.getX(), 0.0, entity.getY());
+    }
+
 
 
     /**
@@ -39,7 +52,9 @@ public class GlitchesInReality {
      *  of their max.)
      */
     public static boolean onAllowDeathEvent(LivingEntity entity, DamageSource damageSource, float damageAmount) {
-        if (!(entity instanceof PlayerEntity) || Levels.isBackrooms(entity.getWorld())) 
+        if (!(entity instanceof PlayerEntity playerEntity) 
+                || playerEntity.isCreative()
+                || Levels.isBackrooms(entity.getWorld())) 
             return true;
 
         Random random = entity.getRandom();
@@ -47,7 +62,21 @@ public class GlitchesInReality {
             return true;
 
         entity.setHealth(entity.getMaxHealth() * (random.nextFloat() * 0.2f + 0.2f));
-        Levels.teleportToDimension(entity, Level0.LEVEL_0_DIMENSION_ID, entity.getX(), 0.0, entity.getY());
+        sendToLevel0(entity);
         return false;
+    }
+
+    /**
+     * Reroutes players travelling to and from non-backrooms dimensions into the Backrooms.
+     */
+    public static void onAfterPlayerChangeWorldEvent(ServerPlayerEntity player, ServerWorld origin, ServerWorld destination) {
+        if (player.isCreative() || Levels.isBackrooms(origin) || Levels.isBackrooms(destination))
+            return;
+
+        Random random = origin.getRandom();
+        if (!shouldEnterBackrooms(random))
+            return;
+
+        sendToLevel0(player);
     }
 }
