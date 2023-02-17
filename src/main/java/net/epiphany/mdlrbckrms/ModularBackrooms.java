@@ -16,9 +16,11 @@ import org.slf4j.LoggerFactory;
  * - Hallucinations.
  * - Prevent Minecraft's music from playing in Backrooms.
  * - Do something special if a player tries to sleep.
- * - Make non-linear space with immersive portals.
+ * - (Possibly) Make non-linear space with immersive portals.
  * - (Possibly) change placement of walls and openings through time.
  * - Add entrances to Backrooms.
+ * - Give self the ability to open rifts between worlds
+ * - Prevent ender portals from being able to open in backrooms. (Hint: EnterEyeItem)
  */
 
 public class ModularBackrooms implements ModInitializer {
@@ -32,5 +34,7 @@ public class ModularBackrooms implements ModInitializer {
 		Blocks.registerBlocks();
 		Sounds.registerSounds();
 		Items.registerItems();
+		GodOfTheBackrooms.registerPowers();
+		GlitchesInReality.registerGlitches();
 	}
 }
