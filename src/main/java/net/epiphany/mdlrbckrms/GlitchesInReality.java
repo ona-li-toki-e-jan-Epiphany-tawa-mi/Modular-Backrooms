@@ -47,7 +47,7 @@ public class GlitchesInReality {
             return true;
 
         entity.setHealth(entity.getMaxHealth() * (random.nextFloat() * 0.2f + 0.2f));
-        Levels.teleportToDimensionAndCoordinates(entity, Level0.LEVEL_0_DIMENSION_ID, entity.getX(), 0, entity.getY());
+        Levels.teleportToDimension(entity, Level0.LEVEL_0_DIMENSION_ID, entity.getX(), 0.0, entity.getY());
         return false;
     }
 }
