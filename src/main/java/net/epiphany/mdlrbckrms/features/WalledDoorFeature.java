@@ -48,12 +48,16 @@ public class WalledDoorFeature extends Feature<WalledDoorConfig> {
     public boolean generate(FeatureContext<WalledDoorConfig> context) {
         WalledDoorConfig config = context.getConfig();
 
-        Identifier doorBlockID = config.doorID();
+        Identifier doorBlockID = config.doorBlockID();
         BlockState defaultDoorState = Registries.BLOCK.get(doorBlockID).getDefaultState();
         // Checks to make sure the block ID is actually a door.
         if (defaultDoorState == null || !(defaultDoorState.getBlock() instanceof DoorBlock))
             throw new IllegalStateException(doorBlockID + " could not be parsed to a valid door block identifier!");
 
+        float openChance = config.openChance();
+        if (openChance < 0.0f || openChance > 1.0f)
+            throw new IllegalStateException( "Walled door open chance must be between 0 and 1! (recieved chance of " + openChance 
+                                           + ")");
 
             
 
@@ -99,6 +103,7 @@ public class WalledDoorFeature extends Feature<WalledDoorConfig> {
 
         Direction doorFacing = possibleDoorFacing.get();
         DoorHinge doorHinge = random.nextBoolean() ? DoorHinge.LEFT : DoorHinge.RIGHT;
+        boolean open = random.nextFloat() < openChance;
         boolean doorToRight = world.getBlockState(doorOrigin.offset(doorFacing.rotateYClockwise())).getBlock() instanceof DoorBlock
               , doorToLeft  = world.getBlockState(doorOrigin.offset(doorFacing.rotateYCounterclockwise())).getBlock() instanceof DoorBlock;
 
@@ -122,12 +127,14 @@ public class WalledDoorFeature extends Feature<WalledDoorConfig> {
                 doorHinge = DoorHinge.LEFT.equals(otherDoorHinge) ? DoorHinge.RIGHT : DoorHinge.LEFT;
 
             doorFacing = otherDoorState.get(DoorBlock.FACING);
+            open = otherDoorState.get(DoorBlock.OPEN);
         }
 
 
         // Acutally places the door.
         BlockState directedDoorState = defaultDoorState.with(DoorBlock.FACING, doorFacing)
-                                                       .with(DoorBlock.HINGE, doorHinge);
+                                                       .with(DoorBlock.HINGE,  doorHinge)
+                                                       .with(DoorBlock.OPEN,   open);
         world.setBlockState(doorOrigin, directedDoorState.with(DoorBlock.HALF, DoubleBlockHalf.LOWER), 0);
         world.setBlockState(doorOrigin.up(), directedDoorState.with(DoorBlock.HALF, DoubleBlockHalf.UPPER), 0);
 
