@@ -40,10 +40,8 @@ public class GlitchesInReality {
      * @return Whether the player should be sent to the Backrooms.
      */
     public static boolean shouldEnterBackrooms(Random random) {
-        return true; // TODO Remove
-
         // Literal one in a billion chance.
-        //return random.nextInt(1_000_000_000) == 0;
+        return random.nextInt(1_000_000_000) == 0;
     }
 
     /**
@@ -51,7 +49,7 @@ public class GlitchesInReality {
      * @param entity The entity to send.
      */
     public static void sendToLevel0(Entity entity) {
-        Levels.teleportToDimension(entity, Level0.LEVEL_0_DIMENSION_ID, entity.getX(), 0.0, entity.getY());
+        DimensionHelper.teleportToDimension(entity, Level0.LEVEL_0_DIMENSION_ID, entity.getWorld().getRandom());
     }
 
 
@@ -119,7 +117,7 @@ public class GlitchesInReality {
 
         Random random = player.getRandom();
         
-        if (source.isOutOfWorld() && shouldEnterBackrooms(random)) {
+        if (source.isOutOfWorld() && isInVoid(player) && shouldEnterBackrooms(random)) {
             sendToLevel0(player);
             return false;
 
@@ -152,5 +150,15 @@ public class GlitchesInReality {
         }
 
         return true;
+    }
+
+    /**
+     * Tells whether the entity is in the void, which is 64 blocks below the world's minimum y level.
+     * 
+     * @param entity The entity to test.
+     * @return Whether the entity is in the void.
+     */
+    public static boolean isInVoid(Entity entity) {
+        return entity.getY() < (double)(entity.getWorld().getBottomY() - 64);
     }
 }

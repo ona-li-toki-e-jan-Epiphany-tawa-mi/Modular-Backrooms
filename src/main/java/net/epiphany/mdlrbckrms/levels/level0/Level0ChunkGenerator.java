@@ -9,6 +9,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.epiphany.mdlrbckrms.levels.ChunkGeneratorBase;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.Identifier;
@@ -89,7 +90,15 @@ public class Level0ChunkGenerator extends ChunkGeneratorBase {
 
     @Override
     public VerticalBlockSample getColumnSample(int x, int z, HeightLimitView world, NoiseConfig noiseConfig) {
-        return null; // TODO
+        BlockState[] columnSample = new BlockState[world.countVerticalSections()];
+
+        for (int y = world.getBottomY(); y < world.getTopY(); y++)
+            if (y >= -2 && y <= 1) {
+                columnSample[y] = Blocks.VOID_AIR.getDefaultState();
+            } else
+                columnSample[y] = Blocks.SMOOTH_SANDSTONE.getDefaultState();
+
+        return new VerticalBlockSample(world.getBottomY(), columnSample);
     }
 
 
@@ -108,12 +117,21 @@ public class Level0ChunkGenerator extends ChunkGeneratorBase {
     }
 
     /**
-     * Sea level dosen't matter in Level 0, so it's just set to somewhere in the bottom.
+     * Moist carpets amirite?
      */
     @Override
     public int getSeaLevel() {
-        return -64;
+        return -3;
     }
+
+    /**
+     * The specific position dosen't actually matter, it just can't be above the world ceiling.
+     */
+    @Override
+    public int getSpawnHeight(HeightLimitView world) {
+        return (this.getMinimumY() + this.getWorldHeight()) * 3 / 4;
+    }
+
 
 
 

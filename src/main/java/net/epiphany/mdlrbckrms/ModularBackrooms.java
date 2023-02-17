@@ -18,8 +18,8 @@ import org.slf4j.LoggerFactory;
  * - Do something special if a player tries to sleep.
  * - (Possibly) Make non-linear space with immersive portals.
  * - (Possibly) change placement of walls and openings through time.
- * - Add entrances to Backrooms.
- * - Give self the ability to open rifts between worlds
+ * - Add randomly generated rifts.
+ * - Give self the ability to open rifts between worlds and display cool particle effects.
  * - Prevent ender portals from being able to open in backrooms. (Hint: EnterEyeItem)
  */
 

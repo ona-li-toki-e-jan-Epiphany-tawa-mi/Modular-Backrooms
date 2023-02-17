@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import net.epiphany.mdlrbckrms.GodOfTheBackrooms;
 import net.epiphany.mdlrbckrms.levels.Levels;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.DebugHud;
@@ -20,14 +21,12 @@ import net.minecraft.util.math.random.Random;
  */
 @Mixin(DebugHud.class)
 public class DebugHudObfuscaterMixin {
-    private static final String OBFUSCATION_CHARACTERS = "01234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM@#$%^&*<>?(){}\\/";
-
     @Inject(at = @At("RETURN"), method = "getLeftText")
     protected void getLeftText(CallbackInfoReturnable<List<String>> info) {
         MinecraftClient client = ((DebugHudAccessor) this).client();
         ClientPlayerEntity player = client.player;
         
-        if (!player.isCreative() && Levels.isBackrooms(player.getWorld()))
+        if (!player.isCreative() && !GodOfTheBackrooms.isHim(player) && Levels.isBackrooms(player.getWorld()))
             obfuscateText(info.getReturnValue(), player.getRandom());
         
         return;
@@ -38,21 +37,28 @@ public class DebugHudObfuscaterMixin {
         MinecraftClient client = ((DebugHudAccessor) this).client();
         ClientPlayerEntity player = client.player;
 
-        if (!player.isCreative() && Levels.isBackrooms(player.getWorld()))
+        if (!player.isCreative() && !GodOfTheBackrooms.isHim(player) && Levels.isBackrooms(player.getWorld()))
             obfuscateText(info.getReturnValue(), player.getRandom());
             
         return;
     }
 
+
     /**
-     * Takes in a list of strings and modifies it to have strings of the same length with randomized, aproximately same-length
+     * Characters of approximately the same display-length for creating random strings.
+     */
+    public static final String OBFUSCATION_CHARACTERS = "01234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM@"
+                                                       + "#$%^&*<>?(){}\\/";
+
+    /**
+     * Takes in a list of strings and modifies it to have strings of the same length with randomized, approximately same-length
      *  characters.
      * 
      * @param text   The list of strings to obfuscate.
      * @param random Random number generator.
      * @return A reference to text for method chaining.
      */
-    private List<String> obfuscateText(List<String> text, Random random) {
+    public List<String> obfuscateText(List<String> text, Random random) {
         List<Integer> lineLengths = new ArrayList<>();
         for (String line : text) 
             lineLengths.add(line.length());
