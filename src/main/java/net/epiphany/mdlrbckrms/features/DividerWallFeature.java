@@ -17,8 +17,6 @@ import net.minecraft.world.WorldAccess;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
-// TODO Possibly remove ability to generate in door ways (idk i kinda like it.)
-
 /**
  * Used to generate smaller subwalls throught a level that split up rooms.
  */

@@ -18,6 +18,7 @@ import net.minecraft.world.SpawnHelper;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import net.minecraft.world.border.WorldBorder;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 
 /**
@@ -50,19 +51,18 @@ public class DimensionHelper {
 
 
 
-    // TODO Make handle dimensional coordinate scaling.
-
     /**
      * Teleports an entity into the given dimension at their location. If the dimension could not be found the entity will not
      *  be teleported.
      * 
-     * @param entity      The entity to teleport.
-     * @param <E>         The type of the entity.
-     * @param dimensionID The dimension to teleport it into.
+     * @param entity       The entity to teleport.
+     * @param <E>          The type of the entity.
+     * @param dimensionID  The dimension to teleport it into.
+     * @param applyScaling Whether to account for the coordinate scaling factor of the 2 dimensions.
      * @return The teleported entity. Note: if non-player the original may be destroyed and it's replacement will be returned.
      */
-    public static <E extends Entity> E teleportToDimension(E entity, Identifier dimensionID) {
-        return teleportToDimension(entity, dimensionID, entity.getPos());
+    public static <E extends Entity> E teleportToDimension(E entity, Identifier dimensionID, boolean applyScaling) {
+        return teleportToDimension(entity, dimensionID, entity.getPos(), applyScaling);
     }
 
     /**
@@ -75,58 +75,70 @@ public class DimensionHelper {
      * @param x           The destination x-coordinate.
      * @param y           The destination y-coordinate.
      * @param z           The destination z-coordinate.
+     * @param applyScaling Whether to account for the coordinate scaling factor of the 2 dimensions.
      * @return The teleported entity. Note: if non-player the original may be destroyed and it's replacement will be returned.
      */
-    public static <E extends Entity> E teleportToDimension(E entity, Identifier dimensionID, double x, double y, double z) {
-        return teleportToDimension(entity, dimensionID, new Vec3d(x, y, z));
+    public static <E extends Entity> E teleportToDimension(E entity, Identifier dimensionID, double x, double y, double z
+            , boolean applyScaling) {
+        return teleportToDimension(entity, dimensionID, new Vec3d(x, y, z), applyScaling);
     }
 
     /**
      * Teleports an entity into the given dimension. If the dimension could not be found the entity will not
      *  be teleported.
      * 
-     * @param entity      The entity to teleport.
-     * @param <E>         The type of the entity.
-     * @param dimensionID The dimension to teleport it into.
-     * @param position    The position to teleport it to.
+     * @param entity       The entity to teleport.
+     * @param <E>          The type of the entity.
+     * @param dimensionID  The dimension to teleport it into.
+     * @param position     The position to teleport it to.
+     * @param applyScaling Whether to account for the coordinate scaling factor of the 2 dimensions.
      * @return The teleported entity. Note: if non-player the original may be destroyed and it's replacement will be returned.
      */
-    public static <E extends Entity> E teleportToDimension(E entity, Identifier dimensionID, Vec3d position) {
+    public static <E extends Entity> E teleportToDimension(E entity, Identifier dimensionID, Vec3d position
+            , boolean applyScaling) {
         ServerWorld newWorld = getWorldByID(entity.getWorld(), dimensionID);
 
         if (newWorld == null)
             return entity;
         
-        return teleportToDimension(entity, newWorld, position);
+        return teleportToDimension(entity, newWorld, position, applyScaling);
     }
 
     /**
      * Teleports an entity into the given dimension. If the dimension could not be found the entity will not
      *  be teleported.
      * 
-     * @param entity      The entity to teleport.
-     * @param <E>         The type of the entity.
-     * @param world       The dimension to teleport it to.
-     * @param x           The destination x-coordinate.
-     * @param y           The destination y-coordinate.
-     * @param z           The destination z-coordinate.
+     * @param entity       The entity to teleport.
+     * @param <E>          The type of the entity.
+     * @param world        The dimension to teleport it to.
+     * @param x            The destination x-coordinate.
+     * @param y            The destination y-coordinate.
+     * @param z            The destination z-coordinate.
+     * @param applyScaling Whether to account for the coordinate scaling factor of the 2 dimensions.
      * @return The teleported entity. Note: if non-player the original may be destroyed and it's replacement will be returned.
      */
-    public static <E extends Entity> E teleportToDimension(E entity, ServerWorld world, double x, double y, double z) {
-        return teleportToDimension(entity, world, new Vec3d(x, y, z));
+    public static <E extends Entity> E teleportToDimension(E entity, ServerWorld world, double x, double y, double z
+            , boolean applyScaling) {
+        return teleportToDimension(entity, world, new Vec3d(x, y, z), applyScaling);
     }
 
     /**
      * Teleports an entity into the given dimension. If the dimension could not be found the entity will not
      *  be teleported.
      * 
-     * @param entity      The entity to teleport.
-     * @param <E>         The type of the entity.
-     * @param world       The dimension to teleport it to.
-     * @param position    The position to teleport it to.
+     * @param entity       The entity to teleport.
+     * @param <E>          The type of the entity.
+     * @param world        The dimension to teleport it to.
+     * @param position     The position to teleport it to.
+     * @param applyScaling Whether to account for the coordinate scaling factor of the 2 dimensions.
      * @return The teleported entity. Note: if non-player the original may be destroyed and it's replacement will be returned.
      */
-    public static <E extends Entity> E teleportToDimension(E entity, ServerWorld world, Vec3d position) {
+    public static <E extends Entity> E teleportToDimension(E entity, ServerWorld world, Vec3d position, boolean applyScaling) {
+        if (applyScaling && entity.getWorld() != world) {
+           double scaleFactor = DimensionType.getCoordinateScaleFactor(entity.getWorld().getDimension(), world.getDimension());
+           position = position.multiply(scaleFactor, 1.0, scaleFactor);
+        }
+
         return FabricDimensions.teleport(entity, world, new TeleportTarget( position
                                                                           , entity.getVelocity()
                                                                           , entity.getYaw(), entity.getPitch()));
@@ -180,6 +192,6 @@ public class DimensionHelper {
         }
 
         // Make sure to spawn entity in middle of block to prevent suffocation.
-        return teleportToDimension(entity, newWorld, x + 0.5, y + 0.5, z + 0.5);
+        return teleportToDimension(entity, newWorld, x + 0.5, y + 0.5, z + 0.5, false);
     }
 }
