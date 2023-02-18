@@ -20,7 +20,6 @@ import org.slf4j.LoggerFactory;
  * - (Possibly) change placement of walls and openings through time.
  * - Add randomly generated rifts.
  * - Give self the ability to open rifts between worlds and display cool particle effects.
- * - Prevent ender portals from being able to open in backrooms. (Hint: EnterEyeItem)
  */
 
 public class ModularBackrooms implements ModInitializer {

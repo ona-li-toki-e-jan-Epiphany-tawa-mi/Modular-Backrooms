@@ -21,8 +21,8 @@ import net.minecraft.util.math.random.Random;
  */
 @Mixin(DebugHud.class)
 public class DebugHudObfuscaterMixin {
-    @Inject(at = @At("RETURN"), method = "getLeftText")
-    protected void getLeftText(CallbackInfoReturnable<List<String>> info) {
+    @Inject(method = "Lnet/minecraft/client/gui/hud/DebugHud;getLeftText()Ljava/util/List;", at = @At("RETURN"))
+    private void onGetLeftText(CallbackInfoReturnable<List<String>> info) {
         MinecraftClient client = ((DebugHudAccessor) this).client();
         ClientPlayerEntity player = client.player;
         
@@ -32,8 +32,8 @@ public class DebugHudObfuscaterMixin {
         return;
     }
 
-    @Inject(at = @At("RETURN"), method = "getRightText")
-    protected void getRightText(CallbackInfoReturnable<List<String>> info) {
+    @Inject(method = "Lnet/minecraft/client/gui/hud/DebugHud;getRightText()Ljava/util/List;", at = @At("RETURN"))
+    private void onGetRightText(CallbackInfoReturnable<List<String>> info) {
         MinecraftClient client = ((DebugHudAccessor) this).client();
         ClientPlayerEntity player = client.player;
 
@@ -44,10 +44,11 @@ public class DebugHudObfuscaterMixin {
     }
 
 
+
     /**
      * Characters of approximately the same display-length for creating random strings.
      */
-    public static final String OBFUSCATION_CHARACTERS = "01234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM@"
+    private static final String OBFUSCATION_CHARACTERS = "01234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM@"
                                                        + "#$%^&*<>?(){}\\/";
 
     /**
