@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
  * - Prevent Minecraft's music from playing in Backrooms.
  * - Do something special if a player tries to sleep.
  * - Add randomly generated rifts.
+ * - Make death by void guaranteed entrance.
  * 
  * - (Possibly) Make non-linear space with immersive portals.
  * - (Possibly) change placement of walls and openings through time

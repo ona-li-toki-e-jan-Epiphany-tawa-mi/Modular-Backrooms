@@ -5,9 +5,6 @@ import java.util.Set;
 
 import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.epiphany.mdlrbckrms.levels.level0.Level0;
-import net.epiphany.mdlrbckrms.levels.level0.Level0ChunkGenerator;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.world.World;
 
@@ -27,7 +24,6 @@ public class Levels {
     public static void registerLevels() {
         ModularBackrooms.LOGGER.debug("Registering backrooms levels");
 
-        Registry.register(Registries.CHUNK_GENERATOR, Level0ChunkGenerator.LEVEL_0_CHUNK_GENERATOR_ID, Level0ChunkGenerator.CODEC);
         backroomsLevels.add(Level0.LEVEL_0_DIMENSION_ID);
 
         ModularBackrooms.LOGGER.debug("Backrooms level registration complete");

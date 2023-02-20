@@ -1,7 +1,26 @@
 {
     "type": "mdlrbckrms:level_0",
     "generator": {
-        "type": "mdlrbckrms:level_0",
-        "biome": "mdlrbckrms:level_0"
+        "type": "flat",
+        "settings": {
+            "layers": [
+                {
+                    "height": 126,
+                    "block": "minecraft:green_wool"
+                },
+                {
+                    "height": 4,
+                    "block": "minecraft:void_air"
+                },
+                {
+                    "height": 126,
+                    "block": "minecraft:smooth_sandstone"
+                }
+            ],
+            "biome": "mdlrbckrms:level_0",
+            "features": true,
+            "lakes": true,
+            "structure_overrides": []
+        }
     }
 }
