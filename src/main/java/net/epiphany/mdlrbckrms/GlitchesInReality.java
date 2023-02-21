@@ -83,7 +83,7 @@ public class GlitchesInReality {
                 // Drowning death. 
                 || ("drown".equals(damageSource.getName()) && random.nextFloat() <= 0.01f)
                 // Death from falling.
-                || (damageSource.isFromFalling() && damageAmount >= 16.0f && random.nextFloat() <= 0.01f) 
+                || ("fall".equals(damageSource.getName()) && damageAmount >= 16.0f && random.nextFloat() <= 0.01f) 
                 // Death from flying into something
                 || ("flyIntoWall".equals(damageSource.getName()) && damageAmount >= 12.0f && random.nextFloat() <= 0.01f) 
                 /* Random chance */
