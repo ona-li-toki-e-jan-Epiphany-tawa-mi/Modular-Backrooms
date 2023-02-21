@@ -4,6 +4,7 @@ import net.epiphany.mdlrbckrms.blocks.Blocks;
 import net.epiphany.mdlrbckrms.features.Features;
 import net.epiphany.mdlrbckrms.items.Items;
 import net.epiphany.mdlrbckrms.levels.Levels;
+import net.epiphany.mdlrbckrms.utilities.Sounds;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,6 @@ import org.slf4j.LoggerFactory;
  * - Hallucinations.
  * - Do something special if a player tries to sleep.
  * - Add randomly generated rifts.
- * - Make player respawn in backrooms. (maybe respawnPlayer in PlayerEntity)
  * - Debug placement of divider walls and walled doors (walled doors can face into walls and divider walls can spawn butted up to chunk walls.)
  * 
  * - (Possibly) Make non-linear space with immersive portals.

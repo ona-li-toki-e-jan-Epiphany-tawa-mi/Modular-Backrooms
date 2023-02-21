@@ -5,7 +5,7 @@ import java.util.Set;
 
 import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.epiphany.mdlrbckrms.levels.level0.Level0;
-import net.minecraft.util.Identifier;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.World;
 
 /**
@@ -16,7 +16,7 @@ public class Levels {
      * A set of IDs of each Backrooms level used for various Hing-Digs and Hoo-Has.
      * NOTE: All Backrooms levels must be added to this set for them to work properly.
      */
-    private static Set<Identifier> backroomsLevels = new HashSet<>();
+    private static Set<RegistryKey<World>> backroomsLevels = new HashSet<>();
 
     /**
      * Registers dimensions, chunk generators, biomes, etc. for the levels of the Backrooms.
@@ -24,7 +24,7 @@ public class Levels {
     public static void registerLevels() {
         ModularBackrooms.LOGGER.debug("Registering backrooms levels");
 
-        backroomsLevels.add(Level0.LEVEL_0_DIMENSION_ID);
+        backroomsLevels.add(Level0.LEVEL_0_DIMENSION_KEY);
 
         ModularBackrooms.LOGGER.debug("Backrooms level registration complete");
     }
@@ -38,7 +38,6 @@ public class Levels {
      * @return Whether the world is the backrooms.
      */
     public static boolean isBackrooms(World world) {
-        Identifier dimensionIdentifier = world.getDimensionKey().getValue();
-        return backroomsLevels.contains(dimensionIdentifier);
+        return backroomsLevels.contains(world.getRegistryKey());
     }
 }

@@ -1,5 +1,6 @@
-package net.epiphany.mdlrbckrms;
+package net.epiphany.mdlrbckrms.utilities;
 
+import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundEvent;

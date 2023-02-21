@@ -9,7 +9,8 @@
     "client": [
       "DebugHudAccessor",
       "DebugHudObfuscaterMixin",
-      "ModelPredicateProviderRegistryMixin"
+      "ModelPredicateProviderRegistryMixin",
+      "ClientPlayNetworkHandlerMixin"
     ],
     "server": [],
     "injectors": {

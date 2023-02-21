@@ -1,10 +1,14 @@
-package net.epiphany.mdlrbckrms;
+package net.epiphany.mdlrbckrms.utilities;
 
 import org.jetbrains.annotations.Nullable;
 
+import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnRestriction;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.world.ServerWorld;
@@ -25,27 +29,36 @@ import net.minecraft.world.dimension.DimensionType;
  */
 public class DimensionHelper {
     /**
+     * Wraps a dimension identifier inside a world registry key.
+     * 
+     * @param dimensionID The dimension identifier.
+     * @return The resulting world registry key.
+     */
+    public static RegistryKey<World> wrapDimensionID(Identifier dimensionID) {
+        return RegistryKey.of(RegistryKeys.WORLD, dimensionID);
+    }
+
+    /**
      * Tests to see if the world is the dimension specfied by the given identifier.
      * 
      * @param world     The world to test.
      * @param dimension The dimension to test for.
      * @return Whether the world is the specified dimension.
      */
-    public static boolean isDimension(World world, Identifier dimension) {
-        Identifier dimensionIdentifier = world.getDimensionKey().getValue();
-        return dimensionIdentifier.equals(dimension);
+    public static boolean isDimension(World world, RegistryKey<World> dimension) {
+        return world.getDimensionKey().equals(dimension);
     }
 
     /**
-     * Finds a world by it's identifier.
+     * Finds a world by it's registry key.
      * 
-     * @param world       Another world to piggyback off of to get the server instance.
-     * @param dimensionID The dimension identifier.
+     * @param world        Another world to piggyback off of to get the server instance.
+     * @param dimensionKey The dimension registry key.
      * @return The world, or null if it could not be found.
      */
     @Nullable
-    public static ServerWorld getWorldByID(World world, Identifier dimensionID) {
-        return world.getServer().getWorld(RegistryKey.of(RegistryKeys.WORLD, dimensionID));
+    public static ServerWorld getWorldByKey(World world, RegistryKey<World> dimensionKey) {
+        return world.getServer().getWorld(dimensionKey);
     }
 
 
@@ -64,27 +77,27 @@ public class DimensionHelper {
 
     /**
      * Teleports an entity into the given dimension at their location. If the dimension could not be found the entity will not
-     *  be teleported and null will be returned.
+     *  be teleported and null will be returned. Applies Resistance V to make sure they survive the trip.
      * 
      * @param entity       The entity to teleport.
      * @param <E>          The type of the entity.
-     * @param dimensionID  The dimension to teleport it into.
+     * @param dimension    The dimension to teleport it into.
      * @param applyScaling Whether to account for the coordinate scaling factor of the 2 dimensions.
      * @return The teleported entity, or null, if the teleport failed. Note: if non-player the original may be destroyed and 
      *  it's replacement will be returned.
      */
     @Nullable
-    public static <E extends Entity> E teleportToDimension(E entity, Identifier dimensionID, boolean applyScaling) {
-        return teleportToDimension(entity, dimensionID, entity.getPos(), applyScaling);
+    public static <E extends Entity> E teleportToDimension(E entity, RegistryKey<World> dimension, boolean applyScaling) {
+        return teleportToDimension(entity, dimension, entity.getPos(), applyScaling);
     }
 
     /**
      * Teleports an entity into the given dimension. If the dimension could not be found the entity will not
-     *  be teleported and null will be returned.
+     *  be teleported and null will be returned. Applies Resistance V to make sure they survive the trip.
      * 
      * @param entity       The entity to teleport.
      * @param <E>          The type of the entity.
-     * @param dimensionID  The dimension to teleport it into.
+     * @param dimension    The dimension to teleport it into.
      * @param x            The destination x-coordinate.
      * @param y            The destination y-coordinate.
      * @param z            The destination z-coordinate.
@@ -93,29 +106,30 @@ public class DimensionHelper {
      *  it's replacement will be returned.
      */
     @Nullable
-    public static <E extends Entity> E teleportToDimension(E entity, Identifier dimensionID, double x, double y, double z
-            , boolean applyScaling) {
-        return teleportToDimension(entity, dimensionID, new Vec3d(x, y, z), applyScaling);
+    public static <E extends Entity> E teleportToDimension(E entity, RegistryKey<World> dimension, double x, double y
+            , double z, boolean applyScaling) {
+        return teleportToDimension(entity, dimension, new Vec3d(x, y, z), applyScaling);
     }
 
     /**
      * Teleports an entity into the given dimension. If the dimension could not be found the entity will not
-     *  be teleported and null will be returned.
+     *  be teleported and null will be returned. Applies Resistance V to make sure they survive the trip.
      * 
      * @param entity       The entity to teleport.
      * @param <E>          The type of the entity.
-     * @param dimensionID  The dimension to teleport it into.
+     * @param dimension    The dimension to teleport it into.
      * @param position     The position to teleport it to.
      * @param applyScaling Whether to account for the coordinate scaling factor of the 2 dimensions.
      * @return The teleported entity, or null, if the teleport failed. Note: if non-player the original may be destroyed and 
      *  it's replacement will be returned.
      */
     @Nullable
-    public static <E extends Entity> E teleportToDimension(E entity, Identifier dimensionID, Vec3d position
+    public static <E extends Entity> E teleportToDimension(E entity, RegistryKey<World> dimension, Vec3d position
             , boolean applyScaling) {
-        ServerWorld newWorld = getWorldByID(entity.getWorld(), dimensionID);
+        ServerWorld newWorld = getWorldByKey(entity.getWorld(), dimension);
         if (newWorld == null) {
-            ModularBackrooms.LOGGER.warn("Attemtped to teleport entity to dimension under unknown ID: '" + dimensionID + "'!");
+            ModularBackrooms.LOGGER.warn( "Attemtped to teleport entity to dimension under unknown ID: '" 
+                                        + dimension.getValue() + "'!");
             return null;
         }
         
@@ -123,7 +137,7 @@ public class DimensionHelper {
     }
 
     /**
-     * Teleports an entity into the given dimension. 
+     * Teleports an entity into the given dimension. Applies Resistance V to make sure they survive the trip.
      * 
      * @param entity       The entity to teleport.
      * @param <E>          The type of the entity.
@@ -140,7 +154,7 @@ public class DimensionHelper {
     }
 
     /**
-     * Teleports an entity into the given dimension. 
+     * Teleports an entity into the given dimension. Applies Resistance V to make sure they survive the trip.
      * 
      * @param entity       The entity to teleport.
      * @param <E>          The type of the entity.
@@ -155,6 +169,15 @@ public class DimensionHelper {
            position = position.multiply(scaleFactor, 1.0, scaleFactor);
         }
 
+        // Life insurance.
+        if (entity instanceof LivingEntity livingEntity) 
+            livingEntity.addStatusEffect(new StatusEffectInstance( StatusEffects.RESISTANCE
+                                                                 , 100
+                                                                 , 5
+                                                                 , false
+                                                                 , false
+                                                                 , false));
+
         return FabricDimensions.teleport(entity, world, new TeleportTarget( position
                                                                           , entity.getVelocity()
                                                                           , entity.getYaw(), entity.getPitch()));
@@ -162,20 +185,22 @@ public class DimensionHelper {
 
     /**
      * Teleports an entity into the given dimension at a random, but safe, location. If the dimension or a safe spot inside it
-     *  could not be found the entity will not be teleported and null will be returned.
+     *  could not be found the entity will not be teleported and null will be returned. Applies Resistance V to make sure 
+     *  they survive the trip.
      * 
-     * @param entity      The entity to teleport.
-     * @param <E>         The type of the entity.
-     * @param dimensionID The dimension to teleport it into.
-     * @param random      Random number generator.
+     * @param entity    The entity to teleport.
+     * @param <E>       The type of the entity.
+     * @param dimension The dimension to teleport it into.
+     * @param random    Random number generator.
      * @return The teleported entity, or null, if the teleport failed. Note: if non-player the original may be destroyed and 
      *  it's replacement will be returned.
      */
     @Nullable
-    public static <E extends Entity> E teleportToDimension(E entity, Identifier dimensionID, Random random) {
-        ServerWorld newWorld = getWorldByID(entity.getWorld(), dimensionID);
+    public static <E extends Entity> E teleportToDimension(E entity, RegistryKey<World> dimension, Random random) {
+        ServerWorld newWorld = getWorldByKey(entity.getWorld(), dimension);
         if (newWorld == null) {
-            ModularBackrooms.LOGGER.warn("Attemtped to teleport entity to dimension under unknown ID: '" + dimensionID + "'!");
+            ModularBackrooms.LOGGER.warn( "Attemtped to teleport entity to dimension under unknown ID: '" 
+                                        + dimension.getValue() + "'!");
             return null;
         }
 
@@ -183,13 +208,14 @@ public class DimensionHelper {
     }
 
     /**
-     * Teleports an entity into the given dimension at a random, but safe, location. If asafe spot inside the dimension
-     *  could not be found the entity will not be teleported and null will be returned.
+     * Teleports an entity into the given dimension at a random, but safe, location. If a safe spot inside the dimension
+     *  could not be found the entity will not be teleported and null will be returned. Applies Resistance V to make sure 
+     *  they survive the trip.
      * 
-     * @param entity      The entity to teleport.
-     * @param <E>         The type of the entity.
-     * @param world       The dimension to teleport it to.
-     * @param random      Random number generator.
+     * @param entity The entity to teleport.
+     * @param <E>    The type of the entity.
+     * @param world  The dimension to teleport it to.
+     * @param random Random number generator.
      * @return The teleported entity, or null, if the teleport failed. Note: if non-player the original may be destroyed and 
      *  it's replacement will be returned.
      */
