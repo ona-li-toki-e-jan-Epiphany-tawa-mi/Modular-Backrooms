@@ -52,6 +52,18 @@ public class DimensionHelper {
 
 
     /**
+     * Tells whether the entity is in the void, which is 64 blocks below the world's minimum y level.
+     * 
+     * @param entity The entity to test.
+     * @return Whether the entity is in the void.
+     */
+    public static boolean isInVoid(Entity entity) {
+        return entity.getY() < (double)(entity.getWorld().getBottomY() - 64);
+    }
+
+
+
+    /**
      * Teleports an entity into the given dimension at their location. If the dimension could not be found the entity will not
      *  be teleported.
      * 
@@ -144,6 +156,7 @@ public class DimensionHelper {
                                                                           , entity.getYaw(), entity.getPitch()));
     }
 
+    // TODO Add limit on how many chunks can be attempted.
     /**
      * Teleports an entity into the given dimension at a random, but safe, location. If the dimension could not be found the 
      *  entity will not be teleported.
@@ -160,9 +173,8 @@ public class DimensionHelper {
             return entity;
 
         WorldBorder newWorldBorder = newWorld.getWorldBorder();
-        ChunkGenerator newWorldChunkGenerator = newWorld.getChunkManager().getChunkGenerator();
-        int minimumY = newWorldChunkGenerator.getMinimumY()
-          , maximumY = minimumY + newWorldChunkGenerator.getWorldHeight();
+        int minimumY = newWorld.getBottomY()
+          , maximumY = newWorld.getTopY();
 
         double x, y, z;
         BlockPos.Mutable possibleDestination = new BlockPos.Mutable();
@@ -175,8 +187,8 @@ public class DimensionHelper {
                                                , ChunkSectionPos.getSectionCoordFloored(random.nextDouble() * zAxisSize));
 
             // Iterates through EVERY SINGLE possible location within the chunk to find a safe location.
-            for (int i = randomChunk.getStartX(); i <= randomChunk.getEndX(); ++i)
-                for (int j = randomChunk.getStartZ(); j <= randomChunk.getEndZ(); ++j) 
+            for (int i = randomChunk.getStartX(); i <= randomChunk.getEndX(); i++)
+                for (int j = randomChunk.getStartZ(); j <= randomChunk.getEndZ(); j++) 
                     for (int k = minimumY; k < maximumY; k++) {
                         possibleDestination.set(i, k, j);
                         

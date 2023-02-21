@@ -7,12 +7,9 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerEntityWorldChangeEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.decoration.EndCrystalEntity;
-import net.minecraft.entity.mob.EndermanEntity;
-import net.minecraft.entity.mob.EndermiteEntity;
-import net.minecraft.entity.mob.ShulkerEntity;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -30,7 +27,6 @@ public class GlitchesInReality {
         ServerLivingEntityEvents.ALLOW_DEATH.register(GlitchesInReality::onAllowDeathEvent);
         ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register(GlitchesInReality::onAfterPlayerChangeWorldEvent);
         EntitySleepEvents.STOP_SLEEPING.register(GlitchesInReality::onStopSleepingEvent);
-        ServerLivingEntityEvents.ALLOW_DAMAGE.register(GlitchesInReality::onAllowDamageEvent);
     }
 
     /**
@@ -40,8 +36,8 @@ public class GlitchesInReality {
      * @return Whether the player should be sent to the Backrooms.
      */
     public static boolean shouldEnterBackrooms(Random random) {
-        // Literal one in a billion chance.
-        return random.nextInt(1_000_000_000) == 0;
+        // One in a million chance.
+        return random.nextInt(1_000_000) == 0;
     }
 
     /**
@@ -50,6 +46,14 @@ public class GlitchesInReality {
      */
     public static void sendToLevel0(Entity entity) {
         DimensionHelper.teleportToDimension(entity, Level0.LEVEL_0_DIMENSION_ID, entity.getWorld().getRandom());
+
+        if (entity instanceof LivingEntity livingEntity)
+            livingEntity.addStatusEffect(new StatusEffectInstance( StatusEffects.RESISTANCE
+                                                                 , 60
+                                                                 , 5
+                                                                 , false
+                                                                 , false
+                                                                 , false));
     }
 
 
@@ -57,6 +61,12 @@ public class GlitchesInReality {
     /**
      * Sends the player to the Backrooms on death, preventing it and giving them some health back (between 20-40% 
      *  of their max.)
+     * 
+     * Guaranteed if death was from void.
+     * 1% if death was from suffocation.
+     * 1% if death was from a fall that dealt 8 or more hearts.
+     * 1% if death was from flying into something and taking 6 or more hearts from it.
+     * Additionally, all deaths have a small, but non-zero, chance to trigger this.
      */
     public static boolean onAllowDeathEvent(LivingEntity entity, DamageSource damageSource, float damageAmount) {
         if (!(entity instanceof PlayerEntity player) 
@@ -66,7 +76,15 @@ public class GlitchesInReality {
 
         Random random = player.getRandom();
 
-        if (shouldEnterBackrooms(random)) {
+        if ((damageSource.isOutOfWorld() && DimensionHelper.isInVoid(player)) // Void death.
+                // Suffocation death.
+                || ("inWall".equals(damageSource.getName()) && random.nextFloat() <= 0.01f) 
+                // Death from falling.
+                || (damageSource.isFromFalling() && damageAmount >= 16.0f && random.nextFloat() <= 0.01f) 
+                // Death from flying into something
+                || ("flyIntoWall".equals(damageSource.getName()) && damageAmount >= 12.0f && random.nextFloat() <= 0.01f) 
+                /* Random chance */
+                || shouldEnterBackrooms(random)) { 
             player.setHealth(player.getMaxHealth() * (random.nextFloat() * 0.2f + 0.2f));
             sendToLevel0(player);
             return false;
@@ -90,6 +108,7 @@ public class GlitchesInReality {
 
     /**
      * Sends players to the Backrooms when they wake up.
+     * // TODO Make only function when player wakes up and not when they simply leave the bed.
      */
     public static void onStopSleepingEvent(LivingEntity entity, BlockPos sleepingPosition) {
         if (!(entity instanceof PlayerEntity player)
@@ -99,66 +118,5 @@ public class GlitchesInReality {
         
         if (shouldEnterBackrooms(player.getRandom())) 
             sendToLevel0(player);
-    }
-
-    /**
-     * Sends players to the Backrooms depending when damaged depending on various factors as follows:
-     * - Falling into the void.
-     * - Falling and taking 50% or more of your maximum health in damage.
-     * - Suffocating.
-     * - Flying into a wall on elytra and taking 50% or more of your maximum health in damage.
-     * - Being damaged by an entity related to the end.
-     */
-    public static boolean onAllowDamageEvent(LivingEntity entity, DamageSource source, float amount) {
-        if (!(entity instanceof PlayerEntity player)
-                || player.isCreative() || player.isSpectator()
-                || Levels.isBackrooms(player.getWorld()))
-            return true;
-
-        Random random = player.getRandom();
-        
-        if (source.isOutOfWorld() && isInVoid(player) && shouldEnterBackrooms(random)) {
-            sendToLevel0(player);
-            return false;
-
-        } else if (source.isFromFalling() && amount >= player.getMaxHealth() * 0.5f && shouldEnterBackrooms(random)) {
-            sendToLevel0(player);
-            return false;
-
-        } else if ("inWall".equals(source.getName()) && shouldEnterBackrooms(random)) {
-            sendToLevel0(player);
-            return false;
-
-        } else if ("flyIntoWall".equals(source.getName()) && amount >= player.getMaxHealth() * 0.5f 
-                && shouldEnterBackrooms(random)) {
-            sendToLevel0(player);
-            return false;
-
-        } else {
-            Entity attacker = source.getAttacker();
-
-            if (attacker != null
-                    && ( attacker instanceof EndermanEntity
-                     || attacker instanceof EndermiteEntity
-                     || attacker instanceof EnderDragonEntity
-                     || attacker instanceof EndCrystalEntity
-                     || attacker instanceof ShulkerEntity)
-                    && shouldEnterBackrooms(random)) {
-                sendToLevel0(entity);
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * Tells whether the entity is in the void, which is 64 blocks below the world's minimum y level.
-     * 
-     * @param entity The entity to test.
-     * @return Whether the entity is in the void.
-     */
-    public static boolean isInVoid(Entity entity) {
-        return entity.getY() < (double)(entity.getWorld().getBottomY() - 64);
     }
 }

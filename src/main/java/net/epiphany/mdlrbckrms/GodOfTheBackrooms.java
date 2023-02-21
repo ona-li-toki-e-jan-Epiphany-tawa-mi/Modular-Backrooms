@@ -1,10 +1,8 @@
 package net.epiphany.mdlrbckrms;
 
 import net.fabricmc.fabric.api.entity.event.v1.ServerEntityCombatEvents;
-import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 
@@ -13,7 +11,6 @@ import net.minecraft.server.world.ServerWorld;
  */
 public class GodOfTheBackrooms {
     public static void registerPowers() {
-        ServerLivingEntityEvents.ALLOW_DAMAGE.register(GodOfTheBackrooms::onAllowDamageEvent);
         ServerEntityCombatEvents.AFTER_KILLED_OTHER_ENTITY.register(GodOfTheBackrooms::onAfterKilledOtherEntityEvent);
     }
 
@@ -35,32 +32,6 @@ public class GodOfTheBackrooms {
     }
 
 
-
-    /**
-     * Possibility to banish on being damaged.
-     * Protection against the void.
-     * Possibility to banish those attacked.
-     */
-    public static boolean onAllowDamageEvent(LivingEntity entity, DamageSource source, float amount) {
-        Entity attacker = source.getAttacker();
-
-        if (entity instanceof PlayerEntity player && isHim(player)) {
-            if (attacker != null && GlitchesInReality.shouldEnterBackrooms(player.getRandom()))
-                GlitchesInReality.sendToLevel0(attacker);
-
-            if (source.isOutOfWorld() && GlitchesInReality.isInVoid(player)) {
-                GlitchesInReality.sendToLevel0(player);
-                return false;
-            }
-
-        } else if (attacker instanceof PlayerEntity playerAttacker && isHim(playerAttacker)) 
-            if (GlitchesInReality.shouldEnterBackrooms(playerAttacker.getRandom())) {
-                GlitchesInReality.sendToLevel0(entity);
-                return false;
-            }
-
-        return true;
-    }
 
     /**
      * Possiblity to banish on kill.
