@@ -2,13 +2,34 @@
     "maximum_hum_buzz": {
         "subtitle": "subtitles.mdlrbckrms.maximum_hum_buzz",
         "sounds": [
-            "mdlrbckrms:maximum_hum_buzz"
+            {
+                "name": "mdlrbckrms:maximum_hum_buzz",
+                "volume": 1.0,
+                "pitch": 1.0,
+                "weight": 1,
+                "stream": true,
+                "attenuation_distance": 16,
+                "preload": false
+            }
         ]
     },
     "fluorescent_flicker": {
         "subtitle": "subtitles.mdlrbckrms.fluorescent_flicker",
         "sounds": [
-            "mdlrbckrms:fluorescent_flicker"
+            "mdlrbckrms:fluorescent_flicker" 
+        ]
+    },
+    "null_sound": {
+        "sounds": [
+            {
+                "name": "mdlrbckrms:null_sound",
+                "volume": 1.0,
+                "pitch": 1.0,
+                "weight": 1,
+                "stream": true,
+                "attenuation_distance": 16,
+                "preload": false
+            }
         ]
     }
 }

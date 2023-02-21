@@ -6,15 +6,17 @@
     "effects": {
         "fog_color": 10196814,
         "sky_color": 10196814,
-        "water_color": 0,
-        "water_fog_color": 0,
+        "water_color": 10196814,
+        "water_fog_color": 10196814,
+        "foliage_color": 10196814,
+        "grass_color": 10196814,
         "grass_color_modifier": "none",
         "ambient_sound": "mdlrbckrms:maximum_hum_buzz",
         "music": {
-            "sound": "",
-            "min_delay": 0,
-            "max_delay": 0,
-            "replace_current_music": false
+            "sound": "mdlrbckrms:null_sound",
+            "min_delay": 24000,
+            "max_delay": 24000,
+            "replace_current_music": true
         }
     },
     "carvers": {},

@@ -5,7 +5,6 @@ import net.epiphany.mdlrbckrms.features.Features;
 import net.epiphany.mdlrbckrms.items.Items;
 import net.epiphany.mdlrbckrms.levels.Levels;
 import net.fabricmc.api.ModInitializer;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +13,6 @@ import org.slf4j.LoggerFactory;
  * - Better textures.
  * - Exits and "exits."
  * - Hallucinations.
- * - Prevent Minecraft's music from playing in Backrooms.
  * - Do something special if a player tries to sleep.
  * - Add randomly generated rifts.
  * - Make player respawn in backrooms. (maybe respawnPlayer in PlayerEntity)
