@@ -19,7 +19,6 @@ import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import net.minecraft.world.border.WorldBorder;
 import net.minecraft.world.dimension.DimensionType;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
 
 /**
  * Utility functions for working with dimensions.
@@ -65,31 +64,35 @@ public class DimensionHelper {
 
     /**
      * Teleports an entity into the given dimension at their location. If the dimension could not be found the entity will not
-     *  be teleported.
+     *  be teleported and null will be returned.
      * 
      * @param entity       The entity to teleport.
      * @param <E>          The type of the entity.
      * @param dimensionID  The dimension to teleport it into.
      * @param applyScaling Whether to account for the coordinate scaling factor of the 2 dimensions.
-     * @return The teleported entity. Note: if non-player the original may be destroyed and it's replacement will be returned.
+     * @return The teleported entity, or null, if the teleport failed. Note: if non-player the original may be destroyed and 
+     *  it's replacement will be returned.
      */
+    @Nullable
     public static <E extends Entity> E teleportToDimension(E entity, Identifier dimensionID, boolean applyScaling) {
         return teleportToDimension(entity, dimensionID, entity.getPos(), applyScaling);
     }
 
     /**
      * Teleports an entity into the given dimension. If the dimension could not be found the entity will not
-     *  be teleported.
+     *  be teleported and null will be returned.
      * 
-     * @param entity      The entity to teleport.
-     * @param <E>         The type of the entity.
-     * @param dimensionID The dimension to teleport it into.
-     * @param x           The destination x-coordinate.
-     * @param y           The destination y-coordinate.
-     * @param z           The destination z-coordinate.
+     * @param entity       The entity to teleport.
+     * @param <E>          The type of the entity.
+     * @param dimensionID  The dimension to teleport it into.
+     * @param x            The destination x-coordinate.
+     * @param y            The destination y-coordinate.
+     * @param z            The destination z-coordinate.
      * @param applyScaling Whether to account for the coordinate scaling factor of the 2 dimensions.
-     * @return The teleported entity. Note: if non-player the original may be destroyed and it's replacement will be returned.
+     * @return The teleported entity, or null, if the teleport failed. Note: if non-player the original may be destroyed and 
+     *  it's replacement will be returned.
      */
+    @Nullable
     public static <E extends Entity> E teleportToDimension(E entity, Identifier dimensionID, double x, double y, double z
             , boolean applyScaling) {
         return teleportToDimension(entity, dimensionID, new Vec3d(x, y, z), applyScaling);
@@ -97,28 +100,30 @@ public class DimensionHelper {
 
     /**
      * Teleports an entity into the given dimension. If the dimension could not be found the entity will not
-     *  be teleported.
+     *  be teleported and null will be returned.
      * 
      * @param entity       The entity to teleport.
      * @param <E>          The type of the entity.
      * @param dimensionID  The dimension to teleport it into.
      * @param position     The position to teleport it to.
      * @param applyScaling Whether to account for the coordinate scaling factor of the 2 dimensions.
-     * @return The teleported entity. Note: if non-player the original may be destroyed and it's replacement will be returned.
+     * @return The teleported entity, or null, if the teleport failed. Note: if non-player the original may be destroyed and 
+     *  it's replacement will be returned.
      */
+    @Nullable
     public static <E extends Entity> E teleportToDimension(E entity, Identifier dimensionID, Vec3d position
             , boolean applyScaling) {
         ServerWorld newWorld = getWorldByID(entity.getWorld(), dimensionID);
-
-        if (newWorld == null)
-            return entity;
+        if (newWorld == null) {
+            ModularBackrooms.LOGGER.warn("Attemtped to teleport entity to dimension under unknown ID: '" + dimensionID + "'!");
+            return null;
+        }
         
         return teleportToDimension(entity, newWorld, position, applyScaling);
     }
 
     /**
-     * Teleports an entity into the given dimension. If the dimension could not be found the entity will not
-     *  be teleported.
+     * Teleports an entity into the given dimension. 
      * 
      * @param entity       The entity to teleport.
      * @param <E>          The type of the entity.
@@ -135,8 +140,7 @@ public class DimensionHelper {
     }
 
     /**
-     * Teleports an entity into the given dimension. If the dimension could not be found the entity will not
-     *  be teleported.
+     * Teleports an entity into the given dimension. 
      * 
      * @param entity       The entity to teleport.
      * @param <E>          The type of the entity.
@@ -156,31 +160,51 @@ public class DimensionHelper {
                                                                           , entity.getYaw(), entity.getPitch()));
     }
 
-    // TODO Add limit on how many chunks can be attempted.
     /**
-     * Teleports an entity into the given dimension at a random, but safe, location. If the dimension could not be found the 
-     *  entity will not be teleported.
+     * Teleports an entity into the given dimension at a random, but safe, location. If the dimension or a safe spot inside it
+     *  could not be found the entity will not be teleported and null will be returned.
      * 
      * @param entity      The entity to teleport.
      * @param <E>         The type of the entity.
      * @param dimensionID The dimension to teleport it into.
      * @param random      Random number generator.
-     * @return The teleported entity. Note: if non-player the original may be destroyed and it's replacement will be returned.
+     * @return The teleported entity, or null, if the teleport failed. Note: if non-player the original may be destroyed and 
+     *  it's replacement will be returned.
      */
+    @Nullable
     public static <E extends Entity> E teleportToDimension(E entity, Identifier dimensionID, Random random) {
         ServerWorld newWorld = getWorldByID(entity.getWorld(), dimensionID);
-        if (newWorld == null)
-            return entity;
+        if (newWorld == null) {
+            ModularBackrooms.LOGGER.warn("Attemtped to teleport entity to dimension under unknown ID: '" + dimensionID + "'!");
+            return null;
+        }
 
-        WorldBorder newWorldBorder = newWorld.getWorldBorder();
-        int minimumY = newWorld.getBottomY()
-          , maximumY = newWorld.getTopY();
+        return teleportToDimension(entity, newWorld, random);
+    }
 
-        double x, y, z;
+    /**
+     * Teleports an entity into the given dimension at a random, but safe, location. If asafe spot inside the dimension
+     *  could not be found the entity will not be teleported and null will be returned.
+     * 
+     * @param entity      The entity to teleport.
+     * @param <E>         The type of the entity.
+     * @param world       The dimension to teleport it to.
+     * @param random      Random number generator.
+     * @return The teleported entity, or null, if the teleport failed. Note: if non-player the original may be destroyed and 
+     *  it's replacement will be returned.
+     */
+    @Nullable
+    public static <E extends Entity> E teleportToDimension(E entity, ServerWorld world, Random random) {
+        WorldBorder newWorldBorder = world.getWorldBorder();
+        int minimumY = world.getBottomY()
+          , maximumY = world.getTopY();
+
         BlockPos.Mutable possibleDestination = new BlockPos.Mutable();
+        double x = Double.NaN, y = Double.NaN, z = Double.NaN;
+        boolean foundSafeDestination = false;
         
     FindSafeTeleportDestination:
-        while (true) {
+        for (int attempts = 3; attempts > 0; attempts--) {
             double xAxisSize = random.nextBoolean() ? newWorldBorder.getBoundSouth() : newWorldBorder.getBoundNorth()
                  , zAxisSize = random.nextBoolean() ? newWorldBorder.getBoundEast()  : newWorldBorder.getBoundWest();
             ChunkPos randomChunk = new ChunkPos( ChunkSectionPos.getSectionCoordFloored(random.nextDouble() * xAxisSize)
@@ -193,17 +217,23 @@ public class DimensionHelper {
                         possibleDestination.set(i, k, j);
                         
                         if (SpawnHelper.canSpawn( SpawnRestriction.Location.ON_GROUND
-                                                , newWorld, possibleDestination
+                                                , world, possibleDestination
                                                 , entity.getType())) {
                             x = possibleDestination.getX();
                             y = possibleDestination.getY();
                             z = possibleDestination.getZ();
+
+                            foundSafeDestination = true;
                             break FindSafeTeleportDestination;
                         }
                     }
         }
 
+
         // Make sure to spawn entity in middle of block to prevent suffocation.
-        return teleportToDimension(entity, newWorld, x + 0.5, y + 0.5, z + 0.5, false);
+        if (foundSafeDestination)
+            return teleportToDimension(entity, world, x + 0.5, y + 0.5, z + 0.5, false);
+
+        return null;
     }
 }
