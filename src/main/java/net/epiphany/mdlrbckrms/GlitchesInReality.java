@@ -64,6 +64,7 @@ public class GlitchesInReality {
      * 
      * Guaranteed if death was from void.
      * 1% if death was from suffocation.
+     * 1% if death was from drowning.
      * 1% if death was from a fall that dealt 8 or more hearts.
      * 1% if death was from flying into something and taking 6 or more hearts from it.
      * Additionally, all deaths have a small, but non-zero, chance to trigger this.
@@ -78,7 +79,9 @@ public class GlitchesInReality {
 
         if ((damageSource.isOutOfWorld() && DimensionHelper.isInVoid(player)) // Void death.
                 // Suffocation death.
-                || ("inWall".equals(damageSource.getName()) && random.nextFloat() <= 0.01f) 
+                || ("inWall".equals(damageSource.getName()) && random.nextFloat() <= 0.01f)
+                // Drowning death. 
+                || ("drown".equals(damageSource.getName()) && random.nextFloat() <= 0.01f)
                 // Death from falling.
                 || (damageSource.isFromFalling() && damageAmount >= 16.0f && random.nextFloat() <= 0.01f) 
                 // Death from flying into something

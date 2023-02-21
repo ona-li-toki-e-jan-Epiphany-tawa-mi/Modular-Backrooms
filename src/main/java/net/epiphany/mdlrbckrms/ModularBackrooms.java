@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
  * - Prevent Minecraft's music from playing in Backrooms.
  * - Do something special if a player tries to sleep.
  * - Add randomly generated rifts.
+ * - Make player respawn in backrooms. (maybe respawnPlayer in PlayerEntity)
  * - Debug placement of divider walls and walled doors (walled doors can face into walls and divider walls can spawn butted up to chunk walls.)
  * 
  * - (Possibly) Make non-linear space with immersive portals.
