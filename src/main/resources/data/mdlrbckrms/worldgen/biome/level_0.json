@@ -20,19 +20,19 @@
     "carvers": {},
     "features": [
         [
-            "mdlrbckrms:level_0_chunk_wall",
-            "mdlrbckrms:level_0_divider_wall"
+            "mdlrbckrms:level_0/chunk_wall",
+            "mdlrbckrms:level_0/divider_wall"
         ],
         [],
         [
-            "mdlrbckrms:level_0_walled_door"
+            "mdlrbckrms:level_0/office_door"
         ],
         [],
         [],
         [],
         [],
         [
-            "mdlrbckrms:level_0_fluorescent_light_array"
+            "mdlrbckrms:level_0/fluorescent_lights"
         ],
         [],
         [],
