@@ -1,4 +1,6 @@
 {
-    "parent": "minecraft:mob/chicken"
+    "parent": "item/generated",
+    "textures": {
+      "layer0": "mdlrbckrms:item/burubelti"
+    }
 }
-

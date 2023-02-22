@@ -6,17 +6,13 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.ChickenEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
@@ -46,9 +42,7 @@ public class BurubeltiJee extends Item {
     
     
 
-    // TODO πγργηαπαξε αλ'model
     // TODO πγργηξε αλ'sound-βγλ ον'κελβεβ βγργβελτι.
-    // TODO burubeltisemmi
     @Override
     public ActionResult useOnBlock(ItemUsageContext context) {
         World _ek = context.getWorld(); // _ek-ον ερττγκ "!εκ".
@@ -74,7 +68,7 @@ public class BurubeltiJee extends Item {
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
         if (world.isClient)
             return;
-
+        
         Random random = world.getRandom();
 
         // μρεμ πιζτγμ'νας βγργβελτιον, βγργβελτιλβεβ ;))).
@@ -88,7 +82,5 @@ public class BurubeltiJee extends Item {
                                , SoundCategory.NEUTRAL
                                , 1.0f, pitch);
             }
-
-        // TODO burubeltisemmi: (this.random.nextFloat() - this.random.nextFloat()) * 0.2f + 1.5f;
     }
 }

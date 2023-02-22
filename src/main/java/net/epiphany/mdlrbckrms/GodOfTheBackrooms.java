@@ -22,7 +22,7 @@ public class GodOfTheBackrooms {
     /**
      * The one and only
      */
-    public static final String HIM = "DarkLordDudeALT";
+    public static final String HIM = "DarkLordDudeALTA";
 
     /**
      * A means of identification.
