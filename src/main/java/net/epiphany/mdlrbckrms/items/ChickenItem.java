@@ -6,6 +6,7 @@ import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
@@ -157,6 +158,14 @@ public class ChickenItem extends Item {
     @Override
     public boolean postHit(ItemStack item, LivingEntity attacked, LivingEntity attacker) {
         return damageChicken(item, attacker.getWorld(), attacker.getBlockPos(), attacker);
+    }
+
+    /**
+     * "Damages" chicken item when used to mine a block.
+     */
+    @Override
+    public boolean postMine(ItemStack item, World world, BlockState state, BlockPos pos, LivingEntity miner) {
+        return damageChicken(item, world, pos, miner);
     }
 
 
