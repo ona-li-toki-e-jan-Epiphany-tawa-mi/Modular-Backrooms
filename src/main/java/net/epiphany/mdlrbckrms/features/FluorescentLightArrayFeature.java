@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.minecraft.block.BlockState;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.StructureWorldAccess;
@@ -19,6 +20,10 @@ public class FluorescentLightArrayFeature extends Feature<FluorescentLightArrayC
                                                                               , "fluorescent_light_array");
     public static final Feature<FluorescentLightArrayConfig> FLUORESCENT_LIGHT_ARRAY_FEATURE = 
             new FluorescentLightArrayFeature(FluorescentLightArrayConfig.CODEC);
+
+    public static void register() {
+        Registry.register(Registries.FEATURE, FluorescentLightArrayFeature.FLUORESCENT_LIGHT_ARRAY_ID, FluorescentLightArrayFeature.FLUORESCENT_LIGHT_ARRAY_FEATURE);
+    }
 
     public FluorescentLightArrayFeature(Codec<FluorescentLightArrayConfig> configCodec) {
         super(configCodec);

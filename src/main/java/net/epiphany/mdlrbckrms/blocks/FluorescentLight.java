@@ -3,6 +3,7 @@ package net.epiphany.mdlrbckrms.blocks;
 import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.epiphany.mdlrbckrms.utilities.Sounds;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
@@ -10,6 +11,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager.Builder;
@@ -42,6 +45,15 @@ public class FluorescentLight extends Block {
     public static final BlockItem FLUORESCENT_LIGHT_ITEM = new BlockItem( FluorescentLight.FLUORESCENT_LIGHT
                                                                         , new FabricItemSettings());
 
+    public static void register() {
+        Registry.register(Registries.BLOCK, FluorescentLight.FLUORESCENT_LIGHT_ID, FluorescentLight.FLUORESCENT_LIGHT);
+        Registry.register(Registries.ITEM, FluorescentLight.FLUORESCENT_LIGHT_ID, FluorescentLight.FLUORESCENT_LIGHT_ITEM);
+    }
+
+    public static void registerBlockItemUnderGroup(FabricItemGroupEntries content) {
+        content.add(FluorescentLight.FLUORESCENT_LIGHT_ITEM);
+    }
+
     public FluorescentLight(Settings settings) {
         super(settings);
         setDefaultState(getDefaultState().with(ON, true));
@@ -71,7 +83,7 @@ public class FluorescentLight extends Block {
      * @param state      The sate of the light block.
      * @param world      The world the light is in.
      * @param position   The position of the light.
-     * @param lightState true for on, false for off.
+     * @param lightState {@code true} for on, {@code false} for off.
      */
     private void cascadeSetLightState(BlockState state, ServerWorld world, BlockPos position, boolean lightState, Random random) {
         if (FLUORESCENT_LIGHT.equals(state.getBlock()) && state.get(ON) != lightState) {

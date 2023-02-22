@@ -5,6 +5,7 @@ import com.mojang.serialization.Codec;
 import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.minecraft.block.BlockState;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
@@ -18,6 +19,10 @@ import net.minecraft.world.gen.feature.util.FeatureContext;
 public class ChunkWallFeature extends Feature<ChunkWallConfig> {
     public static final Identifier CHUNK_WALL_ID = new Identifier(ModularBackrooms.MOD_ID, "chunk_wall");
     public static final Feature<ChunkWallConfig> CHUNK_WALL_FEATURE = new ChunkWallFeature(ChunkWallConfig.CODEC);
+
+    public static void register() {
+        Registry.register(Registries.FEATURE, ChunkWallFeature.CHUNK_WALL_ID, ChunkWallFeature.CHUNK_WALL_FEATURE);
+    }
 
     public ChunkWallFeature(Codec<ChunkWallConfig> configCodec) {
         super(configCodec);

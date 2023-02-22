@@ -5,11 +5,13 @@ import java.util.Optional;
 import com.mojang.serialization.Codec;
 
 import net.epiphany.mdlrbckrms.ModularBackrooms;
+import net.epiphany.mdlrbckrms.features.Features.PillarCondition;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.enums.DoorHinge;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -26,6 +28,10 @@ import net.minecraft.world.gen.feature.util.FeatureContext;
 public class WalledDoorFeature extends Feature<WalledDoorConfig> {
     public static final Identifier WALLED_DOOR_ID = new Identifier(ModularBackrooms.MOD_ID, "walled_door");
     public static final Feature<WalledDoorConfig> WALLED_DOOR_FEATURE = new WalledDoorFeature(WalledDoorConfig.CODEC);
+
+    public static void register() {
+        Registry.register(Registries.FEATURE, WalledDoorFeature.WALLED_DOOR_ID, WalledDoorFeature.WALLED_DOOR_FEATURE);
+    }
 
     public WalledDoorFeature(Codec<WalledDoorConfig> configCodec) {
         super(configCodec);
@@ -155,10 +161,8 @@ public class WalledDoorFeature extends Feature<WalledDoorConfig> {
     private Optional<Direction> determineFacing(WorldAccess world, Random random, BlockPos doorOrigin, Direction direction) {
         Direction opposite = direction.getOpposite();
 
-        boolean canFaceDirection = world.getBlockState(doorOrigin.offset(direction)).isAir() 
-                                && world.getBlockState(doorOrigin.offset(direction).up()).isAir()
-              , canFaceOpposite  = world.getBlockState(doorOrigin.offset(opposite)).isAir() 
-                                && world.getBlockState(doorOrigin.offset(opposite).up()).isAir();
+        boolean canFaceDirection = Features.testPillar(world, doorOrigin.offset(direction), 2, PillarCondition.AIR)
+              , canFaceOpposite  = Features.testPillar(world, doorOrigin.offset(opposite), 2, PillarCondition.AIR);
         
         if (!canFaceDirection && !canFaceOpposite)
             return Optional.empty();

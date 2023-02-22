@@ -1,5 +1,7 @@
 package net.epiphany.mdlrbckrms.levels.level0;
 
+import java.util.Set;
+
 import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.epiphany.mdlrbckrms.utilities.DimensionHelper;
 import net.minecraft.registry.RegistryKey;
@@ -17,4 +19,8 @@ public class Level0 {
 
     public static final RegistryKey<World> LEVEL_0_DIMENSION_KEY = DimensionHelper.wrapDimensionID(
         new Identifier(ModularBackrooms.MOD_ID, LEVEL_0_ID));
+
+    public static void register(Set<RegistryKey<World>> backroomsLevelsSet) {
+        backroomsLevelsSet.add(Level0.LEVEL_0_DIMENSION_KEY);
+    }
 }

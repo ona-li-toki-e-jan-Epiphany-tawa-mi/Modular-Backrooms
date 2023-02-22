@@ -15,6 +15,8 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+// TODO Replace with redirect of targeted method in useOnBlock.
+
 /**
  * Prevents portals to the End from being formed in the backrooms.
  */

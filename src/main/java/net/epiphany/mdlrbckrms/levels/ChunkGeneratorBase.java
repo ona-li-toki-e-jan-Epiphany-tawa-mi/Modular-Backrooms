@@ -6,6 +6,9 @@ import net.minecraft.world.biome.source.BiomeSource;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 
+/**
+ * TODO Note: currently unused and will be removed. File will be kept around for fillRegion which will be needed later.
+ */
 public abstract class ChunkGeneratorBase extends ChunkGenerator {
     public ChunkGeneratorBase(BiomeSource biomeSource) {
         super(biomeSource);

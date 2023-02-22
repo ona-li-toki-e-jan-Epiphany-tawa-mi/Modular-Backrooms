@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.GlobalPos;
 
 /**
- * Modifiers the hadling of data for the display of dynamically rendered models, currently used for disrupting compasses.
+ * Modified the handling of data for the display of dynamically rendered models, currently used for disrupting compasses.
  */
 @Mixin(ModelPredicateProviderRegistry.class)
 public class ModelPredicateProviderRegistryMixin {

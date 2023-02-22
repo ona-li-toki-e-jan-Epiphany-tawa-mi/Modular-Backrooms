@@ -24,7 +24,7 @@ public class Levels {
     public static void registerLevels() {
         ModularBackrooms.LOGGER.debug("Registering backrooms levels");
 
-        backroomsLevels.add(Level0.LEVEL_0_DIMENSION_KEY);
+        Level0.register(backroomsLevels);
 
         ModularBackrooms.LOGGER.debug("Backrooms level registration complete");
     }

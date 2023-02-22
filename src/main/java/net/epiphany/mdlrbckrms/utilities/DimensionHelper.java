@@ -54,7 +54,7 @@ public class DimensionHelper {
      * 
      * @param world        Another world to piggyback off of to get the server instance.
      * @param dimensionKey The dimension registry key.
-     * @return The world, or null if it could not be found.
+     * @return The world, or {@code null} if it could not be found.
      */
     @Nullable
     public static ServerWorld getWorldByKey(World world, RegistryKey<World> dimensionKey) {
@@ -77,14 +77,14 @@ public class DimensionHelper {
 
     /**
      * Teleports an entity into the given dimension at their location. If the dimension could not be found the entity will not
-     *  be teleported and null will be returned. Applies Resistance V to make sure they survive the trip.
+     *  be teleported and {@code null} will be returned. Applies Resistance V to make sure they survive the trip.
      * 
      * @param entity       The entity to teleport.
      * @param <E>          The type of the entity.
      * @param dimension    The dimension to teleport it into.
      * @param applyScaling Whether to account for the coordinate scaling factor of the 2 dimensions.
-     * @return The teleported entity, or null, if the teleport failed. Note: if non-player the original may be destroyed and 
-     *  it's replacement will be returned.
+     * @return The teleported entity, or {@code null}, if the teleport failed. Note: if non-player the original may be 
+     *  destroyed and it's replacement will be returned.
      */
     @Nullable
     public static <E extends Entity> E teleportToDimension(E entity, RegistryKey<World> dimension, boolean applyScaling) {
@@ -93,7 +93,7 @@ public class DimensionHelper {
 
     /**
      * Teleports an entity into the given dimension. If the dimension could not be found the entity will not
-     *  be teleported and null will be returned. Applies Resistance V to make sure they survive the trip.
+     *  be teleported and {@code null} will be returned. Applies Resistance V to make sure they survive the trip.
      * 
      * @param entity       The entity to teleport.
      * @param <E>          The type of the entity.
@@ -102,8 +102,8 @@ public class DimensionHelper {
      * @param y            The destination y-coordinate.
      * @param z            The destination z-coordinate.
      * @param applyScaling Whether to account for the coordinate scaling factor of the 2 dimensions.
-     * @return The teleported entity, or null, if the teleport failed. Note: if non-player the original may be destroyed and 
-     *  it's replacement will be returned.
+     * @return The teleported entity, or {@code null}, if the teleport failed. Note: if non-player the original may be 
+     *  destroyed and it's replacement will be returned.
      */
     @Nullable
     public static <E extends Entity> E teleportToDimension(E entity, RegistryKey<World> dimension, double x, double y
@@ -113,15 +113,15 @@ public class DimensionHelper {
 
     /**
      * Teleports an entity into the given dimension. If the dimension could not be found the entity will not
-     *  be teleported and null will be returned. Applies Resistance V to make sure they survive the trip.
+     *  be teleported and {@code null} will be returned. Applies Resistance V to make sure they survive the trip.
      * 
      * @param entity       The entity to teleport.
      * @param <E>          The type of the entity.
      * @param dimension    The dimension to teleport it into.
      * @param position     The position to teleport it to.
      * @param applyScaling Whether to account for the coordinate scaling factor of the 2 dimensions.
-     * @return The teleported entity, or null, if the teleport failed. Note: if non-player the original may be destroyed and 
-     *  it's replacement will be returned.
+     * @return The teleported entity, or {@code null}, if the teleport failed. Note: if non-player the original may be 
+     *  destroyed and it's replacement will be returned.
      */
     @Nullable
     public static <E extends Entity> E teleportToDimension(E entity, RegistryKey<World> dimension, Vec3d position
@@ -185,15 +185,15 @@ public class DimensionHelper {
 
     /**
      * Teleports an entity into the given dimension at a random, but safe, location. If the dimension or a safe spot inside it
-     *  could not be found the entity will not be teleported and null will be returned. Applies Resistance V to make sure 
-     *  they survive the trip.
+     *  could not be found the entity will not be teleported and {@code null} will be returned. Applies Resistance V to make 
+     *  sure they survive the trip.
      * 
      * @param entity    The entity to teleport.
      * @param <E>       The type of the entity.
      * @param dimension The dimension to teleport it into.
      * @param random    Random number generator.
-     * @return The teleported entity, or null, if the teleport failed. Note: if non-player the original may be destroyed and 
-     *  it's replacement will be returned.
+     * @return The teleported entity, or {@code null}, if the teleport failed. Note: if non-player the original may be 
+     *  destroyed and it's replacement will be returned.
      */
     @Nullable
     public static <E extends Entity> E teleportToDimension(E entity, RegistryKey<World> dimension, Random random) {
@@ -209,15 +209,15 @@ public class DimensionHelper {
 
     /**
      * Teleports an entity into the given dimension at a random, but safe, location. If a safe spot inside the dimension
-     *  could not be found the entity will not be teleported and null will be returned. Applies Resistance V to make sure 
-     *  they survive the trip.
+     *  could not be found the entity will not be teleported and {@code null} will be returned. Applies Resistance V to make 
+     *  sure they survive the trip.
      * 
      * @param entity The entity to teleport.
      * @param <E>    The type of the entity.
      * @param world  The dimension to teleport it to.
      * @param random Random number generator.
-     * @return The teleported entity, or null, if the teleport failed. Note: if non-player the original may be destroyed and 
-     *  it's replacement will be returned.
+     * @return The teleported entity, or {@code null}, if the teleport failed. Note: if non-player the original may be 
+     *  destroyed and it's replacement will be returned.
      */
     @Nullable
     public static <E extends Entity> E teleportToDimension(E entity, ServerWorld world, Random random) {
