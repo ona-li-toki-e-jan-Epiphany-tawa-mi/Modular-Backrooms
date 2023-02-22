@@ -26,7 +26,7 @@ public class DividerWallFeature extends Feature<DividerWallConfig> {
     public static final Feature<DividerWallConfig> DIVIDER_WALL_FEATURE = new DividerWallFeature(DividerWallConfig.CODEC);
 
     public static void register() {
-        Registry.register(Registries.FEATURE, DividerWallFeature.DIVIDER_WALL_ID, DividerWallFeature.DIVIDER_WALL_FEATURE);
+        Registry.register(Registries.FEATURE, DIVIDER_WALL_ID, DIVIDER_WALL_FEATURE);
     }
 
     public DividerWallFeature(Codec<DividerWallConfig> configCodec) {

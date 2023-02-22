@@ -1,0 +1,10 @@
+{
+    "type": "smoking",
+    "group": "mdlrbckrms",
+    "ingredient": {
+        "item": "mdlrbckrms:burubelti"
+    },
+    "result": "minecraft:cooked_chicken",
+    "experience": 2.0,
+    "cookingtime": 100
+}

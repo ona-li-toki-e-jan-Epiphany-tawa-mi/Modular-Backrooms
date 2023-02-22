@@ -21,6 +21,6 @@ public class Level0 {
         new Identifier(ModularBackrooms.MOD_ID, LEVEL_0_ID));
 
     public static void register(Set<RegistryKey<World>> backroomsLevelsSet) {
-        backroomsLevelsSet.add(Level0.LEVEL_0_DIMENSION_KEY);
+        backroomsLevelsSet.add(LEVEL_0_DIMENSION_KEY);
     }
 }

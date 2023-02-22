@@ -30,7 +30,7 @@ public class WalledDoorFeature extends Feature<WalledDoorConfig> {
     public static final Feature<WalledDoorConfig> WALLED_DOOR_FEATURE = new WalledDoorFeature(WalledDoorConfig.CODEC);
 
     public static void register() {
-        Registry.register(Registries.FEATURE, WalledDoorFeature.WALLED_DOOR_ID, WalledDoorFeature.WALLED_DOOR_FEATURE);
+        Registry.register(Registries.FEATURE, WALLED_DOOR_ID, WALLED_DOOR_FEATURE);
     }
 
     public WalledDoorFeature(Codec<WalledDoorConfig> configCodec) {

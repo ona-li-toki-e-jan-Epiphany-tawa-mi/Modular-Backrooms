@@ -21,7 +21,7 @@ public class ChunkWallFeature extends Feature<ChunkWallConfig> {
     public static final Feature<ChunkWallConfig> CHUNK_WALL_FEATURE = new ChunkWallFeature(ChunkWallConfig.CODEC);
 
     public static void register() {
-        Registry.register(Registries.FEATURE, ChunkWallFeature.CHUNK_WALL_ID, ChunkWallFeature.CHUNK_WALL_FEATURE);
+        Registry.register(Registries.FEATURE, CHUNK_WALL_ID, CHUNK_WALL_FEATURE);
     }
 
     public ChunkWallFeature(Codec<ChunkWallConfig> configCodec) {

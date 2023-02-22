@@ -26,6 +26,8 @@ public class Items {
     public static void registerItems() {
         ModularBackrooms.LOGGER.debug("Registering items");
 
+        BurubeltiJee.register();
+
         ItemGroupEvents.modifyEntriesEvent(BACKROOMS_ITEM_GROUP).register(Items::registerItemUnderGroup);
 
         ModularBackrooms.LOGGER.debug("Item registration complete");
@@ -35,6 +37,8 @@ public class Items {
      * Registers the Backrooms items under their item group for the creative menu.
      */
     private static void registerItemUnderGroup(FabricItemGroupEntries content) {
+        BurubeltiJee.registerItemUnderGroup(content);
+
         Blocks.registerBlockItemUnderGroup(content);
     }
 }

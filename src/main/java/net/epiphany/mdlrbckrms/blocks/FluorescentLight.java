@@ -42,16 +42,16 @@ public class FluorescentLight extends Block {
                            .luminance(state -> state.get(ON) ? 15 : 0)
                            .ticksRandomly()
                            .strength(Blocks.UNBREAKABLE, Blocks.UNBLASTABLE));
-    public static final BlockItem FLUORESCENT_LIGHT_ITEM = new BlockItem( FluorescentLight.FLUORESCENT_LIGHT
+    public static final BlockItem FLUORESCENT_LIGHT_ITEM = new BlockItem( FLUORESCENT_LIGHT
                                                                         , new FabricItemSettings());
 
     public static void register() {
-        Registry.register(Registries.BLOCK, FluorescentLight.FLUORESCENT_LIGHT_ID, FluorescentLight.FLUORESCENT_LIGHT);
-        Registry.register(Registries.ITEM, FluorescentLight.FLUORESCENT_LIGHT_ID, FluorescentLight.FLUORESCENT_LIGHT_ITEM);
+        Registry.register(Registries.BLOCK, FLUORESCENT_LIGHT_ID, FLUORESCENT_LIGHT);
+        Registry.register(Registries.ITEM, FLUORESCENT_LIGHT_ID, FLUORESCENT_LIGHT_ITEM);
     }
 
     public static void registerBlockItemUnderGroup(FabricItemGroupEntries content) {
-        content.add(FluorescentLight.FLUORESCENT_LIGHT_ITEM);
+        content.add(FLUORESCENT_LIGHT_ITEM);
     }
 
     public FluorescentLight(Settings settings) {

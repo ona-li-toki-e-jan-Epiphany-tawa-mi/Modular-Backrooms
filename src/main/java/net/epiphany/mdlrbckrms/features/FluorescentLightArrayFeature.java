@@ -22,7 +22,7 @@ public class FluorescentLightArrayFeature extends Feature<FluorescentLightArrayC
             new FluorescentLightArrayFeature(FluorescentLightArrayConfig.CODEC);
 
     public static void register() {
-        Registry.register(Registries.FEATURE, FluorescentLightArrayFeature.FLUORESCENT_LIGHT_ARRAY_ID, FluorescentLightArrayFeature.FLUORESCENT_LIGHT_ARRAY_FEATURE);
+        Registry.register(Registries.FEATURE, FLUORESCENT_LIGHT_ARRAY_ID, FLUORESCENT_LIGHT_ARRAY_FEATURE);
     }
 
     public FluorescentLightArrayFeature(Codec<FluorescentLightArrayConfig> configCodec) {
