@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -72,7 +73,6 @@ public class ChickenItem extends Item {
 
 
     
-    //TODO onItemEntityDestroyed
     // TODO πγργηξε αλ'sound-βγλ ον'κελβεβ βγργβελτι.
     /**
      * Allows placing the chicken into the world.
@@ -132,6 +132,23 @@ public class ChickenItem extends Item {
                              , SoundEvents.ENTITY_CHICKEN_AMBIENT
                              , SoundCategory.NEUTRAL
                              , 1.0f, getPitch(random));
+    }
+
+    /**
+     * Plays chicken death sounds when a chicken item entity is destroyed.
+     */
+    @Override
+    public void onItemEntityDestroyed(ItemEntity entity) {
+        World world = entity.getWorld();
+        Random random = world.getRandom();
+        BlockPos position = entity.getBlockPos();
+
+        for (int i = 0; i < entity.getStack().getCount(); i++)
+            world.playSound( null
+                           , position
+                           , SoundEvents.ENTITY_CHICKEN_DEATH
+                           , SoundCategory.NEUTRAL
+                           , 1.0f, getPitch(random));
     }
 
     /**

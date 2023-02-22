@@ -6,7 +6,7 @@
     "overrides": [
       {
         "predicate": {
-          "damage_time": 1.0
+          "damaged": 1.0
         },
         "model": "mdlrbckrms:item/chicken_damaged"
       }

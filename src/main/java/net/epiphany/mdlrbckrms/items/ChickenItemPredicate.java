@@ -13,7 +13,7 @@ import net.minecraft.util.Identifier;
 public class ChickenItemPredicate {
     public static void register() {
         ModelPredicateProviderRegistry.register( ChickenItem.CHICKEN
-                                               , new Identifier("damage_time")
+                                               , new Identifier("damaged")
                                                , (item, clientWorld, livinEntity, seed) -> {
             NbtCompound nbt = item.getNbt();
             if (nbt == null)                                     
