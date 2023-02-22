@@ -57,6 +57,7 @@ import org.slf4j.LoggerFactory;
  * 
  * "tels" xlemulbeb purugsem ma'splash-orbeb "tels" per m'jeeorbeb rebbenbeb tels-jee.
  * 
+ * - Add discovery method for recipes using destroyed labs and lab notes.
  * - (Possibly) Make non-linear space with immersive portals.
  * - (Possibly) change placement of walls and openings through time
  * - Give self the ability to open rifts between worlds and display cool particle effects.
