@@ -17,6 +17,11 @@ import org.slf4j.LoggerFactory;
  * - Do something special if a player tries to sleep.
  * - Add randomly generated rifts.
  * - Debug placement of divider walls and walled doors (walled doors can face into walls and divider walls can spawn butted up to chunk walls.)
+ * - Advancements:
+ * 	* Enter Backrooms.
+ * 	* Kill chicken with chicken.
+ *  * Catch chicken.
+ *  * Kill player or boss mob with chicken.
  * 
  * - Make player craftable and destroyable versions of the blocks used in level 0 with the following recepies:
  * Yellowed Wallpaper (makes 4):

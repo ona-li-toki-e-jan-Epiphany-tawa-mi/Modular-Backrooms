@@ -20,6 +20,9 @@
   "entrypoints": {
     "main": [
       "net.epiphany.mdlrbckrms.ModularBackrooms"
+    ],
+    "client": [
+      "net.epiphany.mdlrbckrms.ModularBackroomsClient"
     ]
   },
   "mixins": [

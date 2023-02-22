@@ -3,6 +3,8 @@ package net.epiphany.mdlrbckrms.items;
 import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.epiphany.mdlrbckrms.blocks.Blocks;
 import net.epiphany.mdlrbckrms.blocks.FluorescentLight;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -26,7 +28,7 @@ public class Items {
     public static void registerItems() {
         ModularBackrooms.LOGGER.debug("Registering items");
 
-        BurubeltiJee.register();
+        ChickenItem.register();
 
         ItemGroupEvents.modifyEntriesEvent(BACKROOMS_ITEM_GROUP).register(Items::registerItemUnderGroup);
 
@@ -37,8 +39,16 @@ public class Items {
      * Registers the Backrooms items under their item group for the creative menu.
      */
     private static void registerItemUnderGroup(FabricItemGroupEntries content) {
-        BurubeltiJee.registerItemUnderGroup(content);
+        ChickenItem.registerItemUnderGroup(content);
 
         Blocks.registerBlockItemUnderGroup(content);
+    }
+
+    /**
+     * Registers custom item predicates for dynamic item models.
+     */
+    @Environment(EnvType.CLIENT)
+    public static void registerItemPredicates() {
+        ChickenItemPredicate.register();
     }
 }

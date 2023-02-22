@@ -1,0 +1,14 @@
+{
+    "parent": "item/generated",
+    "textures": {
+      "layer0": "mdlrbckrms:item/chicken/chicken"
+    },
+    "overrides": [
+      {
+        "predicate": {
+          "damage_time": 1.0
+        },
+        "model": "mdlrbckrms:item/chicken_damaged"
+      }
+    ]
+}
