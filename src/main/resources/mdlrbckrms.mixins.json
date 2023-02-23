@@ -6,7 +6,9 @@
   "mixins": [
     "NoPortalEnderEyeItemMixin",
     "AbstractDecorationEntityMixin",
-    "ItemEntityMixin"
+    "ItemEntityMixin",
+    "AbstractFurnaceBlockEntityMixin",
+    "CampfireBlockEntityMixin"
   ],
   "client": [
     "DebugHudAccessor",

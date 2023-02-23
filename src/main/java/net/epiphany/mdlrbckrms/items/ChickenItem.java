@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
@@ -82,7 +83,6 @@ public class ChickenItem extends Item {
 
 
     
-    // TODO πγργηξε αλ'sound-βγλ ον'κελβεβ βγργβελτι.
     /**
      * Allows placing the chicken into the world.
      */
@@ -195,7 +195,6 @@ public class ChickenItem extends Item {
     @Override
     public void onItemEntityDestroyed(ItemEntity entity) {
         ServerWorld world = (ServerWorld) entity.getWorld();
-        Random random = world.getRandom();
         BlockPos position = entity.getBlockPos();
         int chickenCount = entity.getStack().getCount();
         
@@ -216,11 +215,26 @@ public class ChickenItem extends Item {
             }
 
         for (int i = 0; i < chickenCount; i++)
-            world.playSound( null
-                           , position
-                           , SoundEvents.ENTITY_CHICKEN_DEATH
-                           , SoundCategory.NEUTRAL
-                           , 1.0f, getPitch(random));
+           playChickenDeathSound(world, position);
+    }
+
+    private static final int FURNACE_INGREDIENT_SLOT = 0;
+    /**
+     * Plays a death sound when chicken items are cooked in furnaces and similar blocks.
+     */
+    public static void onFurnaceCraftRecipe(World world, BlockPos position, AbstractFurnaceBlockEntity furnaceBlockEntity) {
+        ItemStack ingredient = furnaceBlockEntity.getStack(FURNACE_INGREDIENT_SLOT);
+        
+        if (CHICKEN.equals(ingredient.getItem()))
+            playChickenDeathSound(world, position);
+    }
+
+    /**
+     * Plays a death sound when chicken items are cooked with a campfire and similar blocks.
+     */
+    public static void onCampfireCookItem(World world, BlockPos position, ItemStack ingredient) {
+        if (CHICKEN.equals(ingredient.getItem()))
+            playChickenDeathSound(world, position);
     }
 
     /**
@@ -290,9 +304,25 @@ public class ChickenItem extends Item {
                        , SoundCategory.NEUTRAL
                        , 1.0f, getPitch(random));
     }
+    
+    /**
+     * Plays the chicken death sound.
+     * 
+     * @param world    The world to play the sound in.
+     * @param position Where to play the sound.
+     */
+    public static void playChickenDeathSound(World world, BlockPos position) {
+        Random random = world.getRandom();
+
+        world.playSound( null
+                       , position
+                       , SoundEvents.ENTITY_CHICKEN_DEATH
+                       , SoundCategory.NEUTRAL
+                       , 1.0f, getPitch(random));
+    }
 
     /**
-     * Just a copy of the pitch generators used in {@link ChickenEntity}
+     * Just a copy of the pitch generators used in {@link ChickenEntity}.
      * 
      * @param random Random number generator.
      * @return A random pitch to use for the sounds of an adult animal.
