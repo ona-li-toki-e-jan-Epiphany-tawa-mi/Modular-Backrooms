@@ -29,6 +29,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
@@ -130,62 +131,78 @@ public class ChickenItem extends Item {
         
         Random random = world.getRandom();
         int chickenCount = item.getCount();
+        BlockPos position = entity.getBlockPos();
         
         // Clucks whilst the chicken item is in the player's inventory.
         for (int i = 0; i < chickenCount; i++) 
             if (random.nextInt(1000) < 3) 
-                playChickenAmbientSound(world, entity.getBlockPos());
+                playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_AMBIENT);
 
 
         // Randomly gives eggs to players holding chicken items.
         if (entity instanceof PlayerEntity player)
             for (int i = 0; i < chickenCount; i++) 
-                // Approximately the same as chicken egg drop timing.
-                if (random.nextInt(24000) < random.nextBetween(2, 4)) {
+                if (shouldLayEgg(random)) {
                     ItemStack egg = new ItemStack(Items.EGG);
                     if (!player.giveItemStack(egg))
                         player.dropItem(egg, false);
                     
-                    world.playSound(null
-                                   , player.getBlockPos()
-                                   , SoundEvents.ENTITY_CHICKEN_EGG
-                                   , SoundCategory.NEUTRAL
-                                   , 1.0f, getPitch(random));
+                    playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_EGG);
                 }
     }
 
     /**
-     * Clucks whilst in an item frame.
+     * Clucks and lays eggs whilst in an item frame.
      */
     public static void onItemFrameTick(ItemFrameEntity itemFrame) {
         World world = itemFrame.getWorld();
         if (world.isClient) 
             return;
-        
-        ItemStack item = itemFrame.getHeldItemStack();
-        Random random = world.getRandom();
 
-        if (CHICKEN.equals(item.getItem()))
-            for (int i = 0; i < item.getCount(); i++)
-                if (random.nextInt(1000) < 3) 
-                    playChickenAmbientSound(world, itemFrame.getBlockPos());
+        if (CHICKEN.equals(itemFrame.getHeldItemStack().getItem())) {
+            Random random = world.getRandom();
+            BlockPos position = itemFrame.getBlockPos();
+                
+            if (shouldPlayAmbientNoise(random)) 
+                playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_AMBIENT);
+
+            if (shouldLayEgg(random)) {
+                ItemEntity egg = new ItemEntity( world, itemFrame.getX(), itemFrame.getY(), itemFrame.getZ()
+                                               , new ItemStack(Items.EGG));
+                world.spawnEntity(egg);
+
+                playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_EGG);
+            }
+        }
     }
 
     /**
-     * Clucks whilst being an item entity.
+     * Clucks and lays eggs whilst being an item entity.
      */
     public static void onItemEntityTick(ItemEntity itemEntity) {
         World world = itemEntity.getWorld();
         if (world.isClient) 
             return;
-        
+    
         ItemStack item = itemEntity.getStack();
-        Random random = world.getRandom();
 
-        if (CHICKEN.equals(item.getItem()))
-            for (int i = 0; i < item.getCount(); i++)
-                if (random.nextInt(1000) < 3) 
-                    playChickenAmbientSound(world, itemEntity.getBlockPos());
+        if (CHICKEN.equals(itemEntity.getStack().getItem())) {
+            Random random = world.getRandom();
+            BlockPos position = itemEntity.getBlockPos();
+
+            for (int i = 0; i < item.getCount(); i++) {
+                if (shouldPlayAmbientNoise(random)) 
+                    playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_AMBIENT);
+
+                if (shouldLayEgg(random)) {
+                    ItemEntity egg = new ItemEntity( world, itemEntity.getX(), itemEntity.getY(), itemEntity.getZ()
+                                                   , new ItemStack(Items.EGG));
+                    world.spawnEntity(egg);
+
+                    playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_EGG);
+                }
+            }
+        }
     }
 
     private static final Identifier CHICKEN_LOOT_TABLE_ID = new Identifier("minecraft", "entities/chicken");
@@ -215,7 +232,7 @@ public class ChickenItem extends Item {
             }
 
         for (int i = 0; i < chickenCount; i++)
-           playChickenDeathSound(world, position);
+            playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_DEATH);
     }
 
     private static final int FURNACE_INGREDIENT_SLOT = 0;
@@ -226,7 +243,7 @@ public class ChickenItem extends Item {
         ItemStack ingredient = furnaceBlockEntity.getStack(FURNACE_INGREDIENT_SLOT);
         
         if (CHICKEN.equals(ingredient.getItem()))
-            playChickenDeathSound(world, position);
+            playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_DEATH);
     }
 
     /**
@@ -234,7 +251,7 @@ public class ChickenItem extends Item {
      */
     public static void onCampfireCookItem(World world, BlockPos position, ItemStack ingredient) {
         if (CHICKEN.equals(ingredient.getItem()))
-            playChickenDeathSound(world, position);
+            playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_HURT);
     }
 
     /**
@@ -256,6 +273,26 @@ public class ChickenItem extends Item {
 
 
     /**
+     * Tells whether the chicken item should lay an egg. Approximately the same as chicken egg drop timing.
+     * 
+     * @param random Random number generator.
+     * @return Whether the chicken should lay an egg.
+     */
+    private static boolean shouldLayEgg(Random random) {
+         return random.nextInt(24000) < random.nextBetween(2, 4);
+    }
+
+    /**
+     * Tells whether the chicken item should play an ambient noise.
+     * 
+     * @param random Random number generator.
+     * @return Whether the chicken should play an ambient noise.
+     */
+    private static boolean shouldPlayAmbientNoise(Random random) {
+        return random.nextInt(1000) < 3;
+    }
+
+    /**
      * "Damages" the chicken item, causing it to turn red and the chicken damamage sound to play.
      * 
      * @param item     The chicken item.
@@ -270,15 +307,8 @@ public class ChickenItem extends Item {
         if (nbt != null && nbt.getInt(DAMAGE_TIME) > 0)
             return false;
 
-
-        Random random = world.getRandom();
         for (int i = 0; i < item.getCount(); i++)
-            world.playSound( null
-                           , position
-                           , SoundEvents.ENTITY_CHICKEN_HURT
-                           , SoundCategory.NEUTRAL
-                           , 1.0f, getPitch(random));
-
+            playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_HURT);
 
         int cooldown = 10 - item.getCount() / 2; // More chickens, more hits.
         if (wielder instanceof PlayerEntity player)
@@ -290,44 +320,20 @@ public class ChickenItem extends Item {
     }
 
     /**
-     * Plays the chicken ambient sound.
+     * Plays a chicken sound as it would be with a normal chicken.
      * 
-     * @param world    The world to play the sound in.
-     * @param position Where to play the sound.
+     * @param world        The world to play the sound in.
+     * @param position     Where to play the sound.
+     * @param chickenSound The sound to play.
      */
-    private static void playChickenAmbientSound(World world, BlockPos position) {
+    public static void playChickenSound(World world, BlockPos position, SoundEvent chickenSound) {
         Random random = world.getRandom();
+        float pitch = (random.nextFloat() -random.nextFloat()) * 0.2f + 1.0f; // Clone of adult MobEntity pitch calculator.
 
         world.playSound( null
                        , position
-                       , SoundEvents.ENTITY_CHICKEN_AMBIENT
+                       , chickenSound
                        , SoundCategory.NEUTRAL
-                       , 1.0f, getPitch(random));
-    }
-    
-    /**
-     * Plays the chicken death sound.
-     * 
-     * @param world    The world to play the sound in.
-     * @param position Where to play the sound.
-     */
-    public static void playChickenDeathSound(World world, BlockPos position) {
-        Random random = world.getRandom();
-
-        world.playSound( null
-                       , position
-                       , SoundEvents.ENTITY_CHICKEN_DEATH
-                       , SoundCategory.NEUTRAL
-                       , 1.0f, getPitch(random));
-    }
-
-    /**
-     * Just a copy of the pitch generators used in {@link ChickenEntity}.
-     * 
-     * @param random Random number generator.
-     * @return A random pitch to use for the sounds of an adult animal.
-     */
-    private static float getPitch(Random random) {
-        return (random.nextFloat() -random.nextFloat()) * 0.2f + 1.0f;
+                       , 1.0f, pitch);
     }
 }
