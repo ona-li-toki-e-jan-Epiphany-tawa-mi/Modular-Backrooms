@@ -13,6 +13,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -156,6 +157,27 @@ public class ChickenItem extends Item {
                                    , SoundCategory.NEUTRAL
                                    , 1.0f, getPitch(random));
                 }
+    }
+
+    /**
+     * Clucks whilst in an item frame.
+     */
+    public static void onItemFrameTick(ItemFrameEntity itemFrame) {
+        World world = itemFrame.getWorld();
+        if (world.isClient) 
+            return;
+            
+        ItemStack item = itemFrame.getHeldItemStack();
+        Random random = world.getRandom();
+
+        if (CHICKEN.equals(item.getItem()))
+            for (int i = 0; i < item.getCount(); i++)
+                if (random.nextInt(1000) < 3) 
+                        world.playSound( null
+                                       , itemFrame.getBlockPos()
+                                       , SoundEvents.ENTITY_CHICKEN_AMBIENT
+                                       , SoundCategory.NEUTRAL
+                                       , 1.0f, getPitch(random));
     }
 
     private static final Identifier CHICKEN_LOOT_TABLE_ID = new Identifier("minecraft", "entities/chicken");
