@@ -132,14 +132,9 @@ public class ChickenItem extends Item {
         int chickenCount = item.getCount();
         
         // Clucks whilst the chicken item is in the player's inventory.
-        //TODO make work for item frames.
         for (int i = 0; i < chickenCount; i++) 
             if (random.nextInt(1000) < 3) 
-                world.playSound( null
-                             , entity.getBlockPos()
-                             , SoundEvents.ENTITY_CHICKEN_AMBIENT
-                             , SoundCategory.NEUTRAL
-                             , 1.0f, getPitch(random));
+                playChickenAmbientSound(world, entity.getBlockPos());
 
 
         // Randomly gives eggs to players holding chicken items.
@@ -166,18 +161,31 @@ public class ChickenItem extends Item {
         World world = itemFrame.getWorld();
         if (world.isClient) 
             return;
-            
+        
         ItemStack item = itemFrame.getHeldItemStack();
         Random random = world.getRandom();
 
         if (CHICKEN.equals(item.getItem()))
             for (int i = 0; i < item.getCount(); i++)
                 if (random.nextInt(1000) < 3) 
-                        world.playSound( null
-                                       , itemFrame.getBlockPos()
-                                       , SoundEvents.ENTITY_CHICKEN_AMBIENT
-                                       , SoundCategory.NEUTRAL
-                                       , 1.0f, getPitch(random));
+                    playChickenAmbientSound(world, itemFrame.getBlockPos());
+    }
+
+    /**
+     * Clucks whilst being an item entity.
+     */
+    public static void onItemEntityTick(ItemEntity itemEntity) {
+        World world = itemEntity.getWorld();
+        if (world.isClient) 
+            return;
+        
+        ItemStack item = itemEntity.getStack();
+        Random random = world.getRandom();
+
+        if (CHICKEN.equals(item.getItem()))
+            for (int i = 0; i < item.getCount(); i++)
+                if (random.nextInt(1000) < 3) 
+                    playChickenAmbientSound(world, itemEntity.getBlockPos());
     }
 
     private static final Identifier CHICKEN_LOOT_TABLE_ID = new Identifier("minecraft", "entities/chicken");
@@ -265,6 +273,22 @@ public class ChickenItem extends Item {
             nbt.putInt(DAMAGE_TIME, cooldown);
 
         return true;
+    }
+
+    /**
+     * Plays the chicken ambient sound.
+     * 
+     * @param world    The world to play the sound in.
+     * @param position Where to play the sound.
+     */
+    private static void playChickenAmbientSound(World world, BlockPos position) {
+        Random random = world.getRandom();
+
+        world.playSound( null
+                       , position
+                       , SoundEvents.ENTITY_CHICKEN_AMBIENT
+                       , SoundCategory.NEUTRAL
+                       , 1.0f, getPitch(random));
     }
 
     /**
