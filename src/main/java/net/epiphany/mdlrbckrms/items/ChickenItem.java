@@ -2,6 +2,7 @@ package net.epiphany.mdlrbckrms.items;
 
 import org.jetbrains.annotations.Nullable;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
@@ -11,14 +12,19 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.context.LootContext;
+import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -122,12 +128,10 @@ public class ChickenItem extends Item {
         
         Random random = world.getRandom();
 
-        // TODO make check if current item slot is hand or offhand rather than checking to see if the same item type is 
-        //  present their.
-        // Clucks whilst the entity holds them.
+        // Clucks whilst the chicken item is in the player's inventory.
         //TODO make work for item frames.
-        for (ItemStack handItem : entity.getHandItems())
-            if (CHICKEN.equals(handItem.getItem()) && random.nextInt(1000) < handItem.getCount() * 3) 
+        for (int i = 0; i < item.getCount(); i++)
+            if (random.nextInt(1000) < 3) 
                 world.playSound( null
                              , entity.getBlockPos()
                              , SoundEvents.ENTITY_CHICKEN_AMBIENT
@@ -135,16 +139,35 @@ public class ChickenItem extends Item {
                              , 1.0f, getPitch(random));
     }
 
+    private static final Identifier CHICKEN_LOOT_TABLE_ID = new Identifier("minecraft", "entities/chicken");
     /**
-     * Plays chicken death sounds when a chicken item entity is destroyed.
+     * Plays chicken death sounds and drops loot when a chicken item entity is destroyed.
      */
     @Override
     public void onItemEntityDestroyed(ItemEntity entity) {
-        World world = entity.getWorld();
+        ServerWorld world = (ServerWorld) entity.getWorld();
         Random random = world.getRandom();
         BlockPos position = entity.getBlockPos();
+        int chickenCount = entity.getStack().getCount();
 
-        for (int i = 0; i < entity.getStack().getCount(); i++)
+        
+        // Generates chicken drops.
+        LootTable chickenLootTable = world.getServer().getLootManager().getTable(CHICKEN_LOOT_TABLE_ID);
+        if (chickenLootTable != LootTable.EMPTY) 
+            for (int i = 0; i < chickenCount; i++) {
+                ObjectArrayList<ItemStack> drops = chickenLootTable.generateLoot(
+                    new LootContext.Builder(world).parameter(LootContextParameters.THIS_ENTITY, entity)
+                                                  .parameter(LootContextParameters.DAMAGE_SOURCE, DamageSource.GENERIC)
+                                                  .parameter(LootContextParameters.ORIGIN, entity.getPos())
+                                                  .build(chickenLootTable.getType()));
+            
+                for (ItemStack drop : drops) {
+                    ItemEntity dropItemEntity = new ItemEntity(world, entity.getX(), entity.getY(), entity.getZ(), drop);
+                    world.spawnEntity(dropItemEntity);
+                }
+            }
+
+        for (int i = 0; i < chickenCount; i++)
             world.playSound( null
                            , position
                            , SoundEvents.ENTITY_CHICKEN_DEATH

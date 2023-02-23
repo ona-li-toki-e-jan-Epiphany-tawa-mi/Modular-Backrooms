@@ -1,10 +1,10 @@
 {
-    "type": "smelting",
+    "type": "campfire_cooking",
     "group": "mdlrbckrms",
     "ingredient": {
-        "item": "mdlrbckrms:burubelti"
+        "item": "mdlrbckrms:chicken"
     },
     "result": "minecraft:cooked_chicken",
     "experience": 2.0,
-    "cookingtime": 200
+    "cookingtime": 600
 }
