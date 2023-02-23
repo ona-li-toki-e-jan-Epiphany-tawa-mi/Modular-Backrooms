@@ -18,6 +18,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.item.Items;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
@@ -127,16 +128,34 @@ public class ChickenItem extends Item {
 
         
         Random random = world.getRandom();
-
+        int chickenCount = item.getCount();
+        
         // Clucks whilst the chicken item is in the player's inventory.
         //TODO make work for item frames.
-        for (int i = 0; i < item.getCount(); i++)
+        for (int i = 0; i < chickenCount; i++) 
             if (random.nextInt(1000) < 3) 
                 world.playSound( null
                              , entity.getBlockPos()
                              , SoundEvents.ENTITY_CHICKEN_AMBIENT
                              , SoundCategory.NEUTRAL
                              , 1.0f, getPitch(random));
+
+
+        // Randomly gives eggs to players holding chicken items.
+        if (entity instanceof PlayerEntity player)
+            for (int i = 0; i < chickenCount; i++) 
+                // Approximately the same as chicken egg drop timing.
+                if (random.nextInt(24000) < random.nextBetween(2, 4)) {
+                    ItemStack egg = new ItemStack(Items.EGG);
+                    if (!player.giveItemStack(egg))
+                        player.dropItem(egg, false);
+                    
+                    world.playSound(null
+                                   , player.getBlockPos()
+                                   , SoundEvents.ENTITY_CHICKEN_EGG
+                                   , SoundCategory.NEUTRAL
+                                   , 1.0f, getPitch(random));
+                }
     }
 
     private static final Identifier CHICKEN_LOOT_TABLE_ID = new Identifier("minecraft", "entities/chicken");
@@ -149,7 +168,6 @@ public class ChickenItem extends Item {
         Random random = world.getRandom();
         BlockPos position = entity.getBlockPos();
         int chickenCount = entity.getStack().getCount();
-
         
         // Generates chicken drops.
         LootTable chickenLootTable = world.getServer().getLootManager().getTable(CHICKEN_LOOT_TABLE_ID);
@@ -210,11 +228,12 @@ public class ChickenItem extends Item {
 
 
         Random random = world.getRandom();
-        world.playSound( null
-                       , position
-                       , SoundEvents.ENTITY_CHICKEN_HURT
-                       , SoundCategory.NEUTRAL
-                       , 1.0f, getPitch(random));
+        for (int i = 0; i < item.getCount(); i++)
+            world.playSound( null
+                           , position
+                           , SoundEvents.ENTITY_CHICKEN_HURT
+                           , SoundCategory.NEUTRAL
+                           , 1.0f, getPitch(random));
 
 
         int cooldown = 10 - item.getCount() / 2; // More chickens, more hits.
