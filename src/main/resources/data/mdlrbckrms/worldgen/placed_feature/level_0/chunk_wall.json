@@ -2,7 +2,7 @@
     "feature": {
         "type": "mdlrbckrms:chunk_wall",
         "config": {
-            "blockID": "minecraft:smooth_sandstone",
+            "blockID": "mdlrbckrms:unbreakable_yellowed_wallpaper",
             "height": 4,
             "wallChance": 0.9,
             "openingChance": 0.50

@@ -1,0 +1,7 @@
+{
+    "parent": "block/cube_column",
+    "textures": {
+        "side": "mdlrbckrms:block/yellowed_wallpaper",
+        "end": "minecraft:block/sandstone_bottom"
+    }
+}

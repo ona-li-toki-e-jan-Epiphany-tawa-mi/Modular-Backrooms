@@ -24,10 +24,6 @@ import org.slf4j.LoggerFactory;
  *  * Kill player or boss mob with chicken.
  * 
  * - Make player craftable and destroyable versions of the blocks used in level 0 with the following recepies:
- * Yellowed Wallpaper (makes 4):
- * 	PS
- * 	SY
- * 	> P - paper, S - sandstone (any variant,) Y - yellow dye.
  * Moist Carpet (makes 8):
  *  GGG
  *  GWG
@@ -44,11 +40,6 @@ import org.slf4j.LoggerFactory;
  *  -G-
  *  > I - iron ingot, G - glass, E - end rod, R - purugorbeb rebbentuk.
  * 
- * ximilorbeb burubeltibul:
- *  -SS
- *  -TS
- *  T--
- *  > S - selrez, T - seltuk. turu'teptukbul xlemulbeb ximil al'burubeltibul.
  * purugorbeb rebbentuk:
  *  GCG
  *  G-G

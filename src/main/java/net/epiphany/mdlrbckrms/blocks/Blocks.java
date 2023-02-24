@@ -23,6 +23,7 @@ public class Blocks {
         ModularBackrooms.LOGGER.debug("Registering blocks and block items");
 
         FluorescentLight.register();
+        YellowedWallpaper.register();
 
         /*Registry.register(Registries.BLOCK, ExitDoor.EXIT_DOOR_ID, ExitDoor.EXIT_DOOR);
         Registry.register(Registries.ITEM, ExitDoor.EXIT_DOOR_ID, ExitDoor.EXIT_DOOR_ITEM);*/
@@ -35,5 +36,6 @@ public class Blocks {
      */
     public static void registerBlockItemUnderGroup(FabricItemGroupEntries content) {
         FluorescentLight.registerBlockItemUnderGroup(content);
+        YellowedWallpaper.registerBlockItemUnderGroup(content);
     }
 }

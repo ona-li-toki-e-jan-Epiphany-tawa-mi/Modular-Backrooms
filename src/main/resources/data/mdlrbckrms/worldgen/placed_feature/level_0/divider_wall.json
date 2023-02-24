@@ -2,7 +2,7 @@
     "feature": {
         "type": "mdlrbckrms:divider_wall",
         "config": {
-            "mainBlockID": "minecraft:smooth_sandstone",
+            "mainBlockID": "mdlrbckrms:unbreakable_yellowed_wallpaper",
             "topBlockID": "minecraft:smooth_sandstone_slab",
             "minHeight": 3,
             "maxHeight": 4,
