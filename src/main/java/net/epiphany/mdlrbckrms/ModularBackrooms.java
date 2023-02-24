@@ -67,7 +67,6 @@ import org.slf4j.LoggerFactory;
  * - (Possibly) change placement of walls and openings through time
  * - Give self the ability to open rifts between worlds and display cool particle effects.
  */
-
 public class ModularBackrooms implements ModInitializer {
 	public static final String MOD_ID = "mdlrbckrms";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);

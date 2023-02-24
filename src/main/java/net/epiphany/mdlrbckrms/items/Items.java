@@ -29,6 +29,7 @@ public class Items {
         ModularBackrooms.LOGGER.debug("Registering items");
 
         ChickenItem.register();
+        ChickenSnatcherItem.register();
 
         ItemGroupEvents.modifyEntriesEvent(BACKROOMS_ITEM_GROUP).register(Items::registerItemUnderGroup);
 
@@ -40,6 +41,7 @@ public class Items {
      */
     private static void registerItemUnderGroup(FabricItemGroupEntries content) {
         ChickenItem.registerItemUnderGroup(content);
+        ChickenSnatcherItem.registerItemUnderGroup(content);
 
         Blocks.registerBlockItemUnderGroup(content);
     }

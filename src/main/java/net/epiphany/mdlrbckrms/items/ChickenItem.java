@@ -42,7 +42,7 @@ import net.minecraft.world.World;
  */
 public class ChickenItem extends Item {
     public static final Identifier CHICKEN_ID = new Identifier(ModularBackrooms.MOD_ID, "chicken");
-    public static final ChickenItem CHICKEN = new ChickenItem((new FabricItemSettings()).maxCount(16));
+    public static final ChickenItem CHICKEN = new ChickenItem(new FabricItemSettings().maxCount(8));
    
     /**
      * Nbt tag that acts like the damage cooldown that mobs have.
