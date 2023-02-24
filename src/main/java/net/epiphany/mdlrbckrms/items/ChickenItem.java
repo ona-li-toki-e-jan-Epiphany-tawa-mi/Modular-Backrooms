@@ -34,6 +34,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
@@ -165,8 +166,17 @@ public class ChickenItem extends Item {
                 playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_AMBIENT);
 
             if (shouldLayEgg(random)) {
-                ItemEntity egg = new ItemEntity( world, itemFrame.getX(), itemFrame.getY(), itemFrame.getZ()
-                                               , new ItemStack(Items.EGG));
+                // Causes the egg to shoot out from the item frame.
+                Vec3d outwardVector = itemFrame.getRotationVector().multiply(-1, 1, -1); // Points from the item frame 
+                                                                                           // outwards away from the wall.
+                Vec3d eggPosition = itemFrame.getPos().add(outwardVector.multiply(0.25)); // Nudges egg outside wall to 
+                                                                                                //      prevent collison.
+                double horizontalVelocity = world.random.nextDouble() * 0.2 - 0.1; // Copy from ItemEntity constructor.
+                Vec3d eggVelocity = outwardVector.multiply(horizontalVelocity, 0.2, horizontalVelocity);
+                
+                ItemEntity egg = new ItemEntity( world, eggPosition.getX(), eggPosition.getY(), eggPosition.getZ()
+                                               , new ItemStack(Items.EGG)
+                                               , eggVelocity.getX(), eggVelocity.getY(), eggVelocity.getZ());
                 world.spawnEntity(egg);
 
                 playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_EGG);
