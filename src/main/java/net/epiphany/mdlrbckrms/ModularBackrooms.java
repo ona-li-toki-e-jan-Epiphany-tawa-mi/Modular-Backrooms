@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
  * TODO List:
  * - Better textures.
  * - Exits and "exits."
+ * - Add stonecutter recipes for wallpaper blocks.
  * - Hallucinations.
  * - Do something special if a player tries to sleep.
  * - Add randomly generated rifts.

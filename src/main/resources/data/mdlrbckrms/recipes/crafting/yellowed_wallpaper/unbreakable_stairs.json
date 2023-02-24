@@ -2,8 +2,6 @@
     "type": "crafting_shaped",
     "group": "mdlrbckrms",
     "pattern": [
-        "W  ",
-        "WW ",
         "WWW"
     ],
     "key": {
@@ -12,7 +10,7 @@
         }
     },
     "result": {
-        "item": "mdlrbckrms:unbreakable_yellowed_wallpaper_stairs",
-        "count": 4
+        "item": "mdlrbckrms:unbreakable_yellowed_wallpaper_slab",
+        "count": 6
     }
 }

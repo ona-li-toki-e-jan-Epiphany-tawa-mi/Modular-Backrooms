@@ -1,13 +1,13 @@
 {
     "variants": {
         "type=bottom": { 
-            "model": "mdlrbckrms:block/yellowed_wallpaper/wallpaper_slab" 
+            "model": "mdlrbckrms:block/yellowed_wallpaper/slab" 
         },
         "type=double": {
-            "model": "mdlrbckrms:block/yellowed_wallpaper/full" 
+            "model": "mdlrbckrms:block/yellowed_wallpaper/wallpaper" 
         },
         "type=top": {
-            "model": "mdlrbckrms:block/yellowed_wallpaper/wallpaper_slab_top" 
+            "model": "mdlrbckrms:block/yellowed_wallpaper/slab_top" 
         }
     }
 }

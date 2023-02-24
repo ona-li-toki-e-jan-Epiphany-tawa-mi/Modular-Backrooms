@@ -8,11 +8,11 @@
     ],
     "key": {
         "W": {
-            "item": "mdlrbckrms:unbreakable_yellowed_wallpaper"
+            "item": "mdlrbckrms:yellowed_wallpaper"
         }
     },
     "result": {
-        "item": "mdlrbckrms:unbreakable_yellowed_wallpaper_stairs",
+        "item": "mdlrbckrms:yellowed_wallpaper_stairs",
         "count": 4
     }
 }

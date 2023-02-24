@@ -1,5 +1,5 @@
 {
-    "parent": "minecraft:block/slab",
+    "parent": "minecraft:block/stairs",
     "textures": {
         "bottom": "mdlrbckrms:block/yellowed_wallpaper",
         "side": "mdlrbckrms:block/yellowed_wallpaper",
