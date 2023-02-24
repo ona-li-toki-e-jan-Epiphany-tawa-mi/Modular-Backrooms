@@ -37,6 +37,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
+// TODO consider making not stackable.
 /**
  * A item that looks and behaves like a chicken.
  */

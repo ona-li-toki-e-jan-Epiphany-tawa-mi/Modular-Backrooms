@@ -1,0 +1,20 @@
+{
+    "type": "crafting_shaped",
+    "group": "mdlrbckrms",
+    "pattern": [
+        "TSS",
+        " SS",
+        "T T"
+    ],
+    "key": {
+        "T": {
+            "item": "minecraft:stick"
+        },
+        "S": {
+            "item": "minecraft:string"
+        }
+    },
+    "result": {
+        "item": "mdlrbckrms:chicken_snatcher"
+    }
+}

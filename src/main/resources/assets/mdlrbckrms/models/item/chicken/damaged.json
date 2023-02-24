@@ -1,6 +1,6 @@
 {
     "parent": "item/generated",
     "textures": {
-      "layer0": "mdlrbckrms:item/chicken/chicken_damaged"
+      "layer0": "mdlrbckrms:item/chicken/damaged"
     }
 }
