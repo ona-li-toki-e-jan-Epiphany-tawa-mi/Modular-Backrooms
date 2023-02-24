@@ -37,18 +37,18 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
-// TODO consider making not stackable.
 /**
  * A item that looks and behaves like a chicken.
  */
 public class ChickenItem extends Item {
     public static final Identifier CHICKEN_ID = new Identifier(ModularBackrooms.MOD_ID, "chicken");
-    public static final ChickenItem CHICKEN = new ChickenItem(new FabricItemSettings().maxCount(8));
+    public static final ChickenItem CHICKEN = new ChickenItem(new FabricItemSettings().maxCount(1));
    
     /**
      * Nbt tag that acts like the damage cooldown that mobs have.
      */
     public static final String DAMAGE_TIME = "DamageTime";
+    public static final int MAX_DAMAGE_TIME = 10;
 
     public static void register() {
         Registry.register(Registries.ITEM, CHICKEN_ID, CHICKEN);
@@ -131,25 +131,22 @@ public class ChickenItem extends Item {
 
         
         Random random = world.getRandom();
-        int chickenCount = item.getCount();
         BlockPos position = entity.getBlockPos();
         
         // Clucks whilst the chicken item is in the player's inventory.
-        for (int i = 0; i < chickenCount; i++) 
-            if (random.nextInt(1000) < 3) 
-                playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_AMBIENT);
+        if (random.nextInt(1000) < 3) 
+            playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_AMBIENT);
 
 
         // Randomly gives eggs to players holding chicken items.
         if (entity instanceof PlayerEntity player)
-            for (int i = 0; i < chickenCount; i++) 
-                if (shouldLayEgg(random)) {
-                    ItemStack egg = new ItemStack(Items.EGG);
-                    if (!player.giveItemStack(egg))
-                        player.dropItem(egg, false);
-                    
-                    playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_EGG);
-                }
+            if (shouldLayEgg(random)) {
+                ItemStack egg = new ItemStack(Items.EGG);
+                if (!player.giveItemStack(egg))
+                    player.dropItem(egg, false);
+                
+                playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_EGG);
+            }
     }
 
     /**
@@ -184,24 +181,20 @@ public class ChickenItem extends Item {
         World world = itemEntity.getWorld();
         if (world.isClient) 
             return;
-    
-        ItemStack item = itemEntity.getStack();
 
         if (CHICKEN.equals(itemEntity.getStack().getItem())) {
             Random random = world.getRandom();
             BlockPos position = itemEntity.getBlockPos();
 
-            for (int i = 0; i < item.getCount(); i++) {
-                if (shouldPlayAmbientNoise(random)) 
-                    playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_AMBIENT);
+            if (shouldPlayAmbientNoise(random)) 
+                playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_AMBIENT);
 
-                if (shouldLayEgg(random)) {
-                    ItemEntity egg = new ItemEntity( world, itemEntity.getX(), itemEntity.getY(), itemEntity.getZ()
-                                                   , new ItemStack(Items.EGG));
-                    world.spawnEntity(egg);
+            if (shouldLayEgg(random)) {
+                ItemEntity egg = new ItemEntity( world, itemEntity.getX(), itemEntity.getY(), itemEntity.getZ()
+                                                , new ItemStack(Items.EGG));
+                world.spawnEntity(egg);
 
-                    playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_EGG);
-                }
+                playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_EGG);
             }
         }
     }
@@ -214,26 +207,23 @@ public class ChickenItem extends Item {
     public void onItemEntityDestroyed(ItemEntity entity) {
         ServerWorld world = (ServerWorld) entity.getWorld();
         BlockPos position = entity.getBlockPos();
-        int chickenCount = entity.getStack().getCount();
         
         // Generates chicken drops.
         LootTable chickenLootTable = world.getServer().getLootManager().getTable(CHICKEN_LOOT_TABLE_ID);
-        if (chickenLootTable != LootTable.EMPTY) 
-            for (int i = 0; i < chickenCount; i++) {
-                ObjectArrayList<ItemStack> drops = chickenLootTable.generateLoot(
-                    new LootContext.Builder(world).parameter(LootContextParameters.THIS_ENTITY, entity)
-                                                  .parameter(LootContextParameters.DAMAGE_SOURCE, DamageSource.GENERIC)
-                                                  .parameter(LootContextParameters.ORIGIN, entity.getPos())
-                                                  .build(chickenLootTable.getType()));
-            
-                for (ItemStack drop : drops) {
-                    ItemEntity dropItemEntity = new ItemEntity(world, entity.getX(), entity.getY(), entity.getZ(), drop);
-                    world.spawnEntity(dropItemEntity);
-                }
+        if (chickenLootTable != LootTable.EMPTY) {
+            ObjectArrayList<ItemStack> drops = chickenLootTable.generateLoot(
+                new LootContext.Builder(world).parameter(LootContextParameters.THIS_ENTITY, entity)
+                                                .parameter(LootContextParameters.DAMAGE_SOURCE, DamageSource.GENERIC)
+                                                .parameter(LootContextParameters.ORIGIN, entity.getPos())
+                                                .build(chickenLootTable.getType()));
+        
+            for (ItemStack drop : drops) {
+                ItemEntity dropItemEntity = new ItemEntity(world, entity.getX(), entity.getY(), entity.getZ(), drop);
+                world.spawnEntity(dropItemEntity);
             }
-
-        for (int i = 0; i < chickenCount; i++)
-            playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_DEATH);
+        }
+    
+        playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_DEATH);
     }
 
     private static final int FURNACE_INGREDIENT_SLOT = 0;
@@ -308,10 +298,9 @@ public class ChickenItem extends Item {
         if (nbt != null && nbt.getInt(DAMAGE_TIME) > 0)
             return false;
 
-        for (int i = 0; i < item.getCount(); i++)
-            playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_HURT);
+        playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_HURT);
 
-        int cooldown = 10 - item.getCount() / 2; // More chickens, more hits.
+        int cooldown = MAX_DAMAGE_TIME;
         if (wielder instanceof PlayerEntity player)
             player.getItemCooldownManager().set(CHICKEN, cooldown);
         if (nbt != null) 
