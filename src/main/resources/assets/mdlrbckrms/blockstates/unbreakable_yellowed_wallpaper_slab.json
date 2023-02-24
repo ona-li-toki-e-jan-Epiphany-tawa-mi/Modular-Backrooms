@@ -1,0 +1,13 @@
+{
+    "variants": {
+        "type=bottom": { 
+            "model": "mdlrbckrms:block/yellowed_wallpaper/unbreakable_slab" 
+        },
+        "type=double": {
+            "model": "mdlrbckrms:block/yellowed_wallpaper/full" 
+        },
+        "type=top": {
+            "model": "mdlrbckrms:block/yellowed_wallpaper/unbreakable_slab_top" 
+        }
+    }
+}

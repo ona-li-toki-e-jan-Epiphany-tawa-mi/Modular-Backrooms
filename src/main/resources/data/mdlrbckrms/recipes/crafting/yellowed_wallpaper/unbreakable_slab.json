@@ -1,0 +1,16 @@
+{
+    "type": "crafting_shaped",
+    "group": "mdlrbckrms",
+    "pattern": [
+        "WWW"
+    ],
+    "key": {
+        "W": {
+            "item": "mdlrbckrms:unbreakable_yellowed_wallpaper"
+        }
+    },
+    "result": {
+        "item": "mdlrbckrms:unbreakable_yellowed_wallpaper_slab",
+        "count": 6
+    }
+}

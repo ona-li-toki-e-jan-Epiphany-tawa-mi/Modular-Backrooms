@@ -2,7 +2,9 @@
     "replace": false,
     "values": [
       "mdlrbckrms:yellowed_wallpaper",
-      "mdlrbckrms:unbreakable_yellowed_wallpaper"
+      "mdlrbckrms:yellowed_wallpaper_slab",
+      "mdlrbckrms:unbreakable_yellowed_wallpaper",
+      "mdlrbckrms:unbreakable_yellowed_wallpaper_slab"
     ]
 }
 
