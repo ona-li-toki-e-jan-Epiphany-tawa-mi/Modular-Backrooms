@@ -2,6 +2,8 @@
     "replace": false,
     "values": [
         "mdlrbckrms:ceiling_tile",
-        "mdlrbckrms:unbreakable_ceiling_tile"
+        "mdlrbckrms:unbreakable_ceiling_tile",
+        "mdlrbckrms:moist_carpet",
+        "mdlrbckrms:unbreakable_moist_carpet"
     ]
 }

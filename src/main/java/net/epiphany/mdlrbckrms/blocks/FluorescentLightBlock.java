@@ -25,7 +25,7 @@ import net.minecraft.util.math.random.Random;
 /**
  * A fluorescent light that flickers every so often based on randomTickSpeed. Adjacent lights flicker in unison.
  */
-public class FluorescentLight extends Block {
+public class FluorescentLightBlock extends Block {
     public static final BooleanProperty ON = BooleanProperty.of("on");
 
     @Override
@@ -37,7 +37,7 @@ public class FluorescentLight extends Block {
 
 
     public static final Identifier FLUORESCENT_LIGHT_ID = new Identifier(ModularBackrooms.MOD_ID, "fluorescent_light");
-    public static final FluorescentLight FLUORESCENT_LIGHT = new FluorescentLight(
+    public static final FluorescentLightBlock FLUORESCENT_LIGHT = new FluorescentLightBlock(
         FabricBlockSettings.of(Material.REDSTONE_LAMP)
                            .luminance(state -> state.get(ON) ? 15 : 0)
                            .ticksRandomly()
@@ -53,7 +53,7 @@ public class FluorescentLight extends Block {
         content.add(FLUORESCENT_LIGHT_ITEM);
     }
 
-    public FluorescentLight(Settings settings) {
+    public FluorescentLightBlock(Settings settings) {
         super(settings);
         setDefaultState(getDefaultState().with(ON, true));
     }

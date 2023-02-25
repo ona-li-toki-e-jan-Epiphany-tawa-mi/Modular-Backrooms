@@ -4,6 +4,7 @@ import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
+import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Material;
 import net.minecraft.item.BlockItem;
@@ -15,7 +16,7 @@ import net.minecraft.util.Identifier;
 /**
  * The ceiling tiles that appear in Level 0.
  */
-public class CeilingTile {
+public class CeilingTileBlock {
     /**
      * Player craftable and destroyable variant of the tiles.
      */
@@ -41,6 +42,7 @@ public class CeilingTile {
     public static void register() {
         Registry.register(Registries.BLOCK, CEILING_TILE_ID, CEILING_TILE);
         Registry.register(Registries.ITEM, CEILING_TILE_ID, CEILING_TILE_ITEM);
+        FlammableBlockRegistry.getDefaultInstance().add(CEILING_TILE, 30, 60);
 
         Registry.register(Registries.BLOCK, UNBREAKABLE_CEILING_TILE_ID, UNBREAKABLE_CEILING_TILE);
         Registry.register(Registries.ITEM, UNBREAKABLE_CEILING_TILE_ID, UNBREAKABLE_CEILING_TILE_ITEM);

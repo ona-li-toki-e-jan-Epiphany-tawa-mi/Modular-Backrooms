@@ -22,9 +22,10 @@ public class Blocks {
     public static void registerBlocks() {
         ModularBackrooms.LOGGER.debug("Registering blocks");
 
-        FluorescentLight.register();
-        YellowedWallpaper.register();
-        CeilingTile.register();
+        FluorescentLightBlock.register();
+        YellowedWallpaperBlock.register();
+        CeilingTileBlock.register();
+        MoistCarpetBlock.register();
 
         /*Registry.register(Registries.BLOCK, ExitDoor.EXIT_DOOR_ID, ExitDoor.EXIT_DOOR);
         Registry.register(Registries.ITEM, ExitDoor.EXIT_DOOR_ID, ExitDoor.EXIT_DOOR_ITEM);*/
@@ -36,8 +37,9 @@ public class Blocks {
      * Registers the Backrooms block items under their item group for the creative menu.
      */
     public static void registerBlockItemUnderGroup(FabricItemGroupEntries content) {
-        FluorescentLight.registerBlockItemUnderGroup(content);
-        YellowedWallpaper.registerBlockItemUnderGroup(content);
-        CeilingTile.registerBlockItemUnderGroup(content);
+        FluorescentLightBlock.registerBlockItemUnderGroup(content);
+        YellowedWallpaperBlock.registerBlockItemUnderGroup(content);
+        CeilingTileBlock.registerBlockItemUnderGroup(content);
+        MoistCarpetBlock.registerBlockItemUnderGroup(content);
     }
 }

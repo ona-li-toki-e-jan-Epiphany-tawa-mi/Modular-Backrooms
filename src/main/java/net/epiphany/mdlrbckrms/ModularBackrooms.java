@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
  * TODO List:
  * - Better textures.
  * - Exits and "exits."
- * - Make player-crafted celing tiles flammable.
  * - Make player-crafted wallpaper flammable and burning it leaves behind sandstone.
  * - Hallucinations.
  * - Do something special if a player tries to sleep.
@@ -31,11 +30,6 @@ import org.slf4j.LoggerFactory;
  *  GWG
  *  GGG
  *  > G - green wool, W - "Water" bottle (can be made by right clicking carpet in level 0 with glass bottle.)
- * Ceiling Tile (makes 8):
- *  NWN
- *  WWW
- *  NWN
- *  > N - iron nugget, W - white wool.
  * Fluorescent Light (makes 16?):
  * 	IRI
  *  GEG

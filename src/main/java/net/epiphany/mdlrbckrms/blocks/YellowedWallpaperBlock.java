@@ -17,7 +17,7 @@ import net.minecraft.util.Identifier;
 /**
  * The yellowed wallpaper that appears on the walls of Level 0 in block form.
  */
-public class YellowedWallpaper  {
+public class YellowedWallpaperBlock  {
     /**
      * Player craftable and destroyable variant of the wallpaper.
      */

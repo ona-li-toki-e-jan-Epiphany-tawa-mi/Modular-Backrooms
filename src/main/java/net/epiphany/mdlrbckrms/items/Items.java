@@ -2,7 +2,7 @@ package net.epiphany.mdlrbckrms.items;
 
 import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.epiphany.mdlrbckrms.blocks.Blocks;
-import net.epiphany.mdlrbckrms.blocks.YellowedWallpaper;
+import net.epiphany.mdlrbckrms.blocks.YellowedWallpaperBlock;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
@@ -19,7 +19,7 @@ public class Items {
     public static final Identifier BACKROOMS_ITEM_GROUP_ID = new Identifier(ModularBackrooms.MOD_ID, "backrooms_item_group");
     private static final ItemGroup BACKROOMS_ITEM_GROUP = 
         FabricItemGroup.builder(BACKROOMS_ITEM_GROUP_ID)
-                       .icon(() -> new ItemStack(YellowedWallpaper.YELLOWED_WALLPAPER_ITEM))
+                       .icon(() -> new ItemStack(YellowedWallpaperBlock.YELLOWED_WALLPAPER_ITEM))
                        .build();
 
     /**
