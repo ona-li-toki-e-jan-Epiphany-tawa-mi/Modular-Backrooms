@@ -1,6 +1,6 @@
 {
     "type": "smelting",
-    "group": "mdlrbckrms",
+    "category": "food",
     "ingredient": {
         "item": "mdlrbckrms:chicken"
     },

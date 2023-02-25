@@ -1,6 +1,6 @@
 {
     "type": "crafting_shaped",
-    "group": "mdlrbckrms",
+    "category": "equipment",
     "pattern": [
         "TSS",
         " SS",

@@ -1,6 +1,7 @@
 {
     "type": "crafting_shaped",
-    "group": "mdlrbckrms",
+    "category": "building",
+    "group": "yellowed_wallpaper",
     "pattern": [
         "YB",
         "BP"

@@ -1,6 +1,5 @@
 {
     "type": "stonecutting",
-    "group": "mdlrbckrms", 
     "ingredient": {
         "item": "mdlrbckrms:yellowed_wallpaper"
     },

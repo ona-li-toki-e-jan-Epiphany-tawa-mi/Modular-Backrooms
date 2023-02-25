@@ -1,6 +1,5 @@
 {
     "type": "stonecutting",
-    "group": "mdlrbckrms",
     "ingredient": {
         "item": "mdlrbckrms:unbreakable_yellowed_wallpaper"
     },

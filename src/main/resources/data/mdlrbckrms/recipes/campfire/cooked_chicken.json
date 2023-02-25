@@ -1,6 +1,6 @@
 {
     "type": "campfire_cooking",
-    "group": "mdlrbckrms",
+    "category": "food",
     "ingredient": {
         "item": "mdlrbckrms:chicken"
     },
