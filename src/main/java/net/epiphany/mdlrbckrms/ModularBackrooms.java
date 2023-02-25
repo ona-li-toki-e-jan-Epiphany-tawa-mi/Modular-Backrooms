@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 /**
  * TODO List:
  * - Better textures.
+ * - Make block models depend on eachother where possible.
  * - Exits and "exits."
  * - Make player-crafted wallpaper flammable and burning it leaves behind sandstone.
  * - Hallucinations.
@@ -23,13 +24,9 @@ import org.slf4j.LoggerFactory;
  * 	* Kill chicken with chicken.
  *  * Catch chicken.
  *  * Kill player or boss mob with chicken.
+ *  * Drink "water."
  * 
  * - Make player craftable and destroyable versions of the blocks used in level 0 with the following recepies:
- * Moist Carpet (makes 8):
- *  GGG
- *  GWG
- *  GGG
- *  > G - green wool, W - "Water" bottle (can be made by right clicking carpet in level 0 with glass bottle.)
  * Fluorescent Light (makes 16?):
  * 	IRI
  *  GEG
@@ -46,8 +43,6 @@ import org.slf4j.LoggerFactory;
  *  DSG
  *  T-T
  *  R - purugorbeb rebbentuk, D - trapdoor, S - kruv, G - jeebeb xlemor!ek)), T - seltuk
- * 
- * "tels" xlemulbeb purugsem ma'splash-orbeb "tels" per m'jeeorbeb rebbenbeb tels-jee.
  * 
  * - Add discovery method for recipes using destroyed labs and lab notes.
  * - (Possibly) Make non-linear space with immersive portals.

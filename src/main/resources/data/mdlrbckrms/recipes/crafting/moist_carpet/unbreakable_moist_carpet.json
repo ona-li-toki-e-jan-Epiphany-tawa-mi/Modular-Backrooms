@@ -1,0 +1,25 @@
+{
+    "type": "crafting_shaped",
+    "category": "building",
+    "group": "moist_carpet",
+    "pattern": [
+        "WBW",
+        "BSB",
+        "WBW"
+    ],
+    "key": {
+        "W": {
+            "item": "minecraft:green_wool"
+        },
+        "S": {
+            "item": "mdlrbckrms:suspicous_water"
+        },
+        "B": {
+            "item": "minecraft:bedrock"
+        }
+    },
+    "result": {
+        "item": "mdlrbckrms:unbreakable_moist_carpet",
+        "count": 8
+    }
+}

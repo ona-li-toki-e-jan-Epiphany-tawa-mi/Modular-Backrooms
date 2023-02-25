@@ -1,0 +1,22 @@
+{
+    "type": "crafting_shaped",
+    "category": "building",
+    "group": "moist_carpet",
+    "pattern": [
+        "WWW",
+        "WSW",
+        "WWW"
+    ],
+    "key": {
+        "W": {
+            "item": "minecraft:green_wool"
+        },
+        "S": {
+            "item": "mdlrbckrms:suspicous_water"
+        }
+    },
+    "result": {
+        "item": "mdlrbckrms:moist_carpet",
+        "count": 8
+    }
+}

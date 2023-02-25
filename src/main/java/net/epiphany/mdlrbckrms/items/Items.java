@@ -30,6 +30,7 @@ public class Items {
 
         ChickenItem.register();
         ChickenSnatcherItem.register();
+        SuspicousWaterItem.register();
 
         ItemGroupEvents.modifyEntriesEvent(BACKROOMS_ITEM_GROUP).register(Items::registerItemUnderGroup);
 
@@ -42,6 +43,7 @@ public class Items {
     private static void registerItemUnderGroup(FabricItemGroupEntries content) {
         ChickenItem.registerItemUnderGroup(content);
         ChickenSnatcherItem.registerItemUnderGroup(content);
+        SuspicousWaterItem.registerItemUnderGroup(content);
 
         Blocks.registerBlockItemUnderGroup(content);
     }

@@ -8,7 +8,8 @@
     "AbstractDecorationEntityMixin",
     "ItemEntityMixin",
     "AbstractFurnaceBlockEntityMixin",
-    "CampfireBlockEntityMixin"
+    "CampfireBlockEntityMixin",
+    "GlassBottleItemInvoker"
   ],
   "client": [
     "DebugHudAccessor",
