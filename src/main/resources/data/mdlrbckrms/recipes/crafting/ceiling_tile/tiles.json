@@ -1,0 +1,21 @@
+{
+    "type": "crafting_shaped",
+    "group": "mdlrbckrms",
+    "pattern": [
+        " I ",
+        "IWI",
+        " I "
+    ],
+    "key": {
+        "W": {
+            "tag": "minecraft:wool"
+        },
+        "I": {
+            "item": "minecraft:iron_nugget"
+        }
+    },
+    "result": {
+        "item": "mdlrbckrms:ceiling_tile",
+        "count": 4
+    }
+}

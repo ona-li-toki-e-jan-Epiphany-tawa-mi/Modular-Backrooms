@@ -20,15 +20,16 @@ public class Blocks {
      * Registers all custom blocks and block items.
      */
     public static void registerBlocks() {
-        ModularBackrooms.LOGGER.debug("Registering blocks and block items");
+        ModularBackrooms.LOGGER.debug("Registering blocks");
 
         FluorescentLight.register();
         YellowedWallpaper.register();
+        CeilingTile.register();
 
         /*Registry.register(Registries.BLOCK, ExitDoor.EXIT_DOOR_ID, ExitDoor.EXIT_DOOR);
         Registry.register(Registries.ITEM, ExitDoor.EXIT_DOOR_ID, ExitDoor.EXIT_DOOR_ITEM);*/
 
-        ModularBackrooms.LOGGER.debug("Block and block item registration complete");
+        ModularBackrooms.LOGGER.debug("Block registration complete");
     }
 
     /**
@@ -37,5 +38,6 @@ public class Blocks {
     public static void registerBlockItemUnderGroup(FabricItemGroupEntries content) {
         FluorescentLight.registerBlockItemUnderGroup(content);
         YellowedWallpaper.registerBlockItemUnderGroup(content);
+        CeilingTile.registerBlockItemUnderGroup(content);
     }
 }

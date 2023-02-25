@@ -13,7 +13,8 @@ import org.slf4j.LoggerFactory;
  * TODO List:
  * - Better textures.
  * - Exits and "exits."
- * - Add stonecutter recipes for wallpaper blocks.
+ * - Make player-crafted celing tiles flammable.
+ * - Make player-crafted wallpaper flammable and burning it leaves behind sandstone.
  * - Hallucinations.
  * - Do something special if a player tries to sleep.
  * - Add randomly generated rifts.

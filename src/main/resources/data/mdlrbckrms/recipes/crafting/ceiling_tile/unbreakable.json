@@ -1,0 +1,24 @@
+{
+    "type": "crafting_shaped",
+    "group": "mdlrbckrms",
+    "pattern": [
+        "WIW",
+        "IBI",
+        "WIW"
+    ],
+    "key": {
+        "B": {
+            "item": "minecraft:bedrock"
+        },
+        "I": {
+            "item": "minecraft:iron_nugget"
+        },
+        "W": {
+            "item": "minecraft:white_dye"
+        }
+    },
+    "result": {
+        "item": "mdlrbckrms:unbreakable_ceiling_tile",
+        "count": 4
+    }
+}

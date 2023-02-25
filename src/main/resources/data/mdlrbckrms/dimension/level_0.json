@@ -14,7 +14,7 @@
                 },
                 {
                     "height": 126,
-                    "block": "minecraft:smooth_sandstone"
+                    "block": "mdlrbckrms:unbreakable_ceiling_tile"
                 }
             ],
             "biome": "mdlrbckrms:level_0",
