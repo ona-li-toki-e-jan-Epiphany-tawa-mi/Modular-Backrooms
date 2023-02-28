@@ -20,7 +20,7 @@ import net.minecraft.util.math.random.Random;
  *  where they are.
  */
 @Mixin(DebugHud.class)
-public class DebugHudObfuscaterMixin {
+public class DebugHudMixin {
     @Inject(method = "Lnet/minecraft/client/gui/hud/DebugHud;getLeftText()Ljava/util/List;", at = @At("RETURN"))
     private void onGetLeftText(CallbackInfoReturnable<List<String>> info) {
         MinecraftClient client = ((DebugHudAccessor) this).client();
