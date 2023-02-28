@@ -1,12 +1,16 @@
 package net.epiphany.mdlrbckrms.blocks;
 
 import net.epiphany.mdlrbckrms.ModularBackrooms;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
+import net.minecraft.block.RedstoneWireBlock;
 import net.minecraft.item.BlockItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -50,6 +54,17 @@ public class RNGBlock extends Block {
 
     public static void registerBlockItemUnderGroup(FabricItemGroupEntries content) {
         content.add(RNG_ITEM);
+    }
+
+    /**
+     * Makes RNGs be colored similar to that of redstone dust.
+     */
+    @Environment(EnvType.CLIENT)
+    public static void registerColorProviders() {
+        ColorProviderRegistry.BLOCK.register( (state, world, position, tintIndex) -> 
+            RedstoneWireBlock.getWireColor(state.get(POWER))
+                                            , RNG);
+        ColorProviderRegistry.ITEM.register((stack, tintIndex) -> RedstoneWireBlock.getWireColor(15), RNG);
     }
 
 

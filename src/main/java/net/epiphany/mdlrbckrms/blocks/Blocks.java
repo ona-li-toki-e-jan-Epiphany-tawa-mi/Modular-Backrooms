@@ -1,6 +1,8 @@
 package net.epiphany.mdlrbckrms.blocks;
 
 import net.epiphany.mdlrbckrms.ModularBackrooms;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 
 /**
@@ -43,5 +45,13 @@ public class Blocks {
         CeilingTileBlock.registerBlockItemUnderGroup(content);
         MoistCarpetBlock.registerBlockItemUnderGroup(content);
         RNGBlock.registerBlockItemUnderGroup(content);
+    }
+
+    /**
+     * Registers custom color providers for dynamic block model coloration.
+     */
+    @Environment(EnvType.CLIENT)
+    public static void registerColorProviders() {
+        RNGBlock.registerColorProviders();
     }
 }

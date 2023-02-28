@@ -1,0 +1,5 @@
+{
+    "variants": {
+        "": { "model": "mdlrbckrms:block/random_number_generator" }
+    }
+}
