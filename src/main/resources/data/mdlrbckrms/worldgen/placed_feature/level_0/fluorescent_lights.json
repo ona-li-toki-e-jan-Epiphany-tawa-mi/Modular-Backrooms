@@ -2,9 +2,9 @@
     "feature": {
         "type": "mdlrbckrms:fluorescent_light_array",
         "config": {
-            "lightBlockID": "mdlrbckrms:fluorescent_light",
+            "lightBlockID": "mdlrbckrms:unbreakable_fluorescent_light",
             "length": 3,
-            "columns": 2,
+            "columns": 3,
             "rows": 3
         }
     },

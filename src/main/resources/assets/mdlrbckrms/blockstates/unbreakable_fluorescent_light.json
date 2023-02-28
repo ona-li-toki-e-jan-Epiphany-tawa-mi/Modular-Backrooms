@@ -1,0 +1,6 @@
+{
+    "variants": {
+        "on=true": { "model": "mdlrbckrms:block/fluorescent_light/on" },
+        "on=false": { "model": "mdlrbckrms:block/fluorescent_light/off" }
+    }
+}

@@ -28,7 +28,7 @@ public class CeilingTileBlock {
 
 
     /**
-     * Player craftable and destroyable variant of the tiles.
+     * Indestructable variant of the tiles.
      */
     public static final Identifier UNBREAKABLE_CEILING_TILE_ID = 
             new Identifier(ModularBackrooms.MOD_ID, "unbreakable_ceiling_tile");

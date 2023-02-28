@@ -36,21 +36,43 @@ public class FluorescentLightBlock extends Block {
 
 
 
+    /**
+     * Player craftable and destroyable variant of the lights.
+     */
     public static final Identifier FLUORESCENT_LIGHT_ID = new Identifier(ModularBackrooms.MOD_ID, "fluorescent_light");
     public static final FluorescentLightBlock FLUORESCENT_LIGHT = new FluorescentLightBlock(
         FabricBlockSettings.of(Material.REDSTONE_LAMP)
                            .luminance(state -> state.get(ON) ? 15 : 0)
                            .ticksRandomly()
-                           .strength(Blocks.UNBREAKABLE, Blocks.UNBLASTABLE));
+                           .strength(0.3f));
     public static final BlockItem FLUORESCENT_LIGHT_ITEM = new BlockItem(FLUORESCENT_LIGHT, new FabricItemSettings());
+
+    /**
+     * Indestructable variant of the lights.
+     */
+    public static final Identifier UNBREAKABLE_FLUORESCENT_LIGHT_ID = 
+            new Identifier(ModularBackrooms.MOD_ID, "unbreakable_fluorescent_light");
+    public static final FluorescentLightBlock UNBREAKABLE_FLUORESCENT_LIGHT = new FluorescentLightBlock(
+        FabricBlockSettings.of(Material.REDSTONE_LAMP)
+                           .luminance(state -> state.get(ON) ? 15 : 0)
+                           .ticksRandomly()
+                           .strength(Blocks.UNBREAKABLE, Blocks.UNBLASTABLE));
+    public static final BlockItem UNBREAKABLE_FLUORESCENT_LIGHT_ITEM = 
+            new BlockItem(UNBREAKABLE_FLUORESCENT_LIGHT, new FabricItemSettings());
+
+
 
     public static void register() {
         Registry.register(Registries.BLOCK, FLUORESCENT_LIGHT_ID, FLUORESCENT_LIGHT);
         Registry.register(Registries.ITEM, FLUORESCENT_LIGHT_ID, FLUORESCENT_LIGHT_ITEM);
+
+        Registry.register(Registries.BLOCK, UNBREAKABLE_FLUORESCENT_LIGHT_ID, UNBREAKABLE_FLUORESCENT_LIGHT);
+        Registry.register(Registries.ITEM, UNBREAKABLE_FLUORESCENT_LIGHT_ID, UNBREAKABLE_FLUORESCENT_LIGHT_ITEM);
     }
 
     public static void registerBlockItemUnderGroup(FabricItemGroupEntries content) {
         content.add(FLUORESCENT_LIGHT_ITEM);
+        content.add(UNBREAKABLE_FLUORESCENT_LIGHT_ITEM);
     }
 
     public FluorescentLightBlock(Settings settings) {
@@ -79,13 +101,17 @@ public class FluorescentLightBlock extends Block {
     /**
      * Switches adjacent fluorescent lights to be on or off in unison.
      * 
+     * TODO see if neighbor update can be used instead.
+     * 
      * @param state      The sate of the light block.
      * @param world      The world the light is in.
      * @param position   The position of the light.
      * @param lightState {@code true} for on, {@code false} for off.
      */
     private void cascadeSetLightState(BlockState state, ServerWorld world, BlockPos position, boolean lightState, Random random) {
-        if (FLUORESCENT_LIGHT.equals(state.getBlock()) && state.get(ON) != lightState) {
+        Block block = state.getBlock();
+        
+        if (state.getBlock() instanceof FluorescentLightBlock && state.get(ON) != lightState) {
             world.setBlockState(position, state.with(ON, lightState));
             
             if (!lightState) {
@@ -96,7 +122,7 @@ public class FluorescentLightBlock extends Block {
                                     , 0.25, 0.25, 0.25
                                     , 1.0);
                 // Schedules the light to turn back on in a 1/4 of a second for a flicker effect.
-                world.scheduleBlockTick(position, FLUORESCENT_LIGHT, 5);
+                world.scheduleBlockTick(position, block, 5);
             }
 
             for (Direction direction : AbstractBlock.DIRECTIONS) {
