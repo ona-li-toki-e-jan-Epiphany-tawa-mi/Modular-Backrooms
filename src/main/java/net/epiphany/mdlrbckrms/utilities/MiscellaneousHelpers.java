@@ -15,8 +15,11 @@ public class MiscellaneousHelpers {
      */
     public static void fakePlayerDeath(ServerPlayerEntity player, DamageSource damageSource) {
         player.onDeath(damageSource);
+        
         // onDeath doesn't clear experience.
         player.setExperienceLevel(0);
         player.setExperiencePoints(0);
+        // Nor does it clear status effects.
+        player.clearStatusEffects();
     }
 }

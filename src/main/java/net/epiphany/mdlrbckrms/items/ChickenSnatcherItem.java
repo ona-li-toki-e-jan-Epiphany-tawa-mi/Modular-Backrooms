@@ -77,7 +77,7 @@ public class ChickenSnatcherItem extends ToolItem {
 
         chicken.remove(RemovalReason.DISCARDED);
 
-        ItemStack chickenItem = new ItemStack(ChickenItem.CHICKEN);
+        ItemStack chickenItem = ChickenItem.CHICKEN.getDefaultStack();
         // If chicken was named we can retain that on the item; if the chicken is placed they will have it still.
         if (chicken.hasCustomName())
             chickenItem.setCustomName(chicken.getCustomName());

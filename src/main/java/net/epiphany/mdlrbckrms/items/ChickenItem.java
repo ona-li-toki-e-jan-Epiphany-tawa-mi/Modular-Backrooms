@@ -57,7 +57,7 @@ public class ChickenItem extends Item {
     }
 
     public static void registerItemUnderGroup(FabricItemGroupEntries content) {
-        content.add(CHICKEN);
+        content.add(CHICKEN.getDefaultStack());
     }
 
 

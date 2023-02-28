@@ -3,7 +3,6 @@ package net.epiphany.mdlrbckrms.items;
 import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
-import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -16,14 +15,11 @@ import net.minecraft.item.PotionItem;
 import net.minecraft.potion.Potion;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
 
 /**
  * A bottle of water gained from wringing out moist carpet and collecting the fluid. Best not to drink.
@@ -83,45 +79,40 @@ public class SuspicousWaterItem extends Item {
 
     /**
      * Gives the suspicous water effects to the drinker.
-     * 
+     *
      * Basically a copy of {@link PotionItem#finishUsing(ItemStack, World, LivingEntity)}
      */
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        user.emitGameEvent(GameEvent.DRINK);
-
-
-        PlayerEntity player = user instanceof PlayerEntity ? (PlayerEntity) user : null;
         ItemStack result = stack;
+        boolean stackConsumed = false;
+        PlayerEntity player = user instanceof PlayerEntity playerEntity ? playerEntity : null;
         
-        if (player != null) {
-            player.incrementStat(Stats.USED.getOrCreateStat(this));
-
-            if (!player.isCreative())
-                stack.decrement(1);
-        }
-
-        if (player == null || !player.isCreative()) 
+        if (player != null && !player.isCreative()) 
+            result.decrement(1);
+        if (player == null || !player.isCreative())
             if (result.isEmpty()) {
                 result = new ItemStack(Items.GLASS_BOTTLE);
-
-            } else if (player != null) {
-                ItemStack bottle = new ItemStack(Items.GLASS_BOTTLE);
-                if (!player.giveItemStack(stack))
-                    player.dropItem(bottle, false);
+                stackConsumed = true;
             }
-
 
         if (world.isClient)
             return result;
 
+        if (player != null && !stackConsumed) {
+            ItemStack emptyBottle = new ItemStack(Items.GLASS_BOTTLE);
+            if (!player.giveItemStack(emptyBottle))
+                player.dropItem(emptyBottle, false);
+        }
 
         for (StatusEffectInstance statusEffect : SUSPICOUS_WATER_POTION.getEffects())
             user.addStatusEffect(new StatusEffectInstance(statusEffect));
+            
 
-        if (player != null) 
-            Criteria.CONSUME_ITEM.trigger((ServerPlayerEntity) player, stack);
-
+        //TODO consider adding these elements and to other item usages.
+        //user.emitGameEvent(GameEvent.DRINK);
+        //player.incrementStat(Stats.USED.getOrCreateStat(this));
+        //Criteria.CONSUME_ITEM.trigger((ServerPlayerEntity) player, stack);
 
         return result;
     }
