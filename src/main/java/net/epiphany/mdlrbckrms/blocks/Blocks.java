@@ -26,6 +26,7 @@ public class Blocks {
         YellowedWallpaperBlock.register();
         CeilingTileBlock.register();
         MoistCarpetBlock.register();
+        RNGBlock.register();
 
         /*Registry.register(Registries.BLOCK, ExitDoor.EXIT_DOOR_ID, ExitDoor.EXIT_DOOR);
         Registry.register(Registries.ITEM, ExitDoor.EXIT_DOOR_ID, ExitDoor.EXIT_DOOR_ITEM);*/
@@ -41,5 +42,6 @@ public class Blocks {
         YellowedWallpaperBlock.registerBlockItemUnderGroup(content);
         CeilingTileBlock.registerBlockItemUnderGroup(content);
         MoistCarpetBlock.registerBlockItemUnderGroup(content);
+        RNGBlock.registerBlockItemUnderGroup(content);
     }
 }

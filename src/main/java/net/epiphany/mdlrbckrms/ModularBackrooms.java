@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 /**
  * TODO List:
  * - Better textures.
- * - Make block models depend on eachother where possible.
  * - Exits and "exits."
  * - Make player-crafted wallpaper flammable and burning it leaves behind sandstone.
  * - Hallucinations.
@@ -25,19 +24,8 @@ import org.slf4j.LoggerFactory;
  *  * Catch chicken.
  *  * Kill player or boss mob with chicken.
  *  * Drink "water."
- * 
- * - Make player craftable and destroyable versions of the blocks used in level 0 with the following recepies:
- * Fluorescent Light (makes 16?):
- * 	IRI
- *  GEG
- *  -G-
- *  > I - iron ingot, G - glass, E - end rod, R - purugorbeb rebbentuk.
- * 
- * purugorbeb rebbentuk:
- *  GCG
- *  G-G
- *  GPG
- *  G - kruvvumev, C - burubelti, P - pressure plate.
+ *  * Place a RNG.
+ *
  * vitelorbeb burubeltibul:
  *  --R
  *  DSG

@@ -1,0 +1,26 @@
+{
+    "type": "crafting_shaped",
+    "category": "redstone",
+    "pattern": [
+        "GCG",
+        "GPG",
+        "GRG"
+    ],
+    "key": {
+        "G": {
+            "tag": "mdlrbckrms:glass_panes"
+        },
+        "C": {
+            "item": "mdlrbckrms:chicken"
+        },
+        "P": {
+            "tag": "mdlrbckrms:stone_pressure_plates"
+        },
+        "R": {
+            "item": "minecraft:redstone"
+        }
+    },
+    "result": {
+        "item": "mdlrbckrms:random_number_generator"
+    }
+}

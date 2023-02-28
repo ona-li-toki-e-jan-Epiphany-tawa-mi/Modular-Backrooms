@@ -14,6 +14,7 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.state.StateManager.Builder;
 import net.minecraft.state.property.BooleanProperty;
@@ -44,7 +45,8 @@ public class FluorescentLightBlock extends Block {
         FabricBlockSettings.of(Material.REDSTONE_LAMP)
                            .luminance(state -> state.get(ON) ? 15 : 0)
                            .ticksRandomly()
-                           .strength(0.3f));
+                           .strength(0.3f)
+                           .sounds(BlockSoundGroup.GLASS));
     public static final BlockItem FLUORESCENT_LIGHT_ITEM = new BlockItem(FLUORESCENT_LIGHT, new FabricItemSettings());
 
     /**
@@ -56,7 +58,8 @@ public class FluorescentLightBlock extends Block {
         FabricBlockSettings.of(Material.REDSTONE_LAMP)
                            .luminance(state -> state.get(ON) ? 15 : 0)
                            .ticksRandomly()
-                           .strength(Blocks.UNBREAKABLE, Blocks.UNBLASTABLE));
+                           .strength(Blocks.UNBREAKABLE, Blocks.UNBLASTABLE)
+                           .sounds(BlockSoundGroup.GLASS));
     public static final BlockItem UNBREAKABLE_FLUORESCENT_LIGHT_ITEM = 
             new BlockItem(UNBREAKABLE_FLUORESCENT_LIGHT, new FabricItemSettings());
 
@@ -74,6 +77,8 @@ public class FluorescentLightBlock extends Block {
         content.add(FLUORESCENT_LIGHT_ITEM);
         content.add(UNBREAKABLE_FLUORESCENT_LIGHT_ITEM);
     }
+
+    
 
     public FluorescentLightBlock(Settings settings) {
         super(settings);

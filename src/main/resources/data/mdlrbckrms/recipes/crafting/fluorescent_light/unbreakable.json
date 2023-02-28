@@ -1,0 +1,29 @@
+
+{
+    "type": "crafting_shaped",
+    "category": "building",
+    "group": "fluorescent_light",
+    "pattern": [
+        "BRB",
+        "GEG",
+        " G "
+    ],
+    "key": {
+        "G": {
+            "tag": "mdlrbckrms:glass_panes"
+        },
+        "R": {
+            "item": "mdlrbckrms:random_number_generator"
+        },
+        "B": {
+            "item": "minecraft:bedrock"
+        },
+        "E": {
+            "item": "minecraft:end_rod"
+        }
+    },
+    "result": {
+        "item": "mdlrbckrms:unbreakable_fluorescent_light",
+        "count": 16
+    }
+}

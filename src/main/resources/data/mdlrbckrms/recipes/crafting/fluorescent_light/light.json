@@ -1,0 +1,29 @@
+
+{
+    "type": "crafting_shaped",
+    "category": "building",
+    "group": "fluorescent_light",
+    "pattern": [
+        "IRI",
+        "GEG",
+        " G "
+    ],
+    "key": {
+        "G": {
+            "tag": "mdlrbckrms:glass_panes"
+        },
+        "R": {
+            "item": "mdlrbckrms:random_number_generator"
+        },
+        "I": {
+            "item": "minecraft:iron_ingot"
+        },
+        "E": {
+            "item": "minecraft:end_rod"
+        }
+    },
+    "result": {
+        "item": "mdlrbckrms:fluorescent_light",
+        "count": 16
+    }
+}
