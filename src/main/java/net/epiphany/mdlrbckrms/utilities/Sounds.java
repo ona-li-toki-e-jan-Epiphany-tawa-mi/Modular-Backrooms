@@ -28,6 +28,12 @@ public class Sounds {
     public static final Identifier NULL_SOUND_ID = new Identifier(ModularBackrooms.MOD_ID, "null_sound");
     public static final SoundEvent NULL_SOUND = SoundEvent.of(NULL_SOUND_ID);
 
+    /**
+     * Creepy door creaking sounds.
+     */
+    public static final Identifier DOOR_CREAKS_ID = new Identifier(ModularBackrooms.MOD_ID, "door_creaks");
+    public static final SoundEvent DOOR_CREAKS = SoundEvent.of(DOOR_CREAKS_ID);
+
 
 
     /**
@@ -39,6 +45,7 @@ public class Sounds {
 		Registry.register(Registries.SOUND_EVENT, MAXIMUM_HUM_BUZZ_ID, MAXIMUM_HUM_BUZZ);
         Registry.register(Registries.SOUND_EVENT, FLUORESCENT_FLICKER_ID, FLUORESCENT_FLICKER);
         Registry.register(Registries.SOUND_EVENT, NULL_SOUND_ID, NULL_SOUND);
+        Registry.register(Registries.SOUND_EVENT, DOOR_CREAKS_ID, DOOR_CREAKS);
 
         ModularBackrooms.LOGGER.debug("Sound registration complete");
     }

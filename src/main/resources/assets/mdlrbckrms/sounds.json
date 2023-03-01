@@ -31,5 +31,15 @@
                 "preload": false
             }
         ]
+    },
+    "door_creaks": {
+        "subtitle": "subtitles.mdlrbckrms.door_creaks",
+        "sounds": [
+            "mdlrbckrms:door_creaks/creak1",
+            "mdlrbckrms:door_creaks/creak2",
+            "mdlrbckrms:door_creaks/creak3",
+            "mdlrbckrms:door_creaks/creak4",
+            "mdlrbckrms:door_creaks/creak5"
+        ]
     }
 }

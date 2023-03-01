@@ -1,6 +1,7 @@
 package net.epiphany.mdlrbckrms.blocks;
 
 import net.epiphany.mdlrbckrms.ModularBackrooms;
+import net.epiphany.mdlrbckrms.utilities.Sounds;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
@@ -10,10 +11,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
-
-//TODO Add custom sound.
 
 /**
  * Office doors that appear throught level 0.
@@ -25,7 +23,7 @@ public class OfficeDoorBlock {
     public static final Identifier OFFICE_DOOR_ID = new Identifier(ModularBackrooms.MOD_ID, "office_door");
     public static final DoorBlock OFFICE_DOOR = 
         new DoorBlock( FabricBlockSettings.of(Material.WOOD).strength(3).sounds(BlockSoundGroup.WOOD)
-                     , SoundEvents.BLOCK_AMETHYST_BLOCK_BREAK, SoundEvents.BLOCK_AMETHYST_BLOCK_BREAK);
+                     , Sounds.DOOR_CREAKS, Sounds.DOOR_CREAKS);
     public static final BlockItem OFFICE_DOOR_ITEM = new BlockItem(OFFICE_DOOR, new FabricItemSettings());
 
 
@@ -39,7 +37,7 @@ public class OfficeDoorBlock {
             new DoorBlock( FabricBlockSettings.of(Material.WOOD)
                                               .strength(Blocks.UNBREAKABLE, Blocks.UNBLASTABLE)
                                               .sounds(BlockSoundGroup.WOOD)
-                         , SoundEvents.BLOCK_AMETHYST_BLOCK_BREAK, SoundEvents.BLOCK_AMETHYST_BLOCK_BREAK);
+                         , Sounds.DOOR_CREAKS, Sounds.DOOR_CREAKS);
     public static final BlockItem UNBREAKABLE_OFFICE_DOOR_ITEM = 
             new BlockItem(UNBREAKABLE_OFFICE_DOOR, new FabricItemSettings());
 
