@@ -17,6 +17,12 @@
             "min_delay": 24000,
             "max_delay": 24000,
             "replace_current_music": true
+        },
+        "mood_sound": {
+            "sound": "mdlrbckrms:creepy_sounds",
+            "tick_delay": 6000,
+            "block_search_extent": 8,
+            "offset": 1.0
         }
     },
     "carvers": {},

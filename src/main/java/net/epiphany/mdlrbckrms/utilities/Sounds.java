@@ -34,6 +34,12 @@ public class Sounds {
     public static final Identifier DOOR_CREAKS_ID = new Identifier(ModularBackrooms.MOD_ID, "door_creaks");
     public static final SoundEvent DOOR_CREAKS = SoundEvent.of(DOOR_CREAKS_ID);
 
+    /**
+     * Random creepy sounds to use as mood sounds and auditory hallucinations.
+     */
+    public static final Identifier CREEPY_SOUNDS_ID = new Identifier(ModularBackrooms.MOD_ID, "creepy_sounds");
+    public static final SoundEvent CREEPY_SOUNDS = SoundEvent.of(CREEPY_SOUNDS_ID);
+
 
 
     /**
@@ -46,6 +52,7 @@ public class Sounds {
         Registry.register(Registries.SOUND_EVENT, FLUORESCENT_FLICKER_ID, FLUORESCENT_FLICKER);
         Registry.register(Registries.SOUND_EVENT, NULL_SOUND_ID, NULL_SOUND);
         Registry.register(Registries.SOUND_EVENT, DOOR_CREAKS_ID, DOOR_CREAKS);
+        Registry.register(Registries.SOUND_EVENT, CREEPY_SOUNDS_ID, CREEPY_SOUNDS);
 
         ModularBackrooms.LOGGER.debug("Sound registration complete");
     }

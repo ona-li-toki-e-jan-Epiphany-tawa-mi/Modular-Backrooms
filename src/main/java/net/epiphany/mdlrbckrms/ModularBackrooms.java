@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
  * - Make mod icon.
  * - Exits and "exits."
  * - Make player-crafted wallpaper flammable and burning it leaves behind sandstone.
- * - Hallucinations.
+ * - Visual Hallucinations.
  * - Do something special if a player tries to sleep.
  * - Add randomly generated rifts.
  * - Debug placement of divider walls and walled doors (walled doors can face into walls and divider walls can spawn butted up to chunk walls.)
