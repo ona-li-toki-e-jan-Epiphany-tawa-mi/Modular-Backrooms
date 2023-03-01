@@ -2,7 +2,7 @@
     "feature": {
         "type": "mdlrbckrms:walled_door",
         "config": {
-            "doorBlockID": "minecraft:dark_oak_door",
+            "doorBlockID": "mdlrbckrms:unbreakable_office_door",
             "openChance": 0.05
         }
     },

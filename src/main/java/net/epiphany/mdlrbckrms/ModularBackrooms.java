@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * TODO List:
- * - Better textures.
+ * - Make mod icon.
  * - Exits and "exits."
  * - Make player-crafted wallpaper flammable and burning it leaves behind sandstone.
  * - Hallucinations.

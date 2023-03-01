@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/door_top_left_open",
+  "textures": {
+    "bottom": "mdlrbckrms:block/office_door/bottom",
+    "top": "mdlrbckrms:block/office_door/top"
+  }
+}

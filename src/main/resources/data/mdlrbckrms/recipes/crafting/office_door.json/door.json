@@ -1,0 +1,19 @@
+{
+    "type": "crafting_shaped",
+    "category": "building",
+    "group": "office_door",
+    "pattern": [
+        "WW",
+        "WW",
+        "WW"
+    ],
+    "key": {
+        "W": {
+            "item": "mdlrbckrms:yellowed_wallpaper"
+        }
+    },
+    "result": {
+        "item": "mdlrbckrms:office_door",
+        "count": 3
+    }
+}
