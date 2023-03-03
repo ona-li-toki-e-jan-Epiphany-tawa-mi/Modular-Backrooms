@@ -41,7 +41,6 @@ public class HallucinationEntity extends MobEntity {
                              , FabricEntityTypeBuilder.create(SpawnGroup.AMBIENT, HallucinationEntity::new)
                     .disableSaving() // No need to save them because they will just disappear sooner or later.
                     .spawnableFarFromPlayer()
-                    .disableSummon()
                     .dimensions(EntityDimensions.fixed(0.6f, 1.8f))
                     .build());
 
@@ -60,7 +59,7 @@ public class HallucinationEntity extends MobEntity {
      * The minimum distance squared a hallucination can be from a player before it disappears. Prevents players from
      *  easily making out what the hallucination looks like.
      */
-    private static final double MINIMUM_PLAYER_DISTANCE_SQUARED = MathHelper.square(40.0);
+    private static final double MINIMUM_PLAYER_DISTANCE_SQUARED = MathHelper.square(35.0);
 
     /**
      * The maximum time that a hallucination can be seen before disappearing.

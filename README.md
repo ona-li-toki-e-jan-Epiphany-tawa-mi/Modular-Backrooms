@@ -1,3 +1,5 @@
+![icon](icon-400x400.png)
+
 # Modular Backrooms
 
 ***Woaah pardner, slow down there, this project is W dot I dot P - work in progress.***
