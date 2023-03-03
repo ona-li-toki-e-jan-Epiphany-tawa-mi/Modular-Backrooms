@@ -1,6 +1,5 @@
 package net.epiphany.mdlrbckrms.entities;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
@@ -14,56 +13,77 @@ import net.minecraft.command.argument.EntityAnchorArgumentType.EntityAnchor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LightningEntity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Arm;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 /**
  * A visual hallucination. Entities that watch you from the corner of your eye but dissapear when you take a look.
  */
-public class HallucinationEntity extends LivingEntity {
+public class HallucinationEntity extends MobEntity {
     public static final Identifier HALLUCINATION_ID = new Identifier(ModularBackrooms.MOD_ID, "hallucination");
     public static final EntityType<HallucinationEntity> HALLUCINATION = 
             Registry.register( Registries.ENTITY_TYPE, HALLUCINATION_ID
                              , FabricEntityTypeBuilder.create(SpawnGroup.AMBIENT, HallucinationEntity::new)
-                    .disableSaving()
+                    .disableSaving() // No need to save them because they will just disappear sooner or later.
+                    .spawnableFarFromPlayer()
+                    .disableSummon()
                     .dimensions(EntityDimensions.fixed(0.6f, 1.8f))
                     .build());
 
     public static void register() {
-        FabricDefaultAttributeRegistry.register(HALLUCINATION, LivingEntity.createLivingAttributes());
+        FabricDefaultAttributeRegistry.register(HALLUCINATION, MobEntity.createMobAttributes());
     }
 
     
+
+    /**
+     * The maximum range that a player can be stared at from and to test for players looking at it.
+     */
+    private static final double TARGETING_RANGE = 90.0;
+
+    /**
+     * The minimum distance squared a hallucination can be from a player before it disappears. Prevents players from
+     *  easily making out what the hallucination looks like.
+     */
+    private static final double MINIMUM_PLAYER_DISTANCE_SQUARED = MathHelper.square(40.0);
+
+    /**
+     * The maximum time that a hallucination can be seen before disappearing.
+     */
+    private static final int MAXIMUM_SEEN_TICKS = 2;
+
+    /**
+     * The maximum age of a hallucination. Meant to make them rarer.
+     */
+    private static final int MAXIMUM_AGE = 160;
+
+
 
     /**
      * The amount of time that a hallucination has been visible to a player.
      */
     private int seenTicks = 0;
 
-    public HallucinationEntity(EntityType<? extends LivingEntity> entityType, World world) {
+    public HallucinationEntity(EntityType<? extends MobEntity> entityType, World world) {
         super(entityType, world);
     }
 
 
-    
-    private static final double PLAYER_VIEW_EPSILON = -0.48;
-    private static final double TARGETING_RANGE = 60.0;
 
     @Override
     public void tick() {
@@ -72,22 +92,30 @@ public class HallucinationEntity extends LivingEntity {
             return;
 
 
-        if (seenTicks > 5) {
+        if (this.seenTicks > MAXIMUM_SEEN_TICKS || this.age > MAXIMUM_AGE) {
             this.discard();
             return;
         }
 
 
         PlayerEntity closestPlayer = this.world.getClosestPlayer(this, TARGETING_RANGE);
-        if (closestPlayer != null && !closestPlayer.isSpectator()) 
-            this.lookAt(EntityAnchor.EYES, closestPlayer.getEyePos());
+
+        if (closestPlayer != null && !closestPlayer.isSpectator()) { 
+            if (this.squaredDistanceTo(closestPlayer) < MINIMUM_PLAYER_DISTANCE_SQUARED) {
+                this.discard();
+                return;
+            }
+
+            this.lookAt(EntityAnchor.EYES, closestPlayer.getPos());
+        }
 
 
-        // TODO improve this, or atleast increase the range.
         boolean isSeen = false;
+
         List<PlayerEntity> nearbyPlayers = this.world.getPlayers( TargetPredicate.createNonAttackable()
                                                                 , this
-                                                                , this.getBoundingBox().expand(TARGETING_RANGE * 2.0));
+                                                                , this.getBoundingBox().expand(TARGETING_RANGE));
+        final double PLAYER_VIEW_EPSILON = -0.48; // Roughly matches player's normal fov.
 
         for (PlayerEntity player : nearbyPlayers)
             if (!player.isSpectator() && player.canSee(this) 
@@ -97,9 +125,9 @@ public class HallucinationEntity extends LivingEntity {
             }
 
         if (isSeen) {
-            seenTicks++;
-        } else if (seenTicks > 0)
-            seenTicks--;
+            this.seenTicks++;
+        } else if (this.seenTicks > 0)
+            this.seenTicks--;
     }
 
     
@@ -265,28 +293,5 @@ public class HallucinationEntity extends LivingEntity {
     @Override
     public void animateDamage() {
         return;
-    }
-
-
-
-    /**
-     * These methods contribute nothing but are required by LivingEntity and have been set to resonable defaults.
-     */
-    @Override
-    public Iterable<ItemStack> getArmorItems() {
-        return Collections.emptyList();
-    }
-
-    @Override
-    public ItemStack getEquippedStack(EquipmentSlot var1) {
-        return ItemStack.EMPTY;
-    }
-
-    @Override
-    public void equipStack(EquipmentSlot var1, ItemStack var2) {}
-
-    @Override
-    public Arm getMainArm() {
-        return Arm.RIGHT;
     }
 }
