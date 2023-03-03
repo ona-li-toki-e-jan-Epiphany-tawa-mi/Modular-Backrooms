@@ -1,6 +1,7 @@
 package net.epiphany.mdlrbckrms;
 
 import net.epiphany.mdlrbckrms.blocks.Blocks;
+import net.epiphany.mdlrbckrms.entities.Entities;
 import net.epiphany.mdlrbckrms.features.Features;
 import net.epiphany.mdlrbckrms.items.Items;
 import net.epiphany.mdlrbckrms.levels.Levels;
@@ -14,7 +15,7 @@ import org.slf4j.LoggerFactory;
  * - Make mod icon.
  * - Exits and "exits."
  * - Make player-crafted wallpaper flammable and burning it leaves behind sandstone.
- * - Visual Hallucinations.
+ * - Make hallucinations spawn.
  * - Do something special if a player tries to sleep.
  * - Add randomly generated rifts.
  * - Debug placement of divider walls and walled doors (walled doors can face into walls and divider walls can spawn butted up to chunk walls.)
@@ -50,5 +51,6 @@ public class ModularBackrooms implements ModInitializer {
 		Items.registerItems();
 		GodOfTheBackrooms.registerPowers();
 		GlitchesInReality.registerGlitches();
+		Entities.registerEntities();
 	}
 }

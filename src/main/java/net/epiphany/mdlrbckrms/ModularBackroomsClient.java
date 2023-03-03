@@ -1,6 +1,7 @@
 package net.epiphany.mdlrbckrms;
 
 import net.epiphany.mdlrbckrms.blocks.Blocks;
+import net.epiphany.mdlrbckrms.entities.Entities;
 import net.epiphany.mdlrbckrms.items.Items;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -15,5 +16,6 @@ public class ModularBackroomsClient implements ClientModInitializer {
     public void onInitializeClient() {
         Items.registerItemPredicates();
         Blocks.registerColorProviders();
+        Entities.registerEntityRenderers();
     }    
 }
