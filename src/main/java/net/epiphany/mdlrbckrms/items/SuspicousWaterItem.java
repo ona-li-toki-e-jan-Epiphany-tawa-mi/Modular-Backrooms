@@ -23,8 +23,6 @@ import net.minecraft.world.World;
 
 /**
  * A bottle of water gained from wringing out moist carpet and collecting the fluid. Best not to drink.
- * 
- * TODO Note: if nbt crafting is ever added as a dependency (not gonna do it for one item (this),) make this a normal potion.
  */
 public class SuspicousWaterItem extends Item {
     /**

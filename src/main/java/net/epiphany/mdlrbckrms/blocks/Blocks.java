@@ -30,9 +30,7 @@ public class Blocks {
         MoistCarpetBlock.register();
         RNGBlock.register();
         OfficeDoorBlock.register();
-
-        /*Registry.register(Registries.BLOCK, ExitDoor.EXIT_DOOR_ID, ExitDoor.EXIT_DOOR);
-        Registry.register(Registries.ITEM, ExitDoor.EXIT_DOOR_ID, ExitDoor.EXIT_DOOR_ITEM);*/
+        ExitDoorBlock.register();
 
         ModularBackrooms.LOGGER.debug("Block registration complete");
     }
