@@ -18,6 +18,7 @@
     "block.mdlrbckrms.random_number_generator": "Random Number Generator",
     "block.mdlrbckrms.office_door": "Office Door",
     "block.mdlrbckrms.unbreakable_office_door": "Unbreakable Office Door",
+    "block.mdlrbckrms.exit_door": "Exit Door",
 
     "item.mdlrbckrms.chicken": "Chicken",
     "item.mdlrbckrms.chicken_snatcher": "Chicken Snatcher",
