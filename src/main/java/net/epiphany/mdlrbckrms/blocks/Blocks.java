@@ -45,6 +45,7 @@ public class Blocks {
         MoistCarpetBlock.registerBlockItemUnderGroup(content);
         RNGBlock.registerBlockItemUnderGroup(content);
         OfficeDoorBlock.registerBlockItemUnderGroup(content);
+        ExitDoorBlock.registerBlockItemUnderGroup(content);
     }
 
     /**

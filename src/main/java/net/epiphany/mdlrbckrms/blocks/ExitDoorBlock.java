@@ -1,15 +1,20 @@
 package net.epiphany.mdlrbckrms.blocks;
 
 import net.epiphany.mdlrbckrms.ModularBackrooms;
+import net.epiphany.mdlrbckrms.levels.Levels;
+import net.epiphany.mdlrbckrms.utilities.DimensionHelper;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.Material;
 import net.minecraft.block.ShapeContext;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.enums.DoorHinge;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.registry.Registries;
@@ -30,8 +35,7 @@ import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 
-// TODO switch to using a single separate sound for opening and closing each.
-public class ExitDoorBlock extends DoorBlock {
+public class ExitDoorBlock extends DoorBlock implements BlockEntityProvider {
     /**
      * Whether the exit door is a portal to somewhere else.
      */
@@ -52,16 +56,17 @@ public class ExitDoorBlock extends DoorBlock {
 
     public static final Identifier EXIT_DOOR_ID = new Identifier(ModularBackrooms.MOD_ID, "exit_door");
     public static final ExitDoorBlock EXIT_DOOR = new ExitDoorBlock(
-        FabricBlockSettings.of(Material.METAL)
+            FabricBlockSettings.of(Material.METAL)
                            .strength(Blocks.UNBREAKABLE, Blocks.UNBLASTABLE)
                            .sounds(BlockSoundGroup.METAL)
-      , SoundEvents.BLOCK_IRON_DOOR_CLOSE, SoundEvents.BLOCK_IRON_DOOR_OPEN);
+          , SoundEvents.BLOCK_IRON_DOOR_CLOSE, SoundEvents.BLOCK_IRON_DOOR_OPEN);
     public static final BlockItem EXIT_DOOR_ITEM = new BlockItem( ExitDoorBlock.EXIT_DOOR
                                                                 , new FabricItemSettings());
 
     public static void register() {
         Registry.register(Registries.BLOCK, EXIT_DOOR_ID, EXIT_DOOR);
         Registry.register(Registries.ITEM, EXIT_DOOR_ID, EXIT_DOOR_ITEM);
+        ExitDoorBlockEntity.register();
     }
 
     public static void registerBlockItemUnderGroup(FabricItemGroupEntries content) {
@@ -111,27 +116,40 @@ public class ExitDoorBlock extends DoorBlock {
 
 
     @Override
+    public BlockEntity createBlockEntity(BlockPos position, BlockState state) {
+        return new ExitDoorBlockEntity(position, state);
+    }
+
+    @Override
     public ActionResult onUse(BlockState state, World world, BlockPos position, PlayerEntity player, Hand hand
             , BlockHitResult hit) {
-        if (world.isClient)
-            ActionResult.success(true);
-
         this.setOpen(player, world, state, position, !state.get(DoorBlock.OPEN));
+
+        if (world.isClient)
+            return ActionResult.success(true);
+
+        if (Levels.isBackrooms(world)) {
+            ExitDoorBlockEntity blockEntity = world.getBlockEntity(position, ExitDoorBlockEntity.EXIT_DOOR_BLOCK_ENTITY).get();
+            if (!blockEntity.hasPortal())
+                blockEntity.createPortal(world.getServer().getOverworld().getSpawnPos());
+        }
         
         return ActionResult.success(false);
+    }
 
+    @Override
+    public void onEntityCollision(BlockState state, World world, BlockPos position, Entity entity) {
+        if (world.isClient)
+            return;
+        if (!state.get(DoorBlock.OPEN) || !state.get(PORTAL))
+            return;
 
-        /* 
-        // Ensures that any check is done once on the server side.
-        if (world.isClient || !hand.equals(Hand.MAIN_HAND))
-            return super.onUse(state, world, position, player, hand, hit);
-
-        ModularBackrooms.LOGGER.info("Right click on exit door!");//TODO Add portal shit
-
-        // Properties of the exit door are dependent upon which dimension they are located inside.
-        if (DimensionHelper.isDimension(world, Level0.LEVEL_0_DIMENSION_KEY)) {
-        }
-
-        return super.onUse(state, world, position, player, hand, hit);*/
+        ExitDoorBlockEntity blockEntity = world.getBlockEntity(position, ExitDoorBlockEntity.EXIT_DOOR_BLOCK_ENTITY).get();
+        
+        if (blockEntity.hasPortal())
+            DimensionHelper.teleportToDimension( entity
+                                               , world.getServer().getOverworld().getRegistryKey()
+                                               , blockEntity.getDestination().toCenterPos()
+                                               , true);
     }
 }
