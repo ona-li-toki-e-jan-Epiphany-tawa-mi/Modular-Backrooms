@@ -41,6 +41,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
 // TODO Fix issue with exit doors being stubborn when trying to open.
+// TODO Ensure that block entity only appears on one end of door.
 
 /**
  * An exit door. Forms one of the main ways of transferring throught the Backrooms.
@@ -89,23 +90,41 @@ public class ExitDoorBlock extends DoorBlock implements BlockEntityProvider {
 
 
 
+    /**
+     * The real exit door spawned in the backrooms for interdimensional transportation.
+     */
     public static final Identifier EXIT_DOOR_ID = new Identifier(ModularBackrooms.MOD_ID, "exit_door");
     public static final ExitDoorBlock EXIT_DOOR = new ExitDoorBlock(
             FabricBlockSettings.of(Material.METAL)
-                           .strength(Blocks.UNBREAKABLE, Blocks.UNBLASTABLE)
-                           .sounds(BlockSoundGroup.METAL)
+                               .strength(Blocks.UNBREAKABLE, Blocks.UNBLASTABLE)
+                               .sounds(BlockSoundGroup.METAL)
           , SoundEvents.BLOCK_IRON_DOOR_CLOSE, SoundEvents.BLOCK_IRON_DOOR_OPEN);
-    public static final BlockItem EXIT_DOOR_ITEM = new BlockItem( ExitDoorBlock.EXIT_DOOR
-                                                                , new FabricItemSettings());
+    public static final BlockItem EXIT_DOOR_ITEM = new BlockItem(EXIT_DOOR, new FabricItemSettings());
+
+    /**
+     * Player craftable version of the exit door that acts like a normal iron door.
+     */
+    public static final Identifier CRAFTABLE_EXIT_DOOR_ID = new Identifier( ModularBackrooms.MOD_ID
+                                                                          , "craftable_exit_door");
+    public static final DoorBlock CRAFTABLE_EXIT_DOOR = new DoorBlock(
+            FabricBlockSettings.copy(EXIT_DOOR)
+                               .strength(5.0f, 5.0f)
+                               .requiresTool()
+          , SoundEvents.BLOCK_IRON_DOOR_CLOSE, SoundEvents.BLOCK_IRON_DOOR_OPEN);
+    public static final BlockItem CRAFTABLE_EXIT_DOOR_ITEM = new BlockItem(CRAFTABLE_EXIT_DOOR, new FabricItemSettings());
 
     public static void register() {
         Registry.register(Registries.BLOCK, EXIT_DOOR_ID, EXIT_DOOR);
         Registry.register(Registries.ITEM, EXIT_DOOR_ID, EXIT_DOOR_ITEM);
         ExitDoorBlockEntity.register();
+
+        Registry.register(Registries.BLOCK, CRAFTABLE_EXIT_DOOR_ID, CRAFTABLE_EXIT_DOOR);
+        Registry.register(Registries.ITEM, CRAFTABLE_EXIT_DOOR_ID, CRAFTABLE_EXIT_DOOR_ITEM);
     }
 
     public static void registerBlockItemUnderGroup(FabricItemGroupEntries content) {
         content.add(EXIT_DOOR_ITEM);
+        content.add(CRAFTABLE_EXIT_DOOR_ITEM);
     }
 
     

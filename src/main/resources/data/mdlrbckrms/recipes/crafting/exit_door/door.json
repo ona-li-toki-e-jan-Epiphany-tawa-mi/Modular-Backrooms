@@ -1,0 +1,22 @@
+{
+    "type": "crafting_shaped",
+    "category": "building",
+    "group": "exit_door",
+    "pattern": [
+        "RR",
+        "BB",
+        "RR"
+    ],
+    "key": {
+        "R": {
+            "item": "minecraft:red_concrete"
+        },
+        "B": {
+            "item": "minecraft:bedrock"
+        }
+    },
+    "result": {
+        "item": "mdlrbckrms:exit_door",
+        "count": 3
+    }
+}

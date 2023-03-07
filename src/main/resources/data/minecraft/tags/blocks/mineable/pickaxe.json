@@ -8,7 +8,9 @@
         "mdlrbckrms:unbreakable_yellowed_wallpaper",
         "mdlrbckrms:unbreakable_yellowed_wallpaper_slab",
         "mdlrbckrms:unbreakable_yellowed_wallpaper_stairs",
-        "mdlrbckrms:unbreakable_yellowed_wallpaper_wall"
+        "mdlrbckrms:unbreakable_yellowed_wallpaper_wall",
+        "mdlrbckrms:exit_door",
+        "mdlrbckrms:craftable_exit_door"
     ]
 }
 

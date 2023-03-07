@@ -1,0 +1,22 @@
+{
+    "type": "crafting_shaped",
+    "category": "building",
+    "group": "exit_door",
+    "pattern": [
+        "RR",
+        "II",
+        "RR"
+    ],
+    "key": {
+        "R": {
+            "item": "minecraft:red_concrete"
+        },
+        "I": {
+            "item": "minecraft:iron_ingot"
+        }
+    },
+    "result": {
+        "item": "mdlrbckrms:craftable_exit_door",
+        "count": 3
+    }
+}
