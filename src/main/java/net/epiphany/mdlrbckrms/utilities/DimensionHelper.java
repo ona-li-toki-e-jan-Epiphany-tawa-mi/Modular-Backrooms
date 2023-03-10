@@ -46,7 +46,7 @@ public class DimensionHelper {
      * @return Whether the world is the specified dimension.
      */
     public static boolean isDimension(World world, RegistryKey<World> dimension) {
-        return world.getDimensionKey().equals(dimension);
+        return world.getRegistryKey().equals(dimension);
     }
 
     /**

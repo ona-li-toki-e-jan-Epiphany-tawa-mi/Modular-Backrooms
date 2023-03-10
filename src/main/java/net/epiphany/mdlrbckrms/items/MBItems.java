@@ -1,7 +1,9 @@
 package net.epiphany.mdlrbckrms.items;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
-
 import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.epiphany.mdlrbckrms.blocks.MBBlocks;
 import net.fabricmc.api.EnvType;
@@ -31,14 +33,22 @@ public class MBItems {
 
     /**
      * Registers the Backrooms items under their item group for the creative menu.
+     * TODO Note: if there are preformance issues when opening the creative inventory for the first time with a lot of mods, you 
+     *      know why.
      */
     private static void registerItemUnderGroup(FabricItemGroupEntries content) {
+        List<Item> items = new ArrayList<>();
+
         // Possibly sketchy scan through the item registry to find all Modular Backrooms items and adding them to the creative menu.
         // Nothing could possibly go wrong here, right? ;)
-        for (Map.Entry<RegistryKey<Item>, Item> entry : Registries.ITEM.getEntrySet()) {
+        for (Map.Entry<RegistryKey<Item>, Item> entry : Registries.ITEM.getEntrySet()) 
             if (ModularBackrooms.MOD_ID.equals(entry.getKey().getValue().getNamespace()))
-                content.add(entry.getValue().getDefaultStack());
-        }
+                items.add(entry.getValue());
+
+        Collections.sort(items, (item1, item2) -> Item.getRawId(item1) - Item.getRawId(item2));
+
+        for (Item item : items) 
+            content.add(item.getDefaultStack());
     }
 
 

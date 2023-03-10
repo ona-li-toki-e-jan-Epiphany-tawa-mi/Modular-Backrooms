@@ -1,7 +1,7 @@
 package net.epiphany.mdlrbckrms.blocks.exitdoor;
 
 import net.epiphany.mdlrbckrms.blocks.OpenableMetalDoorBlock;
-import net.epiphany.mdlrbckrms.levels.Levels;
+import net.epiphany.mdlrbckrms.blocks.exitdoor.ExitDoorEvents.PortalDestination;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
 import net.minecraft.block.BlockState;
@@ -158,26 +158,24 @@ public class ExitDoorBlock extends OpenableMetalDoorBlock implements BlockEntity
 
 
 
+    /**
+     * Handles the creation of a portal in the door when a player opens it.
+     */
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos position, PlayerEntity player, Hand hand
             , BlockHitResult hit) {
         if (world.isClient)
             return super.onUse(state, world, position, player, hand, hit);
 
-        // TODO make this a callback.
-        if (Levels.isBackrooms(world)) {
-            DoubleBlockHalf half = state.get(DoorBlock.HALF);
-            BlockPos blockEntityPosition = half == DoubleBlockHalf.UPPER ? position : position.up();
+        BlockPos blockEntityPosition = state.get(DoorBlock.HALF) == DoubleBlockHalf.UPPER ? position : position.up();
+        ExitDoorBlockEntity blockEntity = world.getBlockEntity(blockEntityPosition, ExitDoorBlockEntity.EXIT_DOOR_ENTITY).orElse(null);
 
-            ExitDoorBlockEntity blockEntity = world.getBlockEntity(blockEntityPosition, ExitDoorBlockEntity.EXIT_DOOR_ENTITY)
-                                                   .orElse(null);
+        if (blockEntity != null && !blockEntity.hasPortal()) {
+            PortalDestination destination = ExitDoorEvents.TRY_CREATE_PORTAL.invoker().tryCreatePortal(world, position, player);
 
-            if (blockEntity != null && !blockEntity.hasPortal()) {
+            if (destination != null) {
                 state = state.with(PORTAL, true);
-                world.setBlockState(position, state);
-
-                World overworld = world.getServer().getOverworld();
-                blockEntity.createPortal(overworld.getSpawnPos(), overworld.getRegistryKey());
+                blockEntity.createPortal(destination.location(), destination.world(), destination.lifespan());
             }
         }
         

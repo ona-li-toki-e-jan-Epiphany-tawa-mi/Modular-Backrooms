@@ -81,7 +81,7 @@ public class GlitchesInReality {
                 /* Random chance */
                 || shouldEnterBackrooms(random)) { 
             player.setHealth(player.getMaxHealth() * (random.nextFloat() * 0.2f + 0.2f));
-            DimensionHelper.teleportToDimension(player, Level0.LEVEL_0_DIMENSION_KEY, random);
+            DimensionHelper.teleportToDimension(player, Level0.LEVEL_0, random);
 
             return false;
         }
@@ -99,7 +99,7 @@ public class GlitchesInReality {
             return;
 
         if (shouldEnterBackrooms(origin.getRandom()))
-            DimensionHelper.teleportToDimension(player, Level0.LEVEL_0_DIMENSION_KEY, player.getRandom());
+            DimensionHelper.teleportToDimension(player, Level0.LEVEL_0, player.getRandom());
     }
 
     /**
@@ -112,6 +112,6 @@ public class GlitchesInReality {
             return;
         
         if (shouldEnterBackrooms(player.getRandom())) 
-            DimensionHelper.teleportToDimension(player, Level0.LEVEL_0_DIMENSION_KEY, player.getRandom());
+            DimensionHelper.teleportToDimension(player, Level0.LEVEL_0, player.getRandom());
     }
 }

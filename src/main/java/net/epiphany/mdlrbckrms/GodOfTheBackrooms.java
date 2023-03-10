@@ -47,6 +47,6 @@ public class GodOfTheBackrooms {
         Random random = killedPlayer.getRandom();
 
         if (GlitchesInReality.shouldEnterBackrooms(random))
-            DimensionHelper.teleportToDimension(entity, Level0.LEVEL_0_DIMENSION_KEY, random);
+            DimensionHelper.teleportToDimension(entity, Level0.LEVEL_0, random);
     }
 }
