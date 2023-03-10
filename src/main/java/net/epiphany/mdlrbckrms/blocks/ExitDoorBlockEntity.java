@@ -93,7 +93,6 @@ public class ExitDoorBlockEntity extends BlockEntity {
     public static void tick(World world, BlockPos position, BlockState state, ExitDoorBlockEntity blockEntity) {
         if (blockEntity.portalLifespan == 0) {
             blockEntity.removePortal();
-            // Stops the portal from being displayed as part of the door model.
             ExitDoorBlock.EXIT_DOOR.setOpen( null
                                            , world
                                            , state.with(ExitDoorBlock.PORTAL, false)
@@ -138,6 +137,23 @@ public class ExitDoorBlockEntity extends BlockEntity {
     @Nullable
     public BlockPos getDestination() {
         return this.destination;
+    }
+
+    /**
+     * @return The dimension of the destination, or null, if it doesn't exist.
+     */
+    @Nullable
+    public RegistryKey<World> getDestinationDimension() {
+        return this.destinationDimension;
+    }
+
+    /**
+     * @return The lifespan of the portal in ticks. 
+     * 
+     * If there is a portal and the lifespan is -1, the portal will never close on it's own.
+     */
+    public int getPortalLifespan() {
+        return portalLifespan;
     }
 
     /**

@@ -15,6 +15,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.enums.DoorHinge;
+import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
@@ -40,13 +41,10 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 
-// TODO Fix issue with exit doors being stubborn when trying to open.
-// TODO Ensure that block entity only appears on one end of door.
-
 /**
  * An exit door. Forms one of the main ways of transferring throught the Backrooms.
  */
-public class ExitDoorBlock extends DoorBlock implements BlockEntityProvider {
+public class ExitDoorBlock extends OpenableMetalDoorBlock implements BlockEntityProvider {
     /**
      * Whether the exit door is a portal to somewhere else.
      */
@@ -77,7 +75,8 @@ public class ExitDoorBlock extends DoorBlock implements BlockEntityProvider {
 
     @Override
     public BlockEntity createBlockEntity(BlockPos position, BlockState state) {
-        return new ExitDoorBlockEntity(position, state);
+        // There only needs to be one block entity per door, so we restrict it to the upper half.
+        return state.get(DoorBlock.HALF) == DoubleBlockHalf.UPPER ? new ExitDoorBlockEntity(position, state) : null;
     }
 
     @Override
@@ -106,7 +105,7 @@ public class ExitDoorBlock extends DoorBlock implements BlockEntityProvider {
      */
     public static final Identifier CRAFTABLE_EXIT_DOOR_ID = new Identifier( ModularBackrooms.MOD_ID
                                                                           , "craftable_exit_door");
-    public static final DoorBlock CRAFTABLE_EXIT_DOOR = new DoorBlock(
+    public static final OpenableMetalDoorBlock CRAFTABLE_EXIT_DOOR = new OpenableMetalDoorBlock(
             FabricBlockSettings.copy(EXIT_DOOR)
                                .strength(5.0f, 5.0f)
                                .requiresTool()
@@ -209,24 +208,26 @@ public class ExitDoorBlock extends DoorBlock implements BlockEntityProvider {
     public ActionResult onUse(BlockState state, World world, BlockPos position, PlayerEntity player, Hand hand
             , BlockHitResult hit) {
         if (world.isClient)
-            return ActionResult.success(true);
-
-        this.setOpen(null, world, state, position, !state.get(DoorBlock.OPEN));
+            return super.onUse(state, world, position, player, hand, hit);
 
         // TODO make this a callback.
         if (Levels.isBackrooms(world)) {
-            ExitDoorBlockEntity blockEntity = world.getBlockEntity(position, ExitDoorBlockEntity.EXIT_DOOR_BLOCK_ENTITY)
+            DoubleBlockHalf half = state.get(DoorBlock.HALF);
+            BlockPos blockEntityPosition = half == DoubleBlockHalf.UPPER ? position : position.up();
+
+            ExitDoorBlockEntity blockEntity = world.getBlockEntity(blockEntityPosition, ExitDoorBlockEntity.EXIT_DOOR_BLOCK_ENTITY)
                                                    .orElse(null);
 
             if (blockEntity != null && !blockEntity.hasPortal()) {
-                world.setBlockState(position, state.with(PORTAL, true));
+                state = state.with(PORTAL, true);
+                world.setBlockState(position, state);
 
                 World overworld = world.getServer().getOverworld();
                 blockEntity.createPortal(overworld.getSpawnPos(), overworld.getRegistryKey());
             }
         }
         
-        return ActionResult.success(false);
+        return super.onUse(state, world, position, player, hand, hit);
     }
 
     /**

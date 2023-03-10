@@ -2,9 +2,9 @@
     "feature": {
         "type": "mdlrbckrms:walled_door",
         "config": {
-            "doorBlockID": "mdlrbckrms:unbreakable_office_door",
-            "openChance": 0.05,
-            "canPlaceDoubleDoors": true
+            "doorBlockID": "mdlrbckrms:exit_door",
+            "openChance": 0.0,
+            "canPlaceDoubleDoors": false
         }
     },
     "placement": [
@@ -18,14 +18,11 @@
             }
         },
         {
-            "type": "count",
-            "count": {
-                "type": "constant",
-                "value": 2
-            }
+            "type": "in_square"
         },
         {
-            "type": "in_square"
+            "type": "rarity_filter",
+            "chance": 10
         }
     ]
 }

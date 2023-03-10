@@ -119,6 +119,9 @@ public class WalledDoorFeature extends Feature<WalledDoorConfig> {
             return false;
         
         } else if (doorToRight || doorToLeft) {
+            if (!config.canPlaceDoubleDoors())
+                return false;
+
             BlockPos otherDoorPosition = doorOrigin.offset(doorToRight ? doorFacing.rotateYClockwise() 
                                                                        : doorFacing.rotateYCounterclockwise());
             BlockState otherDoorState = world.getBlockState(otherDoorPosition);
