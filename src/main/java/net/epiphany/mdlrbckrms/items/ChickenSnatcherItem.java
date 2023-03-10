@@ -11,10 +11,12 @@ import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 
 /**
  * An item that lets you snatch up chickens as items.
@@ -52,6 +54,10 @@ public class ChickenSnatcherItem extends ToolItem {
                              , SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, SoundCategory.PLAYERS
                              , 1.0f, user.getPitch());
         ChickenItem.playChickenSound(serverWorld, chicken.getBlockPos(), SoundEvents.ENTITY_CHICKEN_HURT);
+
+        user.incrementStat(Stats.USED.getOrCreateStat(this));
+        user.incrementStat(Stats.PICKED_UP.getOrCreateStat(MBItems.CHICKEN));
+        world.emitGameEvent(user, GameEvent.ENTITY_INTERACT, chicken.getBlockPos());
 
 
         chicken.remove(RemovalReason.DISCARDED);

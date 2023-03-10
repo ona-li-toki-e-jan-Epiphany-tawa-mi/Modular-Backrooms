@@ -12,6 +12,7 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.event.GameEvent;
 
 /**
  * A fluorescent light that flickers every so often based on randomTickSpeed. Adjacent lights flicker in unison.
@@ -48,10 +49,12 @@ public class FluorescentLightBlock extends Block {
     public void randomTick(BlockState state, ServerWorld world, BlockPos position, Random random) {
         if (random.nextFloat() < (1.0f / 100.0f)) {
             cascadeSetLightState(state, world, position, false, random);
+
             world.playSound( null
                            , position
                            , MBSounds.FLUORESCENT_FLICKER, SoundCategory.BLOCKS
                            , 1.0f, 1.0f + 0.025f * random.nextBetween(-1, 1));
+            world.emitGameEvent(null, GameEvent.BLOCK_CHANGE, position);
         }
     }
 

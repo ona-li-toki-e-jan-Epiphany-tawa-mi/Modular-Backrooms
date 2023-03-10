@@ -31,6 +31,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 
 /**
  * A item that looks and behaves like a chicken.
@@ -77,7 +78,8 @@ public class ChickenItem extends Item {
 
 
         ItemStack stack = context.getStack();
-        BlockPos adjacentPosition = context.getBlockPos().offset(context.getSide());
+        BlockPos position = context.getBlockPos();
+        BlockPos adjacentPosition = position.offset(context.getSide());
 
         ChickenEntity chicken = new ChickenEntity(EntityType.CHICKEN, world);
         // If the chicken item is named, why not add that name to the resulting chicken.
@@ -87,6 +89,9 @@ public class ChickenItem extends Item {
         world.spawnEntity(chicken);
 
         chicken.playAmbientSound();
+
+        PlayerEntity player = context.getPlayer();
+        world.emitGameEvent(player, GameEvent.ENTITY_PLACE, position);
 
 
         stack.decrement(1);

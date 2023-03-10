@@ -1,5 +1,6 @@
 package net.epiphany.mdlrbckrms.items;
 
+import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -10,10 +11,13 @@ import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.item.PotionItem;
 import net.minecraft.potion.Potion;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 
 /**
  * A bottle of water gained from wringing out moist carpet and collecting the fluid. Best not to drink.
@@ -77,24 +81,27 @@ public class SuspicousWaterItem extends Item {
                 stackConsumed = true;
             }
 
+
         if (world.isClient)
             return result;
 
-        if (player != null && !stackConsumed) {
-            ItemStack emptyBottle = new ItemStack(Items.GLASS_BOTTLE);
-            if (!player.giveItemStack(emptyBottle))
-                player.dropItem(emptyBottle, false);
+
+        if (player != null) {
+            Criteria.CONSUME_ITEM.trigger((ServerPlayerEntity) player, stack);
+            player.incrementStat(Stats.USED.getOrCreateStat(this));
+
+            if (!stackConsumed) {
+                ItemStack emptyBottle = new ItemStack(Items.GLASS_BOTTLE);
+                if (!player.giveItemStack(emptyBottle))
+                    player.dropItem(emptyBottle, false);
+            }
         }
 
         for (StatusEffectInstance statusEffect : SUSPICOUS_WATER_POTION.getEffects())
             user.addStatusEffect(new StatusEffectInstance(statusEffect));
             
-
-        //TODO consider adding these elements and to other item usages.
-        //user.emitGameEvent(GameEvent.DRINK);
-        //player.incrementStat(Stats.USED.getOrCreateStat(this));
-        //Criteria.CONSUME_ITEM.trigger((ServerPlayerEntity) player, stack);
-
+        user.emitGameEvent(GameEvent.DRINK);
+        
         return result;
     }
 
