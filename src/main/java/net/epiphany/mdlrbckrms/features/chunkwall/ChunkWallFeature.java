@@ -1,13 +1,12 @@
-package net.epiphany.mdlrbckrms.features;
+package net.epiphany.mdlrbckrms.features.chunkwall;
 
 import com.mojang.serialization.Codec;
 
-import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.minecraft.block.BlockState;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.feature.Feature;
@@ -17,18 +16,11 @@ import net.minecraft.world.gen.feature.util.FeatureContext;
  * Used to conditionally generate walls on the south and east side of all chunks to form walls throught a level.
  */
 public class ChunkWallFeature extends Feature<ChunkWallConfig> {
-    public static final Identifier CHUNK_WALL_ID = new Identifier(ModularBackrooms.MOD_ID, "chunk_wall");
-    public static final Feature<ChunkWallConfig> CHUNK_WALL_FEATURE = new ChunkWallFeature(ChunkWallConfig.CODEC);
-
-    public static void register() {
-        Registry.register(Registries.FEATURE, CHUNK_WALL_ID, CHUNK_WALL_FEATURE);
-    }
-
     public ChunkWallFeature(Codec<ChunkWallConfig> configCodec) {
         super(configCodec);
     }
 
-
+    
 
     @Override
     public boolean generate(FeatureContext<ChunkWallConfig> context) {
@@ -43,15 +35,9 @@ public class ChunkWallFeature extends Feature<ChunkWallConfig> {
         if (height < 1)
             throw new IllegalStateException("Chunk wall height cannot be less than 1! (recieved height of " + height + ")");
 
-        float wallChance = config.wallChance();
-        if (wallChance < 0.0f || wallChance > 1.0f)
-            throw new IllegalStateException( "Chunk wall wall chance must be between 0 and 1! (recieved chance of " + wallChance 
-                                           + ")");
+        float wallChance = MathHelper.clamp(config.wallChance(), 0.0f, 1.0f);
 
-        float openingChance = config.openingChance();
-        if (openingChance < 0.0f || openingChance > 1.0f)
-            throw new IllegalStateException( "Chunk wall opening chance must be between 0 and 1! (recieved chance of " 
-                                           + openingChance + ")");
+        float openingChance = MathHelper.clamp(config.openingChance(), 0.0f, 1.0f);
 
 
 

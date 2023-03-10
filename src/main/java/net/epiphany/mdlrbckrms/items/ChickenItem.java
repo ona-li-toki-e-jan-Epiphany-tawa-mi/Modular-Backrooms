@@ -3,10 +3,6 @@ package net.epiphany.mdlrbckrms.items;
 import org.jetbrains.annotations.Nullable;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.epiphany.mdlrbckrms.ModularBackrooms;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
-import net.fabricmc.fabric.api.registry.CompostingChanceRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.entity.Entity;
@@ -25,8 +21,6 @@ import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
@@ -42,25 +36,11 @@ import net.minecraft.world.World;
  * A item that looks and behaves like a chicken.
  */
 public class ChickenItem extends Item {
-    public static final Identifier CHICKEN_ID = new Identifier(ModularBackrooms.MOD_ID, "chicken");
-    public static final ChickenItem CHICKEN = new ChickenItem(new FabricItemSettings().maxCount(1));
-   
     /**
      * Nbt tag that acts like the damage cooldown that mobs have.
      */
-    public static final String DAMAGE_TIME = "DamageTime";
+    public static final String DAMAGE_TIME_NBT = "DamageTime";
     public static final int MAX_DAMAGE_TIME = 10;
-
-    public static void register() {
-        Registry.register(Registries.ITEM, CHICKEN_ID, CHICKEN);
-        CompostingChanceRegistry.INSTANCE.add(CHICKEN, 1.0f); // Compostable chickens ;)
-    }
-
-    public static void registerItemUnderGroup(FabricItemGroupEntries content) {
-        content.add(CHICKEN.getDefaultStack());
-    }
-
-
 
     public ChickenItem(Settings settings) {
         super(settings);
@@ -81,7 +61,7 @@ public class ChickenItem extends Item {
      */
     private void addNbtData(ItemStack item) {
         NbtCompound nbt = item.getOrCreateNbt();
-        nbt.putInt(DAMAGE_TIME, 0);
+        nbt.putInt(DAMAGE_TIME_NBT, 0);
     }
 
 
@@ -124,9 +104,9 @@ public class ChickenItem extends Item {
         // Updates damage time and ensures that it is present on chicken items.
         NbtCompound nbt = item.getNbt();
         if (nbt != null) {
-            int damageTime = nbt.getInt(DAMAGE_TIME);
+            int damageTime = nbt.getInt(DAMAGE_TIME_NBT);
             if (damageTime > 0)
-                nbt.putInt(DAMAGE_TIME, damageTime - 1);
+                nbt.putInt(DAMAGE_TIME_NBT, damageTime - 1);
         } else
             addNbtData(item);
 
@@ -158,7 +138,7 @@ public class ChickenItem extends Item {
         if (world.isClient) 
             return;
 
-        if (CHICKEN.equals(itemFrame.getHeldItemStack().getItem())) {
+        if (itemFrame.getHeldItemStack().isOf(MBItems.CHICKEN)) {
             Random random = world.getRandom();
             BlockPos position = itemFrame.getBlockPos();
                 
@@ -192,7 +172,7 @@ public class ChickenItem extends Item {
         if (world.isClient) 
             return;
 
-        if (CHICKEN.equals(itemEntity.getStack().getItem())) {
+        if (itemEntity.getStack().isOf(MBItems.CHICKEN)) {
             Random random = world.getRandom();
             BlockPos position = itemEntity.getBlockPos();
 
@@ -243,7 +223,7 @@ public class ChickenItem extends Item {
     public static void onFurnaceCraftRecipe(World world, BlockPos position, AbstractFurnaceBlockEntity furnaceBlockEntity) {
         ItemStack ingredient = furnaceBlockEntity.getStack(FURNACE_INGREDIENT_SLOT);
         
-        if (CHICKEN.equals(ingredient.getItem()))
+        if (ingredient.isOf(MBItems.CHICKEN))
             playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_DEATH);
     }
 
@@ -251,7 +231,7 @@ public class ChickenItem extends Item {
      * Plays a death sound when chicken items are cooked with a campfire and similar blocks.
      */
     public static void onCampfireCookItem(World world, BlockPos position, ItemStack ingredient) {
-        if (CHICKEN.equals(ingredient.getItem()))
+        if (ingredient.isOf(MBItems.CHICKEN))
             playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_HURT);
     }
 
@@ -305,16 +285,16 @@ public class ChickenItem extends Item {
     private static boolean damageChicken(ItemStack item, World world, BlockPos position, @Nullable LivingEntity wielder) {
         NbtCompound nbt = item.getNbt();
         // "Damage" cannot occur until cooldown is up.
-        if (nbt != null && nbt.getInt(DAMAGE_TIME) > 0)
+        if (nbt != null && nbt.getInt(DAMAGE_TIME_NBT) > 0)
             return false;
 
         playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_HURT);
 
         int cooldown = MAX_DAMAGE_TIME;
         if (wielder instanceof PlayerEntity player)
-            player.getItemCooldownManager().set(CHICKEN, cooldown);
+            player.getItemCooldownManager().set(MBItems.CHICKEN, cooldown);
         if (nbt != null) 
-            nbt.putInt(DAMAGE_TIME, cooldown);
+            nbt.putInt(DAMAGE_TIME_NBT, cooldown);
 
         return true;
     }

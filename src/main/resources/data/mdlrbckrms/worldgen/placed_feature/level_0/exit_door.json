@@ -2,7 +2,7 @@
     "feature": {
         "type": "mdlrbckrms:walled_door",
         "config": {
-            "doorBlockID": "mdlrbckrms:exit_door",
+            "doorBlockID": "mdlrbckrms:interdimensional_exit_door",
             "openChance": 0.0,
             "canPlaceDoubleDoors": false
         }

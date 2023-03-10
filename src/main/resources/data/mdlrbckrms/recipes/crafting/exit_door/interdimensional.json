@@ -4,19 +4,19 @@
     "group": "exit_door",
     "pattern": [
         "RR",
-        "II",
+        "BB",
         "RR"
     ],
     "key": {
         "R": {
             "item": "minecraft:red_concrete"
         },
-        "I": {
-            "item": "minecraft:iron_ingot"
+        "B": {
+            "item": "minecraft:bedrock"
         }
     },
     "result": {
-        "item": "mdlrbckrms:craftable_exit_door",
+        "item": "mdlrbckrms:interdimensional_exit_door",
         "count": 3
     }
 }

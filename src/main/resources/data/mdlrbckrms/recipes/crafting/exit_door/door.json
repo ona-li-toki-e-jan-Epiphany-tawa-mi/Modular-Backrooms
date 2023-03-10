@@ -4,15 +4,15 @@
     "group": "exit_door",
     "pattern": [
         "RR",
-        "BB",
+        "II",
         "RR"
     ],
     "key": {
         "R": {
             "item": "minecraft:red_concrete"
         },
-        "B": {
-            "item": "minecraft:bedrock"
+        "I": {
+            "item": "minecraft:iron_ingot"
         }
     },
     "result": {

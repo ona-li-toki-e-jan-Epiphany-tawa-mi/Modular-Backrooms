@@ -1,4 +1,4 @@
-package net.epiphany.mdlrbckrms.features;
+package net.epiphany.mdlrbckrms.features.walleddoor;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

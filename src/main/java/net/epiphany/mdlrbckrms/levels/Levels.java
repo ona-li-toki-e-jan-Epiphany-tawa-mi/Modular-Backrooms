@@ -3,7 +3,6 @@ package net.epiphany.mdlrbckrms.levels;
 import java.util.HashSet;
 import java.util.Set;
 
-import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.epiphany.mdlrbckrms.levels.level0.Level0;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.world.World;
@@ -22,11 +21,7 @@ public class Levels {
      * Registers dimensions, chunk generators, biomes, etc. for the levels of the Backrooms.
      */
     public static void registerLevels() {
-        ModularBackrooms.LOGGER.debug("Registering backrooms levels");
-
         Level0.register(backroomsLevels);
-
-        ModularBackrooms.LOGGER.debug("Backrooms level registration complete");
     }
 
 
@@ -40,4 +35,14 @@ public class Levels {
     public static boolean isBackrooms(World world) {
         return backroomsLevels.contains(world.getRegistryKey());
     }
+
+    /* Note: helper function that may be needed in the future.
+     protected static void fillRegion(Chunk chunk, BlockState block, int startX, int endX, int startZ, int endZ, int startY, 
+            int endY) {
+        for (int x = startX; x <= endX; x++) 
+            for (int z = startZ; z <= endZ; z++)
+                for (int y = startY; y <= endY; y++)
+                    chunk.setBlockState(new BlockPos(x, y, z), block, false);
+    }
+     */
 }

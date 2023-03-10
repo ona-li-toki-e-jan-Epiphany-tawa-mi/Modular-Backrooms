@@ -1,20 +1,20 @@
-package net.epiphany.mdlrbckrms.features;
+package net.epiphany.mdlrbckrms.features.walleddoor;
 
 import java.util.Optional;
 
 import com.mojang.serialization.Codec;
 
-import net.epiphany.mdlrbckrms.ModularBackrooms;
-import net.epiphany.mdlrbckrms.features.Features.PillarCondition;
+import net.epiphany.mdlrbckrms.features.MBFeatures;
+import net.epiphany.mdlrbckrms.features.MBFeatures.PillarCondition;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.enums.DoorHinge;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.StructureWorldAccess;
@@ -26,13 +26,6 @@ import net.minecraft.world.gen.feature.util.FeatureContext;
  * Used to generate random doors in the walls of the backrooms.
  */
 public class WalledDoorFeature extends Feature<WalledDoorConfig> {
-    public static final Identifier WALLED_DOOR_ID = new Identifier(ModularBackrooms.MOD_ID, "walled_door");
-    public static final Feature<WalledDoorConfig> WALLED_DOOR_FEATURE = new WalledDoorFeature(WalledDoorConfig.CODEC);
-
-    public static void register() {
-        Registry.register(Registries.FEATURE, WALLED_DOOR_ID, WALLED_DOOR_FEATURE);
-    }
-
     public WalledDoorFeature(Codec<WalledDoorConfig> configCodec) {
         super(configCodec);
     }
@@ -60,10 +53,9 @@ public class WalledDoorFeature extends Feature<WalledDoorConfig> {
         if (defaultDoorState == null || !(defaultDoorState.getBlock() instanceof DoorBlock))
             throw new IllegalStateException(doorBlockID + " could not be parsed to a valid door block identifier!");
 
-        float openChance = config.openChance();
-        if (openChance < 0.0f || openChance > 1.0f)
-            throw new IllegalStateException( "Walled door open chance must be between 0 and 1! (recieved chance of " + openChance 
-                                           + ")");
+        float openChance = MathHelper.clamp(config.openChance(), 0.0f, 1.0f);
+
+        boolean canPlaceDoubleDoors = config.canPlaceDoubleDoors();
 
             
 
@@ -119,7 +111,7 @@ public class WalledDoorFeature extends Feature<WalledDoorConfig> {
             return false;
         
         } else if (doorToRight || doorToLeft) {
-            if (!config.canPlaceDoubleDoors())
+            if (!canPlaceDoubleDoors)
                 return false;
 
             BlockPos otherDoorPosition = doorOrigin.offset(doorToRight ? doorFacing.rotateYClockwise() 
@@ -164,8 +156,8 @@ public class WalledDoorFeature extends Feature<WalledDoorConfig> {
     private Optional<Direction> determineFacing(WorldAccess world, Random random, BlockPos doorOrigin, Direction direction) {
         Direction opposite = direction.getOpposite();
 
-        boolean canFaceDirection = Features.testPillar(world, doorOrigin.offset(direction), 2, PillarCondition.AIR)
-              , canFaceOpposite  = Features.testPillar(world, doorOrigin.offset(opposite), 2, PillarCondition.AIR);
+        boolean canFaceDirection = MBFeatures.testPillar(world, doorOrigin.offset(direction), 2, PillarCondition.AIR)
+              , canFaceOpposite  = MBFeatures.testPillar(world, doorOrigin.offset(opposite), 2, PillarCondition.AIR);
         
         if (!canFaceDirection && !canFaceOpposite)
             return Optional.empty();

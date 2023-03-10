@@ -1,8 +1,5 @@
 package net.epiphany.mdlrbckrms.items;
 
-import net.epiphany.mdlrbckrms.ModularBackrooms;
-import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
@@ -13,10 +10,7 @@ import net.minecraft.item.ItemUsage;
 import net.minecraft.item.Items;
 import net.minecraft.item.PotionItem;
 import net.minecraft.potion.Potion;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.world.World;
@@ -50,17 +44,6 @@ public class SuspicousWaterItem extends Item {
                       , new StatusEffectInstance( StatusEffects.MINING_FATIGUE
                                                 , 400, 0
                                                 , false, false, true));
-
-    public static final Identifier SUSPICOUS_WATER_ID = new Identifier(ModularBackrooms.MOD_ID, "suspicous_water");
-    public static final SuspicousWaterItem SUSPICOUS_WATER = new SuspicousWaterItem(new FabricItemSettings());
-    
-    public static void register() {
-        Registry.register(Registries.ITEM, SUSPICOUS_WATER_ID, SUSPICOUS_WATER);
-    }
-
-    public static void registerItemUnderGroup(FabricItemGroupEntries content) {
-        content.add(SUSPICOUS_WATER);
-    }
 
     
     

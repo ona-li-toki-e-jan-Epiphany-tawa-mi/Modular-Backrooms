@@ -1,15 +1,14 @@
-package net.epiphany.mdlrbckrms.features;
+package net.epiphany.mdlrbckrms.features.dividerwall;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import com.mojang.serialization.Codec;
 
-import net.epiphany.mdlrbckrms.ModularBackrooms;
-import net.epiphany.mdlrbckrms.features.Features.PillarCondition;
+import net.epiphany.mdlrbckrms.features.MBFeatures;
+import net.epiphany.mdlrbckrms.features.MBFeatures.PillarCondition;
 import net.minecraft.block.BlockState;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -22,18 +21,11 @@ import net.minecraft.world.gen.feature.util.FeatureContext;
  * Used to generate smaller subwalls throught a level that split up rooms.
  */
 public class DividerWallFeature extends Feature<DividerWallConfig> {
-    public static final Identifier DIVIDER_WALL_ID = new Identifier(ModularBackrooms.MOD_ID, "divider_wall");
-    public static final Feature<DividerWallConfig> DIVIDER_WALL_FEATURE = new DividerWallFeature(DividerWallConfig.CODEC);
-
-    public static void register() {
-        Registry.register(Registries.FEATURE, DIVIDER_WALL_ID, DIVIDER_WALL_FEATURE);
-    }
-
-    public DividerWallFeature(Codec<DividerWallConfig> configCodec) {
+   public DividerWallFeature(Codec<DividerWallConfig> configCodec) {
         super(configCodec);
     }
 
-
+    
 
     @Override
     public boolean generate(FeatureContext<DividerWallConfig> context) {
@@ -75,7 +67,7 @@ public class DividerWallFeature extends Feature<DividerWallConfig> {
         int height = random.nextBetween(minimumHeight, maximumHeight);
 
         // Ensures that the divider wall builds out from an existing wall of at least the same height because it looks better.
-        boolean startsInWall = Features.testPillar(world, wallOrigin, height, PillarCondition.SOILD);
+        boolean startsInWall = MBFeatures.testPillar(world, wallOrigin, height, PillarCondition.SOILD);
         if (!startsInWall)
             return false;
         
@@ -86,12 +78,12 @@ public class DividerWallFeature extends Feature<DividerWallConfig> {
         for (Direction direction : Direction.Type.HORIZONTAL) {
             BlockPos possibleDirection = wallOrigin.offset(direction);
 
-            if (Features.testPillar(world, possibleDirection, height, PillarCondition.AIR)
-                    && Features.testPillar( world
+            if (MBFeatures.testPillar(world, possibleDirection, height, PillarCondition.AIR)
+                    && MBFeatures.testPillar( world
                                           , possibleDirection.offset(direction.rotateYClockwise())
                                           , height
                                           , PillarCondition.AIR)
-                    && Features.testPillar( world
+                    && MBFeatures.testPillar( world
                                           , possibleDirection.offset(direction.rotateYCounterclockwise())
                                           , height
                                           , PillarCondition.AIR))
@@ -108,7 +100,7 @@ public class DividerWallFeature extends Feature<DividerWallConfig> {
         wallOrigin = wallOrigin.offset(buildDirection);
         
         for (int x = 0; x <= length; x++) {
-            if (!Features.testPillar(world, wallOrigin, height, PillarCondition.AIR))
+            if (!MBFeatures.testPillar(world, wallOrigin, height, PillarCondition.AIR))
                 break;
 
             for (int y = 0; y < height - 1; y++)

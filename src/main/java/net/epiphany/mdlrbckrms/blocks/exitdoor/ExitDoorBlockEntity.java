@@ -1,8 +1,8 @@
-package net.epiphany.mdlrbckrms.blocks;
+package net.epiphany.mdlrbckrms.blocks.exitdoor;
 
 import org.jetbrains.annotations.Nullable;
 
-import net.epiphany.mdlrbckrms.ModularBackrooms;
+import net.epiphany.mdlrbckrms.blocks.MBBlocks;
 import net.epiphany.mdlrbckrms.utilities.DimensionHelper;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.minecraft.block.BlockState;
@@ -10,8 +10,6 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -21,18 +19,13 @@ import net.minecraft.world.World;
  * A block entity that keeps track of data for the portals within exit doors.
  */
 public class ExitDoorBlockEntity extends BlockEntity {
-    public static final Identifier EXIT_DOOR_BLOCK_ENTITY_ID = new Identifier(ModularBackrooms.MOD_ID, "exit_door_entity");
-    public static BlockEntityType<ExitDoorBlockEntity> EXIT_DOOR_BLOCK_ENTITY = null;
-            
+    public static final BlockEntityType<ExitDoorBlockEntity> EXIT_DOOR_ENTITY =
+            FabricBlockEntityTypeBuilder.create(ExitDoorBlockEntity::new, MBBlocks.INTERDIMENSIONAL_EXIT_DOOR).build();
 
     public static void register() {
-        EXIT_DOOR_BLOCK_ENTITY = Registry.register( Registries.BLOCK_ENTITY_TYPE
-                                                  , EXIT_DOOR_BLOCK_ENTITY_ID
-                                                  , FabricBlockEntityTypeBuilder.create( ExitDoorBlockEntity::new
-                                                                                       , ExitDoorBlock.EXIT_DOOR)
-                                                                                .build());
+        MBBlocks.registerBlockEntityType("exit_door_entity", EXIT_DOOR_ENTITY);
     }
-
+            
 
 
     public static final String PORTAL_LIFESPAN_NBT = "PortalLifespan";
@@ -55,7 +48,7 @@ public class ExitDoorBlockEntity extends BlockEntity {
     private RegistryKey<World> destinationDimension = null;
 
     public ExitDoorBlockEntity(BlockPos position, BlockState state) {
-        super(EXIT_DOOR_BLOCK_ENTITY, position, state);
+        super(EXIT_DOOR_ENTITY, position, state);
     }
 
     @Override
@@ -93,11 +86,11 @@ public class ExitDoorBlockEntity extends BlockEntity {
     public static void tick(World world, BlockPos position, BlockState state, ExitDoorBlockEntity blockEntity) {
         if (blockEntity.portalLifespan == 0) {
             blockEntity.removePortal();
-            ExitDoorBlock.EXIT_DOOR.setOpen( null
-                                           , world
-                                           , state.with(ExitDoorBlock.PORTAL, false)
-                                           , position
-                                           , false);
+            MBBlocks.INTERDIMENSIONAL_EXIT_DOOR.setOpen( null
+                                                       , world
+                                                       , state.with(ExitDoorBlock.PORTAL, false)
+                                                       , position
+                                                       , false);
 
         } else if (blockEntity.portalLifespan > 0) 
             blockEntity.portalLifespan--; 

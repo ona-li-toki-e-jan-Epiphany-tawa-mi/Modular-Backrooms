@@ -1,11 +1,9 @@
-package net.epiphany.mdlrbckrms.features;
+package net.epiphany.mdlrbckrms.features.fluorescentlightarray;
 
 import com.mojang.serialization.Codec;
 
-import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.minecraft.block.BlockState;
 import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.StructureWorldAccess;
@@ -16,20 +14,11 @@ import net.minecraft.world.gen.feature.util.FeatureContext;
  * Used to generate arrays of light fixtures.
  */
 public class FluorescentLightArrayFeature extends Feature<FluorescentLightArrayConfig> {
-    public static final Identifier FLUORESCENT_LIGHT_ARRAY_ID = new Identifier( ModularBackrooms.MOD_ID
-                                                                              , "fluorescent_light_array");
-    public static final Feature<FluorescentLightArrayConfig> FLUORESCENT_LIGHT_ARRAY_FEATURE = 
-            new FluorescentLightArrayFeature(FluorescentLightArrayConfig.CODEC);
-
-    public static void register() {
-        Registry.register(Registries.FEATURE, FLUORESCENT_LIGHT_ARRAY_ID, FLUORESCENT_LIGHT_ARRAY_FEATURE);
-    }
-
     public FluorescentLightArrayFeature(Codec<FluorescentLightArrayConfig> configCodec) {
         super(configCodec);
     }
 
-
+    
 
     @Override
     public boolean generate(FeatureContext<FluorescentLightArrayConfig> context) {

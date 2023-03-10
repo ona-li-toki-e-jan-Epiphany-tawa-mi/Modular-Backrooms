@@ -1,11 +1,10 @@
-package net.epiphany.mdlrbckrms.entities;
+package net.epiphany.mdlrbckrms.entities.hallucination;
 
 import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
 
-import net.epiphany.mdlrbckrms.ModularBackrooms;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.epiphany.mdlrbckrms.entities.MBEntities;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.piston.PistonBehavior;
@@ -21,11 +20,8 @@ import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -35,17 +31,15 @@ import net.minecraft.world.World;
  * A visual hallucination. Entities that watch you from the corner of your eye but dissapear when you take a look.
  */
 public class HallucinationEntity extends MobEntity {
-    public static final Identifier HALLUCINATION_ID = new Identifier(ModularBackrooms.MOD_ID, "hallucination");
     public static final EntityType<HallucinationEntity> HALLUCINATION = 
-            Registry.register( Registries.ENTITY_TYPE, HALLUCINATION_ID
-                             , FabricEntityTypeBuilder.create(SpawnGroup.AMBIENT, HallucinationEntity::new)
-                    .disableSaving() // No need to save them because they will just disappear sooner or later.
-                    .spawnableFarFromPlayer()
-                    .dimensions(EntityDimensions.fixed(0.6f, 1.8f))
-                    .build());
+            FabricEntityTypeBuilder.create(SpawnGroup.AMBIENT, HallucinationEntity::new)
+                                   .disableSaving() // No need to save them because they will just disappear sooner or later.
+                                   .spawnableFarFromPlayer()
+                                   .dimensions(EntityDimensions.fixed(0.6f, 1.8f))
+                                   .build();
 
     public static void register() {
-        FabricDefaultAttributeRegistry.register(HALLUCINATION, MobEntity.createMobAttributes());
+        MBEntities.registerLivingEntityType("hallucination", HALLUCINATION, MobEntity.createMobAttributes());
     }
 
     

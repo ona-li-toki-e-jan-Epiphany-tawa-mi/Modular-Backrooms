@@ -1,4 +1,4 @@
-package net.epiphany.mdlrbckrms.entities;
+package net.epiphany.mdlrbckrms.entities.hallucination;
 
 import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.fabricmc.api.EnvType;

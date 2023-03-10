@@ -1,11 +1,11 @@
 package net.epiphany.mdlrbckrms;
 
-import net.epiphany.mdlrbckrms.blocks.Blocks;
-import net.epiphany.mdlrbckrms.entities.Entities;
-import net.epiphany.mdlrbckrms.features.Features;
-import net.epiphany.mdlrbckrms.items.Items;
+import net.epiphany.mdlrbckrms.blocks.MBBlocks;
+import net.epiphany.mdlrbckrms.entities.MBEntities;
+import net.epiphany.mdlrbckrms.features.MBFeatures;
+import net.epiphany.mdlrbckrms.items.MBItems;
 import net.epiphany.mdlrbckrms.levels.Levels;
-import net.epiphany.mdlrbckrms.utilities.Sounds;
+import net.epiphany.mdlrbckrms.utilities.MBSounds;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,14 +26,13 @@ import org.slf4j.LoggerFactory;
  *  * Drink "water."
  *  * Place a RNG.
  *
- * vitelorbeb burubeltibul:
+ * viteltukorbeb burubelbul:
  *  --R
  *  DSG
  *  T-T
- *  R - purugorbeb rebbentuk, D - trapdoor, S - kruv, G - jeebeb xlemor!ek)), T - seltuk
+ *  R - purugtukorbeb rebben, D - trapdoor, S - kruv, G - jeebeb xlemor!ek)), T - selti
  * 
  * - Add discovery method for recipes using destroyed labs and lab notes.
- * - (Possibly) Make non-linear space with immersive portals.
  * - (Possibly) change placement of walls and openings through time
  * - Give self the ability to open rifts between worlds and display cool particle effects.
  */
@@ -43,13 +42,17 @@ public class ModularBackrooms implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		MBItems.registerItems();
+		MBBlocks.registerBlocks();
+		MBEntities.registerEntities();
+
 		Levels.registerLevels();
-		Features.registerFeatures();
-		Blocks.registerBlocks();
-		Sounds.registerSounds();
-		Items.registerItems();
+		MBFeatures.registerFeatures();
+
+		MBSounds.registerSounds();
+
 		GodOfTheBackrooms.registerPowers();
 		GlitchesInReality.registerGlitches();
-		Entities.registerEntities();
+		
 	}
 }
