@@ -14,20 +14,18 @@ import net.minecraft.item.CompassItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.GlobalPos;
 
-/**
- * Modified the handling of data for the display of dynamically rendered models, currently used for disrupting compasses.
- */
 @Mixin(ModelPredicateProviderRegistry.class)
 public class ModelPredicateProviderRegistryMixin {
     /**
      * Prevents lodestone compasses from working properly in the backrooms.
+     * @note The injection says that it cannot find the target method but it still operates fine, maybe because it is synthetic.
      */
     @Inject( method = "Lnet/minecraft/client/item/ModelPredicateProviderRegistry;method_43220(Lnet/minecraft/client/world/ClientWorld;Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/GlobalPos;"
            , at = @At("HEAD")
            , cancellable = true)
     private static void onCompassTryPointToLodestone(ClientWorld world, ItemStack itemStack, Entity entity
             , CallbackInfoReturnable<GlobalPos> info) {
-        if (entity instanceof PlayerEntity player && player.isCreative())
+        if (entity instanceof PlayerEntity player && (player.isCreative() || player.isSpectator()))
             return;
 
         if (Levels.isBackrooms(world))
@@ -36,13 +34,14 @@ public class ModelPredicateProviderRegistryMixin {
 
     /**
      * Prevents recovery compasses from working properly in the backrooms.
+     * @note The injection says that it cannot find the target method but it still operates fine, maybe because it is synthetic.
      */
     @Inject( method = "Lnet/minecraft/client/item/ModelPredicateProviderRegistry;method_43219(Lnet/minecraft/client/world/ClientWorld;Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/Entity;)Lnet/minecraft/util/math/GlobalPos;"
            , at = @At("HEAD")
            , cancellable = true)
     private static void onRecoveryCompassTryPoint(ClientWorld world, ItemStack itemStack, Entity entity
             , CallbackInfoReturnable<GlobalPos> info) {
-        if (entity instanceof PlayerEntity player && player.isCreative())
+        if (entity instanceof PlayerEntity player && (player.isCreative() || player.isSpectator()))
             return;
 
         if (Levels.isBackrooms(world))

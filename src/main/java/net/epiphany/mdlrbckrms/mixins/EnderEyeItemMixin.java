@@ -15,11 +15,11 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-/**
- * Prevents portals to the End from being formed in the backrooms.
- */
 @Mixin(EnderEyeItem.class)
 public class EnderEyeItemMixin {
+    /**
+     * Prevents portals to the End from being formed in the backrooms.
+     */
     @Inject( method = "Lnet/minecraft/item/EnderEyeItem;useOnBlock(Lnet/minecraft/item/ItemUsageContext;)Lnet/minecraft/util/ActionResult;"
            , at = @At( value = "INVOKE_ASSIGN"
                      , target = "Lnet/minecraft/block/pattern/BlockPattern;searchAround(Lnet/minecraft/world/WorldView;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/block/pattern/BlockPattern$Result;")

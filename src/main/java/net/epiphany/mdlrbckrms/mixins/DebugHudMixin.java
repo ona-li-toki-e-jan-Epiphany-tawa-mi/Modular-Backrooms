@@ -15,29 +15,39 @@ import net.minecraft.client.gui.hud.DebugHud;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.util.math.random.Random;
 
-/**
- * A Mixin responsible for obfuscating the F3 menu when the player is in the Backrooms to prevent them from knowing 
- *  where they are.
- */
 @Mixin(DebugHud.class)
 public class DebugHudMixin {
+    /**
+     * Obfuscates the text on the left of the F3 menu when the player is in the Backrooms to prevent them from knowing
+     *  where they are.
+     */
     @Inject(method = "Lnet/minecraft/client/gui/hud/DebugHud;getLeftText()Ljava/util/List;", at = @At("RETURN"))
     private void onGetLeftText(CallbackInfoReturnable<List<String>> info) {
         MinecraftClient client = ((DebugHudAccessor) this).client();
         ClientPlayerEntity player = client.player;
         
-        if (!player.isCreative() && !GodOfTheBackrooms.isHim(player) && Levels.isBackrooms(player.getWorld()))
+        if (player.isCreative() || player.isSpectator())
+            return;
+
+        if (!GodOfTheBackrooms.isHim(player) && Levels.isBackrooms(player.getWorld()))
             obfuscateText(info.getReturnValue(), player.getRandom());
         
         return;
     }
 
+    /**
+     * Obfuscates the text on the right of the F3 menu when the player is in the Backrooms to prevent them from knowing
+     *  where they are.
+     */
     @Inject(method = "Lnet/minecraft/client/gui/hud/DebugHud;getRightText()Ljava/util/List;", at = @At("RETURN"))
     private void onGetRightText(CallbackInfoReturnable<List<String>> info) {
         MinecraftClient client = ((DebugHudAccessor) this).client();
         ClientPlayerEntity player = client.player;
 
-        if (!player.isCreative() && !GodOfTheBackrooms.isHim(player) && Levels.isBackrooms(player.getWorld()))
+        if (player.isCreative() || player.isSpectator())
+            return;
+
+        if (!GodOfTheBackrooms.isHim(player) && Levels.isBackrooms(player.getWorld()))
             obfuscateText(info.getReturnValue(), player.getRandom());
             
         return;
@@ -59,7 +69,7 @@ public class DebugHudMixin {
      * @param random Random number generator.
      * @return A reference to text for method chaining.
      */
-    public List<String> obfuscateText(List<String> text, Random random) {
+    private static List<String> obfuscateText(List<String> text, Random random) {
         List<Integer> lineLengths = new ArrayList<>();
         for (String line : text) 
             lineLengths.add(line.length());

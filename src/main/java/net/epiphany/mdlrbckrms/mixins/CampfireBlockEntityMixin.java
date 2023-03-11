@@ -13,11 +13,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-/**
- * Listens to campfire block entities for when they cook something.
- */
 @Mixin(CampfireBlockEntity.class)
 public class CampfireBlockEntityMixin {
+    /**
+     * Listener.
+     */
     @Inject( method = "Lnet/minecraft/block/entity/CampfireBlockEntity;litServerTick(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;Lnet/minecraft/block/entity/CampfireBlockEntity;)V"
            , at = @At( value = "INVOKE"
                      , target = "Lnet/minecraft/util/ItemScatterer;spawn(Lnet/minecraft/world/World;DDDLnet/minecraft/item/ItemStack;)V")

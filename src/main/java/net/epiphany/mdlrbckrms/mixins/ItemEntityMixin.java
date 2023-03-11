@@ -8,11 +8,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.epiphany.mdlrbckrms.items.ChickenItem;
 import net.minecraft.entity.ItemEntity;
 
-/**
- * Injects a listener in the tick method.
- */
 @Mixin(ItemEntity.class)
 public class ItemEntityMixin {
+    /**
+     * Listener.
+     */
     @Inject( method = "Lnet/minecraft/entity/ItemEntity;tick()V"
            , at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/Entity;tick()V"))
     private void onTick(CallbackInfo info) {

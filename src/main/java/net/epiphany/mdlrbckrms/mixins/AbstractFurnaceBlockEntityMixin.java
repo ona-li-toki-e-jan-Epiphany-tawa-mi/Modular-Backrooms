@@ -10,14 +10,11 @@ import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-/**
- * Adds listeners to furnace block entities for when they smelt something.
- */
 @Mixin(AbstractFurnaceBlockEntity.class)
 public class AbstractFurnaceBlockEntityMixin {
     /**
-     * Inserts before recipe is validated and actually crafts (only possible location to get ingredients,) but the recipe is 
-     *  also validated shortly before as well, so it should operate fine(?).
+     * Inserts a listener before the recipe is validated and actually crafts (only possible location to get ingredients,) but the 
+     *  recipe is also validated shortly before as well, so it should operate fine(?).
      */
     @Inject( method = "Lnet/minecraft/block/entity/AbstractFurnaceBlockEntity;tick(Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/block/BlockState;Lnet/minecraft/block/entity/AbstractFurnaceBlockEntity;)V"
            , at = @At( value = "INVOKE"

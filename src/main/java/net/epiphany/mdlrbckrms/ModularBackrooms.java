@@ -43,8 +43,6 @@ public class ModularBackrooms implements ModInitializer {
 
 		MBSounds.registerSounds();
 
-		GodOfTheBackrooms.registerPowers();
 		GlitchesInReality.registerGlitches();
-		
 	}
 }

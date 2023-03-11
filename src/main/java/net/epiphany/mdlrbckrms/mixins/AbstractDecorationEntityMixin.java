@@ -9,11 +9,11 @@ import net.epiphany.mdlrbckrms.items.ChickenItem;
 import net.minecraft.entity.decoration.AbstractDecorationEntity;
 import net.minecraft.entity.decoration.ItemFrameEntity;
 
-/**
- * Injects a listener in the tick method for use with item frame entities.
- */
 @Mixin(AbstractDecorationEntity.class)
 public class AbstractDecorationEntityMixin {
+    /**
+     * Listener.
+     */
     @Inject(method = "Lnet/minecraft/entity/decoration/AbstractDecorationEntity;tick()V", at = @At("HEAD"))
     private void onTick(CallbackInfo info) {
         if (((Object) this) instanceof ItemFrameEntity itemFrame) 
