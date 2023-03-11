@@ -1,0 +1,32 @@
+{
+    "display": {
+        "icon": {
+            "item": "mdlrbckrms:chicken"
+        },
+        "title": {
+            "translate": "advancements.mdlrbckrms.catch_chicken.title"
+        },
+        "frame": "task",
+        "description": {
+            "translate": "advancements.mdlrbckrms.catch_chicken.description"
+        },
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "parent": "mdlrbckrms:root",
+    "criteria": {
+        "catched_chicken": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "mdlrbckrms:chicken"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        }
+    }
+}

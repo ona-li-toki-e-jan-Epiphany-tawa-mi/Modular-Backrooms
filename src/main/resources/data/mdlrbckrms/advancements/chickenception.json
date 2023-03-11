@@ -1,0 +1,37 @@
+{
+    "display": {
+        "icon": {
+            "item": "minecraft:feather"
+        },
+        "title": {
+            "translate": "advancements.mdlrbckrms.chickenception.title"
+        },
+        "frame": "goal",
+        "description": {
+            "translate": "advancements.mdlrbckrms.chickenception.description"
+        },
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": true
+    },
+    "parent": "mdlrbckrms:catch_chicken",
+    "criteria": {
+        "killed_chicken_with_chicken": {
+            "conditions": {
+                "entity": {
+                    "type": "minecraft:chicken"
+                },
+                "player": {
+                    "equipment": {
+                        "mainhand": {
+                            "items": [
+                                "mdlrbckrms:chicken"
+                            ]
+                        }
+                    }
+                }
+            },
+            "trigger": "minecraft:player_killed_entity"
+        }
+    }
+}

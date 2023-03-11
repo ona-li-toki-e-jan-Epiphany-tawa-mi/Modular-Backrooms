@@ -29,5 +29,20 @@
 
     "subtitles.mdlrbckrms.maximum_hum_buzz": "Maxiumum fluorescent hum-buzz",
     "subtitles.mdlrbckrms.fluorescent_flicker": "Fluorescent light flickers",
-    "subtitles.mdlrbckrms.door_creaks": "Door creaks"
+    "subtitles.mdlrbckrms.door_creaks": "Door creaks",
+
+    "advancements.mdlrbckrms.root.title": "Modular Backrooms",
+    "advancements.mdlrbckrms.root.description": "How did we get here?",
+    "advancements.mdlrbckrms.escape.title": "FREEEEEEEDOM!!!",
+    "advancements.mdlrbckrms.escape.description": "Return to reality(?)",
+    "advancements.mdlrbckrms.drink_suspicous_water.title": "You... Drank It?",
+    "advancements.mdlrbckrms.drink_suspicous_water.description": "Drink a bottle of \"water\"",
+    "advancements.mdlrbckrms.catch_chicken.title": "Duh-na-na-na-na-na-na-na-na Chicken Snatcha'",
+    "advancements.mdlrbckrms.catch_chicken.description": "Snatch a Chicken using a Chicken Snatcher",
+    "advancements.mdlrbckrms.chickenception.title": "Chickenception",
+    "advancements.mdlrbckrms.chickenception.description": "Kill a boss mob using a Chicken",
+    "advancements.mdlrbckrms.kill_boss_with_chicken.title": "CHICKEN MOTHERCLUCKER, DO YOU SPEAK IT?",
+    "advancements.mdlrbckrms.kill_boss_with_chicken.description": "Kill a Chicken using a Chicken",
+    "advancements.mdlrbckrms.rngesus.title": "RNGesus, Take Me Home!",
+    "advancements.mdlrbckrms.rngesus.description": "Place down a Random Number Generator"
 }

@@ -1,0 +1,27 @@
+{
+    "display": {
+        "icon": {
+            "item": "mdlrbckrms:exit_door"
+        },
+        "title": {
+            "translate": "advancements.mdlrbckrms.escape.title"
+        },
+        "frame": "challenge",
+        "description": {
+            "translate": "advancements.mdlrbckrms.escape.description"
+        },
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "parent": "mdlrbckrms:root",
+    "criteria": {
+        "exited_level_0": {
+            "conditions": {
+                "from": "mdlrbckrms:level_0",
+                "to": "minecraft:overworld"
+            },
+            "trigger": "minecraft:changed_dimension"
+        }
+    }
+}

@@ -69,7 +69,7 @@ public class SuspicousWaterItem extends Item {
      */
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        ItemStack result = stack;
+        ItemStack result = stack.copy();
         boolean stackConsumed = false;
         PlayerEntity player = user instanceof PlayerEntity playerEntity ? playerEntity : null;
         

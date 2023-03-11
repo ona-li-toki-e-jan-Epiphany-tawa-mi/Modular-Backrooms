@@ -1,0 +1,26 @@
+{
+    "display": {
+        "icon": {
+            "item": "mdlrbckrms:yellowed_wallpaper"
+        },
+        "title": {
+            "translate": "advancements.mdlrbckrms.root.title"
+        },
+        "frame": "task",
+        "background": "mdlrbckrms:textures/block/yellowed_wallpaper.png",
+        "description": {
+            "translate": "advancements.mdlrbckrms.root.description"
+        },
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "criteria": {
+        "entered_level_0": {
+            "conditions": {
+                "to": "mdlrbckrms:level_0"
+            },
+            "trigger": "minecraft:changed_dimension"
+        }
+    }
+}

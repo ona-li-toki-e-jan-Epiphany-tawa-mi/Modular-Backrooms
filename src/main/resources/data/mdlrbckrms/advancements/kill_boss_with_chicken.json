@@ -1,0 +1,79 @@
+{
+    "display": {
+        "icon": {
+            "item": "mdlrbckrms:chicken",
+            "nbt": "{DamageTime:10}"
+        },
+        "title": {
+            "translate": "advancements.mdlrbckrms.kill_boss_with_chicken.title"
+        },
+        "frame": "challenge",
+        "description": {
+            "translate": "advancements.mdlrbckrms.kill_boss_with_chicken.description"
+        },
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": true
+    },
+    "parent": "mdlrbckrms:catch_chicken",
+    "criteria": {
+        "killed_ender_dragon_with_chicken": {
+            "conditions": {
+                "entity": {
+                    "type": "minecraft:ender_dragon"
+                },
+                "player": {
+                    "equipment": {
+                        "mainhand": {
+                            "items": [
+                                "mdlrbckrms:chicken"
+                            ]
+                        }
+                    }
+                }
+            },
+            "trigger": "minecraft:player_killed_entity"
+        },
+        "killed_wither_with_chicken": {
+            "conditions": {
+                "entity": {
+                    "type": "minecraft:wither"
+                },
+                "player": {
+                    "equipment": {
+                        "mainhand": {
+                            "items": [
+                                "mdlrbckrms:chicken"
+                            ]
+                        }
+                    }
+                }
+            },
+            "trigger": "minecraft:player_killed_entity"
+        },
+        "killed_warden_with_chicken": {
+            "conditions": {
+                "entity": {
+                    "type": "minecraft:warden"
+                },
+                "player": {
+                    "equipment": {
+                        "mainhand": {
+                            "items": [
+                                "mdlrbckrms:chicken"
+                            ]
+                        }
+                    }
+                }
+            },
+            "trigger": "minecraft:player_killed_entity"
+        }
+    },
+    "requirements": [
+        [
+            "killed_ender_dragon_with_chicken",
+            "killed_wither_with_chicken",
+            "killed_warden_with_chicken"
+        ]
+    ]
+}

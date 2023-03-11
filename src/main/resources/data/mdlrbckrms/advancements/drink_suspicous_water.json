@@ -1,0 +1,30 @@
+{
+    "display": {
+        "icon": {
+            "item": "mdlrbckrms:suspicous_water"
+        },
+        "title": {
+            "translate": "advancements.mdlrbckrms.drink_suspicous_water.title"
+        },
+        "frame": "goal",
+        "description": {
+            "translate": "advancements.mdlrbckrms.drink_suspicous_water.description"
+        },
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": true
+    },
+    "parent": "mdlrbckrms:root",
+    "criteria": {
+        "drank_suspicous_water": {
+            "conditions": {
+                "item": {
+                    "items": [
+                        "mdlrbckrms:suspicous_water"
+                    ]
+                }
+            },
+            "trigger": "minecraft:consume_item"
+        }
+    }
+}

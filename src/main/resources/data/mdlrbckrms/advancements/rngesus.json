@@ -1,0 +1,26 @@
+{
+    "display": {
+        "icon": {
+            "item": "mdlrbckrms:random_number_generator"
+        },
+        "title": {
+            "translate": "advancements.mdlrbckrms.rngesus.title"
+        },
+        "frame": "goal",
+        "description": {
+            "translate": "advancements.mdlrbckrms.rngesus.description"
+        },
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": false
+    },
+    "parent": "mdlrbckrms:catch_chicken",
+    "criteria": {
+        "placed_random_number_generator": {
+            "conditions": {
+                "block": "mdlrbckrms:random_number_generator"
+            },
+            "trigger": "minecraft:placed_block"
+        }
+    }
+}
