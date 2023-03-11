@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 /**
  * TODO List:
- * - Exits and "exits."
  * - Add more variation to level 0.
  * - Make player-crafted wallpaper flammable and burning it leaves behind sandstone.
  * - Do something special if a player tries to sleep.

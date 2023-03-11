@@ -1,7 +1,6 @@
 package net.epiphany.mdlrbckrms.blocks;
 
 import net.epiphany.mdlrbckrms.utilities.MBSounds;
-import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.particle.ParticleTypes;
@@ -12,6 +11,7 @@ import net.minecraft.state.property.BooleanProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.WorldAccess;
 import net.minecraft.world.event.GameEvent;
 
 /**
@@ -45,10 +45,16 @@ public class FluorescentLightBlock extends Block {
 
 
 
+    /**
+     * Causes the lights to randomly flicker.
+     */
     @Override
     public void randomTick(BlockState state, ServerWorld world, BlockPos position, Random random) {
-        if (random.nextFloat() < (1.0f / 100.0f)) {
-            cascadeSetLightState(state, world, position, false, random);
+        if (state.get(ON) && random.nextFloat() < (1.0f / 100.0f)) {
+            world.setBlockState(position, state.with(ON, false));
+            world.scheduleBlockTick(position, this, 5);
+
+            this.spawnSparkParticles(world, position);
 
             world.playSound( null
                            , position
@@ -58,42 +64,54 @@ public class FluorescentLightBlock extends Block {
         }
     }
 
+    /**
+     * Turns back on the light after it has flickered.
+     */
     @Override
     public void scheduledTick(BlockState state, ServerWorld world, BlockPos position, Random random) {
         world.setBlockState(position, state.with(ON, true));
     }
 
     /**
-     * Switches adjacent fluorescent lights to be on or off in unison.
-     * 
-     * TODO see if neighbor update can be used instead.
-     * 
-     * @param state      The sate of the light block.
-     * @param world      The world the light is in.
-     * @param position   The position of the light.
-     * @param lightState {@code true} for on, {@code false} for off.
+     * Propagates flickering of fluorescent lights.
      */
-    private void cascadeSetLightState(BlockState state, ServerWorld world, BlockPos position, boolean lightState, Random random) {
-        Block block = state.getBlock();
-        
-        if (state.getBlock() instanceof FluorescentLightBlock && state.get(ON) != lightState) {
-            world.setBlockState(position, state.with(ON, lightState));
-            
-            if (!lightState) {
-                // Shoots out sparks.
-                world.spawnParticles( ParticleTypes.CRIT
-                                    , position.getX() + 0.5, position.getY() + 0.5, position.getZ() + 0.5
-                                    , random.nextBetween(1, 3)
-                                    , 0.25, 0.25, 0.25
-                                    , 1.0);
-                // Schedules the light to turn back on in a 1/4 of a second for a flicker effect.
-                world.scheduleBlockTick(position, block, 5);
-            }
+    @Override
+    public BlockState getStateForNeighborUpdate(BlockState state, Direction updateDirection, BlockState neighborState,
+            WorldAccess world, BlockPos position, BlockPos neighborPosition) {
+        if (!neighborState.isOf(this))
+            return state;
 
-            for (Direction direction : AbstractBlock.DIRECTIONS) {
-                BlockPos otherBlockPosition = position.offset(direction);
-                cascadeSetLightState(world.getBlockState(otherBlockPosition), world, otherBlockPosition, lightState, random); 
-            }
+        boolean shouldTurnOff = !neighborState.get(ON) && state.get(ON);
+        state = shouldTurnOff ? state.with(ON, false) : state;
+
+
+        if (world.isClient()) 
+            return state;
+
+    
+        if (shouldTurnOff) {
+            ServerWorld serverWorld = (ServerWorld) world;
+
+            this.spawnSparkParticles(serverWorld, position);
+            serverWorld.scheduleBlockTick(position, this, 5);
         }
+
+        return state;
+    }
+
+
+
+    /**
+     * Spawns the sparks for when the light flickers.
+     * 
+     * @param world    The world to spawn them in.
+     * @param position The position to spawn them at.
+     */
+    protected void spawnSparkParticles(ServerWorld world, BlockPos position) {
+        world.spawnParticles( ParticleTypes.CRIT
+                            , position.getX() + 0.5, position.getY() + 0.5, position.getZ() + 0.5
+                            , world.getRandom().nextBetween(1, 3)
+                            , 0.25, 0.25, 0.25
+                            , 1.0);
     }
 }
