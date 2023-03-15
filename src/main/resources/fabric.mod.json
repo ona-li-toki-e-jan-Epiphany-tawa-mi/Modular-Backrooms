@@ -28,6 +28,7 @@
   "mixins": [
     "mdlrbckrms.mixins.json"
   ],
+  "accessWidener": "mdlrbckrms.accesswidener",
 
   "depends": {
     "fabricloader": ">=0.14.11",

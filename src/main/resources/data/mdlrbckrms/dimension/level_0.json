@@ -1,7 +1,7 @@
 {
     "type": "mdlrbckrms:level_0",
     "generator": {
-        "type": "flat",
+        "type": "mdlrbckrms:multibiome_flat",
         "settings": {
             "layers": [
                 {
@@ -17,9 +17,12 @@
                     "block": "mdlrbckrms:unbreakable_ceiling_tile"
                 }
             ],
-            "biome": "mdlrbckrms:level_0",
+            "biome_source": {
+                "type": "fixed",
+                "biome": "mdlrbckrms:level_0"  
+            },
             "features": true,
-            "lakes": true,
+            "lakes": false,
             "structure_overrides": []
         }
     }

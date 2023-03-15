@@ -5,15 +5,21 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "EnderEyeItemMixin",
+
     "AbstractDecorationEntityMixin",
     "ItemEntityMixin",
     "AbstractFurnaceBlockEntityMixin",
-    "CampfireBlockEntityMixin"
+    "CampfireBlockEntityMixin",
+
+    "ChunkGeneratorAccessor",
+    "FlatChunkGeneratorConfigAccessor"
   ],
   "client": [
     "DebugHudAccessor",
     "DebugHudMixin",
+
     "ModelPredicateProviderRegistryMixin",
+    
     "ClientPlayNetworkHandlerMixin"
   ],
   "server": [],

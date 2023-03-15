@@ -1,0 +1,6 @@
+accessWidener	v1	named
+
+# These fields need to be made non-final so we can edit them in net/epiphany/worldgen/MultibiomeFlatChunkGenerator's constructor.
+mutable field   net/minecraft/world/gen/chunk/ChunkGenerator    biomeSource                 Lnet/minecraft/world/biome/source/BiomeSource;
+mutable field   net/minecraft/world/gen/chunk/ChunkGenerator    indexedFeaturesListSupplier Ljava/util/function/Supplier;
+mutable field   net/minecraft/world/gen/chunk/ChunkGenerator    generationSettingsGetter    Ljava/util/function/Function;
