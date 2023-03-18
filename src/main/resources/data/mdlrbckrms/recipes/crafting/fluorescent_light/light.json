@@ -5,7 +5,7 @@
     "group": "fluorescent_light",
     "pattern": [
         "IRI",
-        "GEG",
+        "GLG",
         " G "
     ],
     "key": {
@@ -18,8 +18,8 @@
         "I": {
             "item": "minecraft:iron_ingot"
         },
-        "E": {
-            "item": "minecraft:end_rod"
+        "L": {
+            "item": "minecraft:redstone_lamp"
         }
     },
     "result": {

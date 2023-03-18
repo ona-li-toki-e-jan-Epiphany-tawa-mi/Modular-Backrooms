@@ -54,7 +54,6 @@ TODO Add these to level 0.
  *  R - purugtukorbeb rebben, D - trapdoor, S - kruv, G - jeebeb xlemor!ek)), T - selti
  * 
  * - Add discovery method for recipes using destroyed labs and lab notes.
- * - (Possibly) change placement of walls and openings through time
  * - Give self the ability to open rifts between worlds and display cool particle effects.
  */
 public class ModularBackrooms implements ModInitializer {

@@ -1,0 +1,13 @@
+{
+    "type": "crafting_shapeless",
+    "category": "building",
+    "group": "disabled_fluorescent_light",
+    "ingredients": [
+        {
+            "item": "mdlrbckrms:unbreakable_fluorescent_light"
+        }
+    ],
+    "result": {
+        "item": "mdlrbckrms:disabled_unbreakable_fluorescent_light"
+    }
+}

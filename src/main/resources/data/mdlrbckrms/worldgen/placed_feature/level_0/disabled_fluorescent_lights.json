@@ -2,7 +2,7 @@
     "feature": {
         "type": "mdlrbckrms:fluorescent_light_array",
         "config": {
-            "lightBlockID": "minecraft:coal_block",
+            "lightBlockID": "mdlrbckrms:disabled_unbreakable_fluorescent_light",
             "length": 3,
             "columns": 3,
             "rows": 3

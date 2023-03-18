@@ -5,7 +5,7 @@
     "group": "fluorescent_light",
     "pattern": [
         "BRB",
-        "GEG",
+        "GLG",
         " G "
     ],
     "key": {
@@ -18,8 +18,8 @@
         "B": {
             "item": "minecraft:bedrock"
         },
-        "E": {
-            "item": "minecraft:end_rod"
+        "L": {
+            "item": "minecraft:redstone_lamp"
         }
     },
     "result": {

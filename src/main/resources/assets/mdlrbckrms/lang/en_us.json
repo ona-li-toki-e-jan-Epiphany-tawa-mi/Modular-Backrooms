@@ -1,6 +1,8 @@
 {
     "itemGroup.mdlrbckrms.backrooms_item_group": "The Backrooms",
 
+    "block.mdlrbckrms.disabled_fluorescent_light": "Disabled Fluorescent Light",
+    "block.mdlrbckrms.disabled_unbreakable_fluorescent_light": "Disabled Unbreakable Fluorescent Light",
     "block.mdlrbckrms.fluorescent_light": "Fluorescent Light",
     "block.mdlrbckrms.unbreakable_fluorescent_light": "Unbreakable Fluorescent Light",
     "block.mdlrbckrms.yellowed_wallpaper": "Yellowed Wallpaper",

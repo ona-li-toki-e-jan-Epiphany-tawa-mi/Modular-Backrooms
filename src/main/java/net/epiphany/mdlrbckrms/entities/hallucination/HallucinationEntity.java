@@ -47,30 +47,30 @@ public class HallucinationEntity extends MobEntity {
     /**
      * The maximum range that a player can be stared at from and to test for players looking at it.
      */
-    private static final double TARGETING_RANGE = 90.0;
+    protected static final double TARGETING_RANGE = 90.0;
 
     /**
      * The minimum distance squared a hallucination can be from a player before it disappears. Prevents players from
      *  easily making out what the hallucination looks like.
      */
-    private static final double MINIMUM_PLAYER_DISTANCE_SQUARED = MathHelper.square(35.0);
+    protected static final double MINIMUM_PLAYER_DISTANCE_SQUARED = MathHelper.square(35.0);
 
     /**
-     * The maximum time that a hallucination can be seen before disappearing.
+     * The amount of time between when the hallucination should check for players looking at it.
      */
-    private static final int MAXIMUM_SEEN_TICKS = 2;
+    protected static final int CHECK_SEEN_TICKS = 5;
 
     /**
      * The maximum age of a hallucination. Meant to make them rarer.
      */
-    private static final int MAXIMUM_AGE = 160;
+    protected static final int MAXIMUM_AGE = 160;
 
 
 
     /**
-     * The amount of time that a hallucination has been visible to a player.
+     * The amount of time since the hallucination has checked to see if players are watching. Used to stagger the checks.
      */
-    private int seenTicks = 0;
+    protected int ticksSinceSeenCheck = 0;
 
     public HallucinationEntity(EntityType<? extends MobEntity> entityType, World world) {
         super(entityType, world);
@@ -85,12 +85,14 @@ public class HallucinationEntity extends MobEntity {
             return;
 
 
-        if (this.seenTicks > MAXIMUM_SEEN_TICKS || this.age > MAXIMUM_AGE) {
+        // Makes sure hallucinations disappear after a short time to reduce their numbers.
+        if (this.age > MAXIMUM_AGE) {
             this.discard();
             return;
         }
 
 
+        // Stares at the player.
         PlayerEntity closestPlayer = this.world.getClosestPlayer(this, TARGETING_RANGE);
 
         if (closestPlayer != null && !closestPlayer.isSpectator()) { 
@@ -103,24 +105,22 @@ public class HallucinationEntity extends MobEntity {
         }
 
 
-        boolean isSeen = false;
+        // Disappears if players look at it.
+        if (this.ticksSinceSeenCheck > CHECK_SEEN_TICKS) {
+            List<PlayerEntity> nearbyPlayers = this.world.getPlayers( TargetPredicate.createNonAttackable()
+                                                                    , this
+                                                                    , this.getBoundingBox().expand(TARGETING_RANGE));
+            final double PLAYER_VIEW_EPSILON = -0.48; // Roughly matches player's normal fov.
 
-        List<PlayerEntity> nearbyPlayers = this.world.getPlayers( TargetPredicate.createNonAttackable()
-                                                                , this
-                                                                , this.getBoundingBox().expand(TARGETING_RANGE));
-        final double PLAYER_VIEW_EPSILON = -0.48; // Roughly matches player's normal fov.
+            for (PlayerEntity player : nearbyPlayers)
+                if (!player.isSpectator() && player.canSee(this) 
+                        && player.getRotationVector().dotProduct(this.getRotationVector()) < PLAYER_VIEW_EPSILON) {
+                    this.discard();
+                    return;
+                }
+        }
 
-        for (PlayerEntity player : nearbyPlayers)
-            if (!player.isSpectator() && player.canSee(this) 
-                    && player.getRotationVector().dotProduct(this.getRotationVector()) < PLAYER_VIEW_EPSILON) {
-                isSeen = true;
-                break;
-            }
-
-        if (isSeen) {
-            this.seenTicks++;
-        } else if (this.seenTicks > 0)
-            this.seenTicks--;
+        this.ticksSinceSeenCheck = this.ticksSinceSeenCheck > CHECK_SEEN_TICKS ? 0 : this.ticksSinceSeenCheck + 1;
     }
 
     

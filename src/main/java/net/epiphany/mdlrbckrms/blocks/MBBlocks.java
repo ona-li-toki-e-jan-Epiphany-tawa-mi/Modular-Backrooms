@@ -43,28 +43,30 @@ public class MBBlocks {
     public static final RNGBlock RNG = new RNGBlock(FabricBlockSettings.of(Material.GLASS).ticksRandomly().strength(0.3f).sounds(BlockSoundGroup.GLASS));
     // Ceiling tiles.
     public static final Block CEILING_TILE = new Block(FabricBlockSettings.of(Material.WOOL).strength(0.8f).sounds(BlockSoundGroup.WOOL));
-    public static final Block UNBREAKABLE_CEILING_TILE = new Block(FabricBlockSettings.copy(CEILING_TILE).strength(UNBREAKABLE, UNBLASTABLE));
+    public static final Block UNBREAKABLE_CEILING_TILE = new Block(FabricBlockSettings.copyOf(CEILING_TILE).strength(UNBREAKABLE, UNBLASTABLE));
     // Fluorescent lights.
-    public static final FluorescentLightBlock FLUORESCENT_LIGHT = new FluorescentLightBlock(FabricBlockSettings.of(Material.REDSTONE_LAMP).luminance(FluorescentLightBlock::getLuminance).ticksRandomly().strength(0.3f).sounds(BlockSoundGroup.GLASS));
-    public static final FluorescentLightBlock UNBREAKABLE_FLUORESCENT_LIGHT = new FluorescentLightBlock(FabricBlockSettings.copy(FLUORESCENT_LIGHT).strength(UNBREAKABLE, UNBLASTABLE));
+    public static final Block DISABLED_FLUORESCENT_LIGHT = new FluorescentLightBlock(FabricBlockSettings.of(Material.REDSTONE_LAMP).strength(0.3f).sounds(BlockSoundGroup.GLASS));
+    public static final Block DISABLED_UNBREAKABLE_FLUORESCENT_LIGHT = new FluorescentLightBlock(FabricBlockSettings.copyOf(DISABLED_FLUORESCENT_LIGHT).strength(UNBREAKABLE, UNBLASTABLE));
+    public static final FluorescentLightBlock FLUORESCENT_LIGHT = new FluorescentLightBlock(FabricBlockSettings.copyOf(DISABLED_FLUORESCENT_LIGHT).luminance(FluorescentLightBlock::getLuminance).ticksRandomly());
+    public static final FluorescentLightBlock UNBREAKABLE_FLUORESCENT_LIGHT = new FluorescentLightBlock(FabricBlockSettings.copyOf(FLUORESCENT_LIGHT).strength(UNBREAKABLE, UNBLASTABLE));
     // Moist carpet.
     public static final MoistCarpetBlock MOIST_CARPET = new MoistCarpetBlock(FabricBlockSettings.of(Material.WOOL).strength(0.8f).sounds(BlockSoundGroup.MOSS_BLOCK));
-    public static final MoistCarpetBlock UNBREAKABLE_MOIST_CARPET = new MoistCarpetBlock(FabricBlockSettings.copy(MOIST_CARPET).strength(UNBREAKABLE, UNBLASTABLE));
+    public static final MoistCarpetBlock UNBREAKABLE_MOIST_CARPET = new MoistCarpetBlock(FabricBlockSettings.copyOf(MOIST_CARPET).strength(UNBREAKABLE, UNBLASTABLE));
     // Office doors.
     public static final DoorBlock OFFICE_DOOR = new DoorBlock(FabricBlockSettings.of(Material.WOOD).strength(3.0f).sounds(BlockSoundGroup.WOOD), MBSounds.DOOR_CREAKS, MBSounds.DOOR_CREAKS);
-    public static final DoorBlock UNBREAKABLE_OFFICE_DOOR = new DoorBlock(FabricBlockSettings.copy(OFFICE_DOOR).strength(UNBREAKABLE, UNBLASTABLE), MBSounds.DOOR_CREAKS, MBSounds.DOOR_CREAKS);
+    public static final DoorBlock UNBREAKABLE_OFFICE_DOOR = new DoorBlock(FabricBlockSettings.copyOf(OFFICE_DOOR).strength(UNBREAKABLE, UNBLASTABLE), MBSounds.DOOR_CREAKS, MBSounds.DOOR_CREAKS);
     // Yellowed wallpaper.
     public static final Block YELLOWED_WALLPAPER = new Block(FabricBlockSettings.of(Material.STONE).strength(0.8f).requiresTool());
     public static final SlabBlock YELLOWED_WALLPAPER_SLAB = new SlabBlock(FabricBlockSettings.copyOf(YELLOWED_WALLPAPER));
     public static final StairsBlock YELLOWED_WALLPAPER_STAIRS = new StairsBlock(YELLOWED_WALLPAPER.getDefaultState(), FabricBlockSettings.copyOf(YELLOWED_WALLPAPER));
     public static final WallBlock YELLOWED_WALLPAPER_WALL = new WallBlock(FabricBlockSettings.copyOf(YELLOWED_WALLPAPER));
-    public static final Block UNBREAKABLE_YELLOWED_WALLPAPER = new Block(FabricBlockSettings.copy(YELLOWED_WALLPAPER).strength(UNBREAKABLE, UNBLASTABLE));
+    public static final Block UNBREAKABLE_YELLOWED_WALLPAPER = new Block(FabricBlockSettings.copyOf(YELLOWED_WALLPAPER).strength(UNBREAKABLE, UNBLASTABLE));
     public static final SlabBlock UNBREAKABLE_YELLOWED_WALLPAPER_SLAB = new SlabBlock(FabricBlockSettings.copyOf(UNBREAKABLE_YELLOWED_WALLPAPER));
     public static final StairsBlock UNBREAKABLE_YELLOWED_WALLPAPER_STAIRS = new StairsBlock(UNBREAKABLE_YELLOWED_WALLPAPER.getDefaultState(), FabricBlockSettings.copyOf(UNBREAKABLE_YELLOWED_WALLPAPER));
     public static final WallBlock UNBREAKABLE_YELLOWED_WALLPAPER_WALL = new WallBlock(FabricBlockSettings.copyOf(UNBREAKABLE_YELLOWED_WALLPAPER));
     // Exit doors.
     public static final OpenableMetalDoorBlock EXIT_DOOR = new OpenableMetalDoorBlock(FabricBlockSettings.of(Material.METAL).strength(5.0f, 5.0f).requiresTool().sounds(BlockSoundGroup.METAL), SoundEvents.BLOCK_IRON_DOOR_CLOSE, SoundEvents.BLOCK_IRON_DOOR_OPEN);
-    public static final ExitDoorBlock INTERDIMENSIONAL_EXIT_DOOR = new ExitDoorBlock(FabricBlockSettings.copy(EXIT_DOOR).strength(UNBREAKABLE, UNBLASTABLE), SoundEvents.BLOCK_IRON_DOOR_CLOSE, SoundEvents.BLOCK_IRON_DOOR_OPEN);
+    public static final ExitDoorBlock INTERDIMENSIONAL_EXIT_DOOR = new ExitDoorBlock(FabricBlockSettings.copyOf(EXIT_DOOR).strength(UNBREAKABLE, UNBLASTABLE), SoundEvents.BLOCK_IRON_DOOR_CLOSE, SoundEvents.BLOCK_IRON_DOOR_OPEN);
 
 
 
@@ -75,8 +77,10 @@ public class MBBlocks {
         registerBlock("random_number_generator", RNG);
         registerBlock("ceiling_tile", CEILING_TILE);
         registerBlock("unbreakable_ceiling_tile", UNBREAKABLE_CEILING_TILE);
+        registerBlock("disabled_fluorescent_light", DISABLED_FLUORESCENT_LIGHT);
+        registerBlock("disabled_unbreakable_fluorescent_light", DISABLED_UNBREAKABLE_FLUORESCENT_LIGHT);
         registerBlock("fluorescent_light", FLUORESCENT_LIGHT);
-        registerBlock("unbreakable_fluorescent_light",UNBREAKABLE_FLUORESCENT_LIGHT);
+        registerBlock("unbreakable_fluorescent_light", UNBREAKABLE_FLUORESCENT_LIGHT);
         registerBlock("moist_carpet", MOIST_CARPET);
         registerBlock("unbreakable_moist_carpet", UNBREAKABLE_MOIST_CARPET);
         registerBlock("office_door", OFFICE_DOOR);
