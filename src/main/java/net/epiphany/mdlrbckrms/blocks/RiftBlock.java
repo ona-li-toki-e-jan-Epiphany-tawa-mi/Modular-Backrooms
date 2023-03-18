@@ -18,11 +18,10 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
+import net.minecraft.world.event.GameEvent;
 
-// TODO Add item model.
 // TODO Make naturally spawn.
 // TODO Needs to be destoryed after a couple minutes.
-// TODO Make function as an actual portal.
 
 /**
  * A transient rift between worlds that grows out and swallows the earth (just cool randomly generated portals to where-ever.)
@@ -48,7 +47,7 @@ public class RiftBlock extends NetherPortalBlock {
 
     @Override
     public void onPlaced(World world, BlockPos position, BlockState state, LivingEntity placer, ItemStack itemStack) {
-        world.playSound(placer, position, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.BLOCKS, 1.0f, 1.0f);
+        world.playSound(placer, position, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.BLOCKS, 1.0f, -0.5f);
     }
 
     /**
@@ -132,8 +131,9 @@ public class RiftBlock extends NetherPortalBlock {
             if (world.getBlockState(growToPosition).isAir()) {
                 // The randomness on distance helps to make portal growth more chaotic.
                 world.setBlockState(growToPosition, state.with(DISTANCE, Math.min(7, distance + random.nextBetween(1, 4))));
-                // TODO use sound in reverse and add pitch variation.
-                world.playSound(null, growToPosition, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.BLOCKS, 1.0f, 1.0f);
+                
+                world.playSound(null, growToPosition, SoundEvents.BLOCK_GLASS_BREAK, SoundCategory.BLOCKS, 1.0f, -0.5f);
+                world.emitGameEvent(null, GameEvent.BLOCK_PLACE, growToPosition);
             }
         }
     }
