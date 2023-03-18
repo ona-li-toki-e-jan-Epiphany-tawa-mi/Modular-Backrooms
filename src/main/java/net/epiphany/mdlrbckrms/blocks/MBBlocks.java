@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.Material;
 import net.minecraft.block.SlabBlock;
@@ -41,6 +42,7 @@ public class MBBlocks {
 
     // Misc.
     public static final RNGBlock RNG = new RNGBlock(FabricBlockSettings.of(Material.GLASS).ticksRandomly().strength(0.3f).sounds(BlockSoundGroup.GLASS));
+    public static final RiftBlock RIFT = new RiftBlock(FabricBlockSettings.copyOf(Blocks.NETHER_PORTAL));
     // Ceiling tiles.
     public static final Block CEILING_TILE = new Block(FabricBlockSettings.of(Material.WOOL).strength(0.8f).sounds(BlockSoundGroup.WOOL));
     public static final Block UNBREAKABLE_CEILING_TILE = new Block(FabricBlockSettings.copyOf(CEILING_TILE).strength(UNBREAKABLE, UNBLASTABLE));
@@ -95,6 +97,7 @@ public class MBBlocks {
         registerBlock("unbreakable_yellowed_wallpaper_wall", UNBREAKABLE_YELLOWED_WALLPAPER_WALL);
         registerBlock("exit_door", EXIT_DOOR);
         registerBlock("interdimensional_exit_door", INTERDIMENSIONAL_EXIT_DOOR);
+        registerBlock("rift", RIFT);
 
         FlammableBlockRegistry registry = FlammableBlockRegistry.getDefaultInstance();
         registry.add(CEILING_TILE, 30, 60);

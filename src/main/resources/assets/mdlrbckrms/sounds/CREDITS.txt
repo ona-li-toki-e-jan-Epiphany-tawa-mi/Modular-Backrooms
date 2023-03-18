@@ -1,3 +1,5 @@
 maximum_hum_buzz.ogg is a modified version (without the jingling) of "The Backrooms - Sound Effect" from Echo SFX at <https://www.echosfx.com/free-sound-effects/the-backrooms-sound-effect?rq=backrooms>.
 fluorescent_flicker.ogg is a modified version of "Fluorescent Lights Flickering - Sound Effect" from Echo SFX at <https://www.echosfx.com/free-sound-effects/fluorescent-lights-flickering-sound-effect?rq=short>.
-The sound files within the folder door_creaks are samples from "Door Creaking Open - Horror Sound Effects" from Echo SFX at <https://www.echosfx.com/free-sound-effects/door-creaking-open-horror-sound-effects?rq=door>
+The sound files within the folder door_creaks are samples from "Door Creaking Open - Horror Sound Effects" from Echo SFX at <https://www.echosfx.com/free-sound-effects/door-creaking-open-horror-sound-effects?rq=door>.
+
+The sound files creepy_sounds/groan.ogg and creepy_sounds/groan_uwu.ogg were made with the help of Metro Bandits <https://www.youtube.com/@metrobandits546>.
