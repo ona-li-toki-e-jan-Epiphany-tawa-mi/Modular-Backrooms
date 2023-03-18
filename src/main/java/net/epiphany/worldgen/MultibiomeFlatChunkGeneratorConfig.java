@@ -91,7 +91,7 @@ public class MultibiomeFlatChunkGeneratorConfig extends FlatChunkGeneratorConfig
      */
     @Override
     public GenerationSettings createGenerationSettings(RegistryEntry<Biome> biomeEntry) {
-        return this.getBiome().value().getGenerationSettings();
+        return biomeEntry.value().getGenerationSettings();
     }
 
     /**

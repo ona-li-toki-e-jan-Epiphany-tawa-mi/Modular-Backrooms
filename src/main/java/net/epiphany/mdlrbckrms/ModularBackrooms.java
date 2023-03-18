@@ -11,6 +11,34 @@ import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/*
+TODO Add these to level 0.
+ {
+                            "biome": "mdlrbckrms:level_0/pillars",
+                            "parameters": {
+                                "temperature": 0.2,
+                                "humidity": 0.7,
+                                "continentalness": 0.3,
+                                "erosion": 0,
+                                "weirdness": 0.55,
+                                "depth": 0,
+                                "offset": 0
+                            }
+                        },
+                        {
+                            "biome": "mdlrbckrms:level_0/dark_pillars",
+                            "parameters": {
+                                "temperature": 0.1,
+                                "humidity": 0.7,
+                                "continentalness": 0.3,
+                                "erosion": 0,
+                                "weirdness": 1,
+                                "depth": 0,
+                                "offset": 0
+                            }
+                        }
+ */
+
 /**
  * TODO List:
  * - Add more variation to level 0.

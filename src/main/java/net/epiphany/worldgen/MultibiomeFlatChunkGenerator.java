@@ -1,7 +1,6 @@
 package net.epiphany.worldgen;
 
 import java.util.List;
-
 import com.google.common.base.Suppliers;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -11,6 +10,8 @@ import net.minecraft.util.Util;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.FlatChunkGenerator;
 import net.minecraft.world.gen.feature.util.PlacedFeatureIndexer;
+
+// TODO the generator for level 0 only generates the office rooms but is likely unrelated to this generator, find fix
 
 /**
  * A version of the {@link FlatChunkGenerator} that accepts a biome source instead of a biome to allow multiple biomes to be used.

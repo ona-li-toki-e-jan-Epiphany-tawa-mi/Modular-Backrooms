@@ -13,7 +13,7 @@
             "height": {
                 "type": "constant",
                 "value": {
-                    "absolute": -2
+                    "absolute": 62
                 }
             }
         },
