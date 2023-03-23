@@ -52,6 +52,16 @@ public class ExitDoorBlock extends OpenableMetalDoorBlock implements BlockEntity
         builder.add(PORTAL);
     }
 
+     /**
+     * Gets the light produced by a exit door.
+     * 
+     * @param state The block state.
+     * @return 11 if open and has a portal, 0 if off.
+     */
+    public static int getLuminance(BlockState state) {
+        return state.get(DoorBlock.OPEN) && state.get(PORTAL) ? 11 : 0;
+    }
+
     /**
      * Allows changes of the door's portal state to propagate to the other half.
      */

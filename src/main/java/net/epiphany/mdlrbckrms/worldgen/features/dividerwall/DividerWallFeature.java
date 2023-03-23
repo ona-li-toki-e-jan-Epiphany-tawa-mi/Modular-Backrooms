@@ -1,12 +1,12 @@
-package net.epiphany.mdlrbckrms.features.dividerwall;
+package net.epiphany.mdlrbckrms.worldgen.features.dividerwall;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import com.mojang.serialization.Codec;
 
-import net.epiphany.mdlrbckrms.features.MBFeatures;
-import net.epiphany.mdlrbckrms.features.MBFeatures.PillarCondition;
+import net.epiphany.mdlrbckrms.worldgen.features.MBFeatures;
+import net.epiphany.mdlrbckrms.worldgen.features.MBFeatures.PillarCondition;
 import net.minecraft.block.BlockState;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;

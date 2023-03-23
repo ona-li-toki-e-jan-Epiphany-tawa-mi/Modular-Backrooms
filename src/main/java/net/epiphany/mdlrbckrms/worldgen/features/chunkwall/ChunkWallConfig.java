@@ -1,4 +1,4 @@
-package net.epiphany.mdlrbckrms.features.chunkwall;
+package net.epiphany.mdlrbckrms.worldgen.features.chunkwall;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

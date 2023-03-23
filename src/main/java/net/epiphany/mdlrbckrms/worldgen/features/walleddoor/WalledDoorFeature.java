@@ -1,11 +1,11 @@
-package net.epiphany.mdlrbckrms.features.walleddoor;
+package net.epiphany.mdlrbckrms.worldgen.features.walleddoor;
 
 import java.util.Optional;
 
 import com.mojang.serialization.Codec;
 
-import net.epiphany.mdlrbckrms.features.MBFeatures;
-import net.epiphany.mdlrbckrms.features.MBFeatures.PillarCondition;
+import net.epiphany.mdlrbckrms.worldgen.features.MBFeatures;
+import net.epiphany.mdlrbckrms.worldgen.features.MBFeatures.PillarCondition;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.enums.DoorHinge;

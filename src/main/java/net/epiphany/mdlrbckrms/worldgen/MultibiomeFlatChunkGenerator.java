@@ -1,4 +1,4 @@
-package net.epiphany.worldgen;
+package net.epiphany.mdlrbckrms.worldgen;
 
 import java.util.List;
 import com.google.common.base.Suppliers;

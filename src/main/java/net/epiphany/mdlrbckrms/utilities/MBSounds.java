@@ -13,23 +13,23 @@ public class MBSounds {
     /**
      * A constant drone of fluorescent lights used in levels with them present.
      */
-    public static final SoundEvent MAXIMUM_HUM_BUZZ = SoundEvent.of(new Identifier(ModularBackrooms.MOD_ID, "maximum_hum_buzz"));
+    public static final SoundEvent MAXIMUM_HUM_BUZZ = SoundEvent.of(new Identifier(ModularBackrooms.MOD_ID, "ambient.mdlrbckrms.maximum_hum_buzz"));
     /**
      * The flickering of a fluorescent light.
      */
-    public static final SoundEvent FLUORESCENT_FLICKER = SoundEvent.of(new Identifier(ModularBackrooms.MOD_ID, "fluorescent_flicker"));
+    public static final SoundEvent FLUORESCENT_FLICKER = SoundEvent.of(new Identifier(ModularBackrooms.MOD_ID, "block.mdlrbckrms.fluorescent_light.flicker"));
     /**
      * A completely empty sound used to prevent music from playing.
      */
-    public static final SoundEvent NULL_SOUND = SoundEvent.of(new Identifier(ModularBackrooms.MOD_ID, "null_sound"));
+    public static final SoundEvent NULL_SOUND = SoundEvent.of(new Identifier(ModularBackrooms.MOD_ID, "mdlrbckrms.null_sound"));
     /**
      * Creepy door creaking sounds.
      */
-    public static final SoundEvent DOOR_CREAKS = SoundEvent.of(new Identifier(ModularBackrooms.MOD_ID, "door_creaks"));
+    public static final SoundEvent DOOR_CREAKS = SoundEvent.of(new Identifier(ModularBackrooms.MOD_ID, "block.mdlrbckrms.office_door.creak"));
     /**
      * Random creepy sounds to use as mood sounds and auditory hallucinations.
      */
-    public static final SoundEvent CREEPY_SOUNDS = SoundEvent.of(new Identifier(ModularBackrooms.MOD_ID, "creepy_sounds"));
+    public static final SoundEvent CREEPY_SOUNDS = SoundEvent.of(new Identifier(ModularBackrooms.MOD_ID, "mood.mdlrbckrms.creepy_sounds"));
 
 
 

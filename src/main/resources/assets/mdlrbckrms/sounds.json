@@ -1,5 +1,5 @@
 {
-    "maximum_hum_buzz": {
+    "ambient.mdlrbckrms.maximum_hum_buzz": {
         "subtitle": "subtitles.mdlrbckrms.maximum_hum_buzz",
         "sounds": [
             {
@@ -8,13 +8,13 @@
             }
         ]
     },
-    "fluorescent_flicker": {
+    "block.mdlrbckrms.fluorescent_light.flicker": {
         "subtitle": "subtitles.mdlrbckrms.fluorescent_flicker",
         "sounds": [
             "mdlrbckrms:fluorescent_flicker" 
         ]
     },
-    "null_sound": {
+    "mdlrbckrms.null_sound": {
         "sounds": [
             {
                 "name": "mdlrbckrms:null_sound",
@@ -22,17 +22,13 @@
             }
         ]
     },
-    "door_creaks": {
-        "subtitle": "subtitles.mdlrbckrms.door_creaks",
+    "block.mdlrbckrms.office_door.creak": {
+        "subtitle": "subtitles.mdlrbckrms.door_creak",
         "sounds": [
-            "mdlrbckrms:door_creaks/creak1",
-            "mdlrbckrms:door_creaks/creak2",
-            "mdlrbckrms:door_creaks/creak3",
-            "mdlrbckrms:door_creaks/creak4",
-            "mdlrbckrms:door_creaks/creak5"
+            "mdlrbckrms:door_creaks/creak3"
         ]
     },
-    "creepy_sounds": {
+    "mood.mdlrbckrms.creepy_sounds": {
         "sounds":[
             {
                 "name": "mdlrbckrms:creepy_sounds/groan",
@@ -110,42 +106,6 @@
             {
                 "name": "minecraft:block/sculk_shrieker/shriek5",
                 "weight": 20
-            },
-            {
-                "name": "minecraft:block/moss/step1",
-                "weight": 20
-            },
-            {
-                "name": "minecraft:block/moss/step2",
-                "weight": 20
-            },
-            {
-                "name": "minecraft:block/moss/step3",
-                "weight": 20
-            },
-            {
-                "name": "minecraft:block/moss/step4",
-                "weight": 20
-            },
-            {
-                "name": "minecraft:block/moss/step5",
-                "weight": 20
-            },
-            {
-                "name": "minecraft:dig/stone1",
-                "weight": 25
-            },
-            {
-                "name": "minecraft:dig/stone2",
-                "weight": 25
-            },
-            {
-                "name": "minecraft:dig/stone3",
-                "weight": 25
-            },
-            {
-                "name": "minecraft:dig/stone4",
-                "weight": 25
             }
         ]
     }

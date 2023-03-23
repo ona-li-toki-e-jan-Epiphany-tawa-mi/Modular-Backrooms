@@ -1,8 +1,9 @@
-package net.epiphany.worldgen;
+package net.epiphany.mdlrbckrms.worldgen;
 
 import com.mojang.serialization.Codec;
 
 import net.epiphany.mdlrbckrms.ModularBackrooms;
+import net.epiphany.mdlrbckrms.worldgen.features.MBFeatures;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -17,6 +18,8 @@ public class MBWorldGeneration {
      */
     public static void registerWordGenerationStuffs() {
         registerChunkGenerator("multibiome_flat", MultibiomeFlatChunkGenerator.CODEC);
+
+        MBFeatures.registerFeatures();
     }
 
 

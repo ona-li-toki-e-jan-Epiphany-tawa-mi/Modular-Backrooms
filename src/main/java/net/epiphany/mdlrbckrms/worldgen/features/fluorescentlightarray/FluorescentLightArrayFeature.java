@@ -1,4 +1,4 @@
-package net.epiphany.mdlrbckrms.features.fluorescentlightarray;
+package net.epiphany.mdlrbckrms.worldgen.features.fluorescentlightarray;
 
 import com.mojang.serialization.Codec;
 

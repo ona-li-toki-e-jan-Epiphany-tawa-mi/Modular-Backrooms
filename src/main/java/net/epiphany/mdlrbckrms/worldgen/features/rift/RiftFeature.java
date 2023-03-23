@@ -1,4 +1,4 @@
-package net.epiphany.mdlrbckrms.features.rift;
+package net.epiphany.mdlrbckrms.worldgen.features.rift;
 
 import com.mojang.serialization.Codec;
 

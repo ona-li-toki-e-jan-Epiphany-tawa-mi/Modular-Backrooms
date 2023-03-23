@@ -2,12 +2,10 @@ package net.epiphany.mdlrbckrms;
 
 import net.epiphany.mdlrbckrms.blocks.MBBlocks;
 import net.epiphany.mdlrbckrms.entities.MBEntities;
-import net.epiphany.mdlrbckrms.features.MBFeatures;
-import net.epiphany.mdlrbckrms.features.rift.RiftFeature;
 import net.epiphany.mdlrbckrms.items.MBItems;
 import net.epiphany.mdlrbckrms.levels.Levels;
 import net.epiphany.mdlrbckrms.utilities.MBSounds;
-import net.epiphany.worldgen.MBWorldGeneration;
+import net.epiphany.mdlrbckrms.worldgen.MBWorldGeneration;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -67,8 +65,6 @@ public class ModularBackrooms implements ModInitializer {
 		MBEntities.registerEntities();
 
 		Levels.registerLevels();
-		MBFeatures.registerFeatures();
-        RiftFeature.addToAllBiomes();
 		MBWorldGeneration.registerWordGenerationStuffs();
 
 		MBSounds.registerSounds();

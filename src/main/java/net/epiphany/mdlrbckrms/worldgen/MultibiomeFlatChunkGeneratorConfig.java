@@ -1,4 +1,4 @@
-package net.epiphany.worldgen;
+package net.epiphany.mdlrbckrms.worldgen;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +21,7 @@ import net.minecraft.world.gen.feature.MiscPlacedFeatures;
 import net.minecraft.world.gen.feature.PlacedFeature;
 
 /**
- * Modified version of {@link FlatChunkGeneratorConfig} for {@link net.epiphany.worldgen.MultibiomeFlatChunkGenerator}
+ * Modified version of {@link FlatChunkGeneratorConfig} for {@link net.epiphany.mdlrbckrms.worldgen.MultibiomeFlatChunkGenerator}
  */
 public class MultibiomeFlatChunkGeneratorConfig extends FlatChunkGeneratorConfig {
     // For the most part this is a copy of FlatChunkGeneratorConfig's codec

@@ -1,4 +1,4 @@
-package net.epiphany.mdlrbckrms.features.dividerwall;
+package net.epiphany.mdlrbckrms.worldgen.features.dividerwall;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

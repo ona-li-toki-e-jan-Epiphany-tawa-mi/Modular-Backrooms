@@ -1,16 +1,16 @@
-package net.epiphany.mdlrbckrms.features;
+package net.epiphany.mdlrbckrms.worldgen.features;
 
 import net.epiphany.mdlrbckrms.ModularBackrooms;
-import net.epiphany.mdlrbckrms.features.chunkwall.ChunkWallConfig;
-import net.epiphany.mdlrbckrms.features.chunkwall.ChunkWallFeature;
-import net.epiphany.mdlrbckrms.features.dividerwall.DividerWallConfig;
-import net.epiphany.mdlrbckrms.features.dividerwall.DividerWallFeature;
-import net.epiphany.mdlrbckrms.features.fluorescentlightarray.FluorescentLightArrayConfig;
-import net.epiphany.mdlrbckrms.features.fluorescentlightarray.FluorescentLightArrayFeature;
-import net.epiphany.mdlrbckrms.features.rift.RiftConfig;
-import net.epiphany.mdlrbckrms.features.rift.RiftFeature;
-import net.epiphany.mdlrbckrms.features.walleddoor.WalledDoorConfig;
-import net.epiphany.mdlrbckrms.features.walleddoor.WalledDoorFeature;
+import net.epiphany.mdlrbckrms.worldgen.features.chunkwall.ChunkWallConfig;
+import net.epiphany.mdlrbckrms.worldgen.features.chunkwall.ChunkWallFeature;
+import net.epiphany.mdlrbckrms.worldgen.features.dividerwall.DividerWallConfig;
+import net.epiphany.mdlrbckrms.worldgen.features.dividerwall.DividerWallFeature;
+import net.epiphany.mdlrbckrms.worldgen.features.fluorescentlightarray.FluorescentLightArrayConfig;
+import net.epiphany.mdlrbckrms.worldgen.features.fluorescentlightarray.FluorescentLightArrayFeature;
+import net.epiphany.mdlrbckrms.worldgen.features.rift.RiftConfig;
+import net.epiphany.mdlrbckrms.worldgen.features.rift.RiftFeature;
+import net.epiphany.mdlrbckrms.worldgen.features.walleddoor.WalledDoorConfig;
+import net.epiphany.mdlrbckrms.worldgen.features.walleddoor.WalledDoorFeature;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -40,6 +40,8 @@ public class MBFeatures {
         registerFeature("fluorescent_light_array", FLUORESCENT_LIGHT_ARRAY);
         registerFeature("walled_door", WALLED_DOOR);
         registerFeature("rift", RIFT);
+
+        RiftFeature.addToAllBiomes();
     }
     
     /**

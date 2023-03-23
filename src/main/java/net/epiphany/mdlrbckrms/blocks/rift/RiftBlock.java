@@ -24,8 +24,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.event.GameEvent;
 
-// TODO Make naturally spawn.
-
 /**
  * A transient rift between worlds that grows out and swallows the earth (just cool randomly generated portals to where-ever.)
  */

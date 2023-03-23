@@ -69,7 +69,7 @@ public class MBBlocks {
     public static final WallBlock UNBREAKABLE_YELLOWED_WALLPAPER_WALL = new WallBlock(FabricBlockSettings.copyOf(UNBREAKABLE_YELLOWED_WALLPAPER));
     // Exit doors.
     public static final OpenableMetalDoorBlock EXIT_DOOR = new OpenableMetalDoorBlock(FabricBlockSettings.of(Material.METAL).strength(5.0f, 5.0f).requiresTool().sounds(BlockSoundGroup.METAL), SoundEvents.BLOCK_IRON_DOOR_CLOSE, SoundEvents.BLOCK_IRON_DOOR_OPEN);
-    public static final ExitDoorBlock INTERDIMENSIONAL_EXIT_DOOR = new ExitDoorBlock(FabricBlockSettings.copyOf(EXIT_DOOR).strength(UNBREAKABLE, UNBLASTABLE), SoundEvents.BLOCK_IRON_DOOR_CLOSE, SoundEvents.BLOCK_IRON_DOOR_OPEN);
+    public static final ExitDoorBlock INTERDIMENSIONAL_EXIT_DOOR = new ExitDoorBlock(FabricBlockSettings.copyOf(EXIT_DOOR).strength(UNBREAKABLE, UNBLASTABLE).luminance(ExitDoorBlock::getLuminance), SoundEvents.BLOCK_IRON_DOOR_CLOSE, SoundEvents.BLOCK_IRON_DOOR_OPEN);
 
 
 
