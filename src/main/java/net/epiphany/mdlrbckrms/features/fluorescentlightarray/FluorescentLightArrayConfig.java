@@ -10,8 +10,7 @@ import net.minecraft.world.gen.feature.FeatureConfig;
  * Configuration options for fluorescent light arrays.
  */
 public record FluorescentLightArrayConfig(Identifier lightBlockID, int length, int columns, int rows) implements FeatureConfig {
-    public static Codec<FluorescentLightArrayConfig> CODEC = RecordCodecBuilder.create(
-        instance ->
+    public static Codec<FluorescentLightArrayConfig> CODEC = RecordCodecBuilder.create((instance) ->
                 instance.group( Identifier.CODEC.fieldOf("lightBlockID").forGetter(FluorescentLightArrayConfig::lightBlockID)
                               , Codec.INT.fieldOf("length").forGetter(FluorescentLightArrayConfig::length)
                               , Codec.INT.fieldOf("columns").forGetter(FluorescentLightArrayConfig::columns)
@@ -29,33 +28,5 @@ public record FluorescentLightArrayConfig(Identifier lightBlockID, int length, i
         this.length = length;
         this.columns = columns;
         this.rows = rows;
-    }
-
-    /**
-     * @return The ID of the block to use as lights.
-     */
-    public Identifier lightBlockID() {
-        return lightBlockID;
-    }
-
-    /**
-     * @return How long the light is (aligned with x-axis.)
-     */
-    public int length() {
-        return length;
-    }
-
-    /**
-     * @return How many columns of lights to make.
-     */
-    public int columns() {
-        return columns;
-    }
-
-    /**
-     * @return How many rows of lights to make.
-     */
-    public int rows() {
-        return rows;
     }
 }

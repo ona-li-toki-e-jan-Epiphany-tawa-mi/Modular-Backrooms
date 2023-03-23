@@ -3,6 +3,7 @@ package net.epiphany.mdlrbckrms;
 import net.epiphany.mdlrbckrms.blocks.MBBlocks;
 import net.epiphany.mdlrbckrms.entities.MBEntities;
 import net.epiphany.mdlrbckrms.features.MBFeatures;
+import net.epiphany.mdlrbckrms.features.rift.RiftFeature;
 import net.epiphany.mdlrbckrms.items.MBItems;
 import net.epiphany.mdlrbckrms.levels.Levels;
 import net.epiphany.mdlrbckrms.utilities.MBSounds;
@@ -43,9 +44,8 @@ TODO Add these to level 0.
  * TODO List:
  * - Add more variation to level 0.
  * - Make player-crafted wallpaper flammable and burning it leaves behind sandstone.
- * - Do something special if a player tries to sleep.
- * - Add randomly generated rifts.
  * - Debug placement of divider walls and walled doors (walled doors can face into walls and divider walls can spawn butted up to chunk walls.)
+ * - Replace uses of isAir() with isReplacable() where applicable.
  *
  * viteltukorbeb burubelbul:
  *  --R
@@ -68,6 +68,7 @@ public class ModularBackrooms implements ModInitializer {
 
 		Levels.registerLevels();
 		MBFeatures.registerFeatures();
+        RiftFeature.addToAllBiomes();
 		MBWorldGeneration.registerWordGenerationStuffs();
 
 		MBSounds.registerSounds();

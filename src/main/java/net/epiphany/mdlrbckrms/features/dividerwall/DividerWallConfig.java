@@ -11,8 +11,7 @@ import net.minecraft.world.gen.feature.FeatureConfig;
  */
 public record DividerWallConfig(Identifier mainBlockID, Identifier topBlockID, int minimumHeight, int maximumHeight
         , int minimumLength, int maximumLength) implements FeatureConfig {
-    public static Codec<DividerWallConfig> CODEC = RecordCodecBuilder.create(
-        instance ->
+    public static Codec<DividerWallConfig> CODEC = RecordCodecBuilder.create((instance) ->
                 instance.group( Identifier.CODEC.fieldOf("mainBlockID").forGetter(DividerWallConfig::mainBlockID)
                               , Identifier.CODEC.fieldOf("topBlockID").forGetter(DividerWallConfig::topBlockID)
                               , Codec.INT.fieldOf("minHeight").forGetter(DividerWallConfig::minimumHeight)
@@ -37,47 +36,5 @@ public record DividerWallConfig(Identifier mainBlockID, Identifier topBlockID, i
         this.maximumHeight   = maximumHeight;
         this.minimumLength   = minimumLength;
         this.maximumLength   = maximumLength;
-    }
-
-    /**
-     * @return The ID of the block to make most of the wall out of.
-     */
-    public Identifier mainBlockID() {
-        return mainBlockID;
-    }
-
-    /**
-     * @return The ID of the block to make the top of the wall out of.
-     */
-    public Identifier topBlockID() {
-        return topBlockID;
-    }
-
-    /**
-     * @return The minimum height of the wall.
-     */
-    public int minimumHeight() {
-        return minimumHeight;
-    }
-
-    /**
-     * @return The maximum height of the wall.
-     */
-    public int maximumHeight() {
-        return maximumHeight;
-    }
-
-    /**
-     * @return The minimum length of the wall.
-     */
-    public int minimumLength() {
-        return minimumLength;
-    }
-
-    /**
-     * @return The maximum length of the wall.
-     */
-    public int maximumLength() {
-        return maximumLength;
     }
 }

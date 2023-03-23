@@ -10,8 +10,7 @@ import net.minecraft.world.gen.feature.FeatureConfig;
  * Configuration options for walled doors.
  */
 public record WalledDoorConfig(Identifier doorBlockID, float openChance, boolean canPlaceDoubleDoors) implements FeatureConfig {
-    public static Codec<WalledDoorConfig> CODEC = RecordCodecBuilder.create(
-        instance ->
+    public static Codec<WalledDoorConfig> CODEC = RecordCodecBuilder.create((instance) ->
                 instance.group( Identifier.CODEC.fieldOf("doorBlockID").forGetter(WalledDoorConfig::doorBlockID)
                               , Codec.FLOAT.fieldOf("openChance").forGetter(WalledDoorConfig::openChance)
                               , Codec.BOOL.fieldOf("canPlaceDoubleDoors").forGetter(WalledDoorConfig::canPlaceDoubleDoors))

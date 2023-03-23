@@ -1,0 +1,43 @@
+{
+    "feature": {
+        "type": "mdlrbckrms:rift",
+        "config": {
+            "axis_chance": 0.5
+        }
+    },
+    "placement": [
+        {
+            "type": "height_range",
+            "height": {
+                "type": "uniform",
+                "min_inclusive": {
+                    "absolute": 0
+                },
+                "max_inclusive": {
+                    "absolute": 255
+                }
+            }
+        },
+        {
+            "type": "random_offset",
+            "xz_spread": {
+                "type": "uniform",
+                "value": {
+                    "max_inclusive": 16,
+                    "min_inclusive": -16
+                } 
+            },
+            "y_spread": {
+                "type": "uniform",
+                "value": {
+                    "max_inclusive": 16,
+                    "min_inclusive": -16
+                } 
+            } 
+        },
+        {
+            "type": "rarity_filter",
+            "chance": 1000
+        }
+    ]
+}

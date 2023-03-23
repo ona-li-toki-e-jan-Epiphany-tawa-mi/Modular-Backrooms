@@ -3,6 +3,7 @@ package net.epiphany.mdlrbckrms.blocks;
 import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.epiphany.mdlrbckrms.blocks.exitdoor.ExitDoorBlock;
 import net.epiphany.mdlrbckrms.blocks.exitdoor.ExitDoorBlockEntity;
+import net.epiphany.mdlrbckrms.blocks.rift.RiftBlock;
 import net.epiphany.mdlrbckrms.utilities.MBSounds;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

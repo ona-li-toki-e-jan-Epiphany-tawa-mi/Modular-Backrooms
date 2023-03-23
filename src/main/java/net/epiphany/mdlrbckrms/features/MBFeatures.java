@@ -7,6 +7,8 @@ import net.epiphany.mdlrbckrms.features.dividerwall.DividerWallConfig;
 import net.epiphany.mdlrbckrms.features.dividerwall.DividerWallFeature;
 import net.epiphany.mdlrbckrms.features.fluorescentlightarray.FluorescentLightArrayConfig;
 import net.epiphany.mdlrbckrms.features.fluorescentlightarray.FluorescentLightArrayFeature;
+import net.epiphany.mdlrbckrms.features.rift.RiftConfig;
+import net.epiphany.mdlrbckrms.features.rift.RiftFeature;
 import net.epiphany.mdlrbckrms.features.walleddoor.WalledDoorConfig;
 import net.epiphany.mdlrbckrms.features.walleddoor.WalledDoorFeature;
 import net.minecraft.registry.Registries;
@@ -25,6 +27,7 @@ public class MBFeatures {
     public static final Feature<DividerWallConfig> DIVIDER_WALL = new DividerWallFeature(DividerWallConfig.CODEC);
     public static final Feature<FluorescentLightArrayConfig> FLUORESCENT_LIGHT_ARRAY = new FluorescentLightArrayFeature(FluorescentLightArrayConfig.CODEC);
     public static final Feature<WalledDoorConfig> WALLED_DOOR = new WalledDoorFeature(WalledDoorConfig.CODEC);
+    public static final Feature<RiftConfig> RIFT = new RiftFeature(RiftConfig.CODEC);
 
 
 
@@ -36,6 +39,7 @@ public class MBFeatures {
         registerFeature("divider_wall", DIVIDER_WALL);
         registerFeature("fluorescent_light_array", FLUORESCENT_LIGHT_ARRAY);
         registerFeature("walled_door", WALLED_DOOR);
+        registerFeature("rift", RIFT);
     }
     
     /**

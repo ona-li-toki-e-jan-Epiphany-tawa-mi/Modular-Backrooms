@@ -1,5 +1,7 @@
-package net.epiphany.mdlrbckrms.blocks;
+package net.epiphany.mdlrbckrms.blocks.rift;
 
+import net.epiphany.mdlrbckrms.blocks.MBBlocks;
+import net.epiphany.mdlrbckrms.utilities.DimensionHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.NetherPortalBlock;
@@ -7,6 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -16,12 +19,12 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.random.Random;
+import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldAccess;
 import net.minecraft.world.event.GameEvent;
 
 // TODO Make naturally spawn.
-// TODO Needs to be destoryed after a couple minutes.
 
 /**
  * A transient rift between worlds that grows out and swallows the earth (just cool randomly generated portals to where-ever.)
@@ -42,6 +45,12 @@ public class RiftBlock extends NetherPortalBlock {
         super.appendProperties(builder);
         builder.add(DISTANCE);
     }
+
+    @Override
+    public ItemStack getPickStack(BlockView world, BlockPos pos, BlockState state) {
+        return MBBlocks.RIFT.asItem().getDefaultStack();
+    }
+
     
 
 
@@ -141,6 +150,24 @@ public class RiftBlock extends NetherPortalBlock {
 
 
     /**
+     * If there is a destination, the entity will be teleported to there. If not, the rift will be destoryed.
+     */
+    @Override
+    public void onEntityCollision(BlockState state, World world, BlockPos position, Entity entity) {
+        if (world.isClient)
+            return;
+
+        RegistryKey<World> worldTo = RiftEvents.ON_ENTITY_ENTER_RIFT.invoker().onEntityEnterRift(world, position, entity);
+    
+        if (worldTo == null) {
+            world.scheduleBlockTick(position, this, 2);
+        } else
+            DimensionHelper.teleportToDimension(entity, worldTo, position.getX(), position.getY(), position.getZ(), true);
+    }
+
+
+
+    /**
      * Prevents unwanted behaivor in {@link NetherPortalBlock#getStateForNeighborUpdate(BlockState, Direction, BlockState, WorldAccess, BlockPos, BlockPos)}
      *      from running.
      */
@@ -149,11 +176,4 @@ public class RiftBlock extends NetherPortalBlock {
             , WorldAccess world, BlockPos pos, BlockPos neighborPos) {
         return state;
     }
-
-    /**
-     * Prevents unwanted behaivor in {@link NetherPortalBlock#onEntityCollision(BlockState, World, BlockPos, Entity)}
-     *      from running.
-     */
-    @Override
-    public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {}
 }
