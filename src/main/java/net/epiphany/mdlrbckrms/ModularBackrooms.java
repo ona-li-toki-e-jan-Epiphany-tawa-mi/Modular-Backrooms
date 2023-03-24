@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 
 /*
 TODO Add these to level 0 and fix biome distribution to "feel right"
-TODO Decrease hallucination spawn rates in open spaces or just remove them entirely.
  {
                             "biome": "mdlrbckrms:level_0/pillars",
                             "parameters": {
@@ -41,7 +40,7 @@ TODO Decrease hallucination spawn rates in open spaces or just remove them entir
 
 /**
  * TODO List:
- * - Fix odd placment of fluorescent lights at biome borders.
+ * - Have makeshift light-sources like torches randomly appear in level 0's dark rooms.
  * - Make player-crafted wallpaper flammable and burning it leaves behind sandstone.
  * - Debug placement of divider walls and walled doors (walled doors can face into walls and divider walls can spawn butted up to chunk walls.)
  *

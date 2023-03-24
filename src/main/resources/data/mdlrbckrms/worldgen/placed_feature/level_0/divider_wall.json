@@ -21,13 +21,6 @@
             }
         },
         {
-            "type": "count",
-            "count": {
-                "type": "constant",
-                "value": 1
-            }
-        },
-        {
             "type": "in_square"
         },
         {

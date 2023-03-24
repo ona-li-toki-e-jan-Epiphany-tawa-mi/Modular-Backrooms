@@ -4,12 +4,12 @@
     "temperature_modifier": "none",
     "downfall": 0.4,
     "effects": {
-        "fog_color": 10196814,
-        "sky_color": 10196814,
-        "water_color": 10196814,
-        "water_fog_color": 10196814,
-        "foliage_color": 10196814,
-        "grass_color": 10196814,
+        "fog_color": 0,
+        "sky_color": 0,
+        "water_color": 0,
+        "water_fog_color": 0,
+        "foliage_color": 0,
+        "grass_color": 0,
         "grass_color_modifier": "none",
         "ambient_sound": "mdlrbckrms:maximum_hum_buzz",
         "music": {
