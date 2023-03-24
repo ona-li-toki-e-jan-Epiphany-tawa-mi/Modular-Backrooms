@@ -7,6 +7,8 @@ import net.epiphany.mdlrbckrms.worldgen.features.dividerwall.DividerWallConfig;
 import net.epiphany.mdlrbckrms.worldgen.features.dividerwall.DividerWallFeature;
 import net.epiphany.mdlrbckrms.worldgen.features.fluorescentlightarray.FluorescentLightArrayConfig;
 import net.epiphany.mdlrbckrms.worldgen.features.fluorescentlightarray.FluorescentLightArrayFeature;
+import net.epiphany.mdlrbckrms.worldgen.features.pillararray.PillarArrayConfig;
+import net.epiphany.mdlrbckrms.worldgen.features.pillararray.PillarArrayFeature;
 import net.epiphany.mdlrbckrms.worldgen.features.rift.RiftConfig;
 import net.epiphany.mdlrbckrms.worldgen.features.rift.RiftFeature;
 import net.epiphany.mdlrbckrms.worldgen.features.walleddoor.WalledDoorConfig;
@@ -28,6 +30,7 @@ public class MBFeatures {
     public static final Feature<FluorescentLightArrayConfig> FLUORESCENT_LIGHT_ARRAY = new FluorescentLightArrayFeature(FluorescentLightArrayConfig.CODEC);
     public static final Feature<WalledDoorConfig> WALLED_DOOR = new WalledDoorFeature(WalledDoorConfig.CODEC);
     public static final Feature<RiftConfig> RIFT = new RiftFeature(RiftConfig.CODEC);
+    public static final Feature<PillarArrayConfig> PILLAR_ARRRAY = new PillarArrayFeature(PillarArrayConfig.CODEC);
 
 
 
@@ -40,6 +43,7 @@ public class MBFeatures {
         registerFeature("fluorescent_light_array", FLUORESCENT_LIGHT_ARRAY);
         registerFeature("walled_door", WALLED_DOOR);
         registerFeature("rift", RIFT);
+        registerFeature("pillar_array", PILLAR_ARRRAY);
 
         RiftFeature.addToAllBiomes();
     }

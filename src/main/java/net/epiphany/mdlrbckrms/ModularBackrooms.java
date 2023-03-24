@@ -10,37 +10,11 @@ import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/*
-TODO Add these to level 0 and fix biome distribution to "feel right"
- {
-                            "biome": "mdlrbckrms:level_0/pillars",
-                            "parameters": {
-                                "temperature": 0.2,
-                                "humidity": 0.7,
-                                "continentalness": 0.3,
-                                "erosion": 0,
-                                "weirdness": 0.55,
-                                "depth": 0,
-                                "offset": 0
-                            }
-                        },
-                        {
-                            "biome": "mdlrbckrms:level_0/dark_pillars",
-                            "parameters": {
-                                "temperature": 0.1,
-                                "humidity": 0.7,
-                                "continentalness": 0.3,
-                                "erosion": 0,
-                                "weirdness": 1,
-                                "depth": 0,
-                                "offset": 0
-                            }
-                        }
- */
-
 /**
  * TODO List:
  * - Have makeshift light-sources like torches randomly appear in level 0's dark rooms.
+ * - Improve array-based features to be able to generate more than in 1 single chunk.
+ * - Improve biome distribution
  * - Make player-crafted wallpaper flammable and burning it leaves behind sandstone.
  * - Debug placement of divider walls and walled doors (walled doors can face into walls and divider walls can spawn butted up to chunk walls.)
  *

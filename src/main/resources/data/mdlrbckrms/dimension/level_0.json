@@ -71,6 +71,30 @@
                         "depth": 0,
                         "offset": 0
                     }
+                },
+                {
+                    "biome": "mdlrbckrms:level_0/pillars",
+                    "parameters": {
+                        "temperature": 0.2,
+                        "humidity": 0.2,
+                        "continentalness": 0,
+                        "erosion": 0.1,
+                        "weirdness": 0,
+                        "depth": 0,
+                        "offset": 0
+                    }
+                },
+                {
+                    "biome": "mdlrbckrms:level_0/dark_pillars",
+                    "parameters": {
+                        "temperature": 0.1,
+                        "humidity": 0.4,
+                        "continentalness": 0,
+                        "erosion": 0.1,
+                        "weirdness": 0.2,
+                        "depth": 0,
+                        "offset": 0
+                    }
                 }
             ]
         }

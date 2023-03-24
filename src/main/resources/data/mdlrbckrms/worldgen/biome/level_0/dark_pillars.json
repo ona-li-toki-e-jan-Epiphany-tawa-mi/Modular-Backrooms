@@ -28,14 +28,10 @@
     "carvers": {},
     "features": [
         [
-            "mdlrbckrms:level_0/chunk_wall",
-            "mdlrbckrms:level_0/divider_wall"
+            "mdlrbckrms:level_0/pillars"
         ],
         [],
-        [
-            "mdlrbckrms:level_0/office_door",
-            "mdlrbckrms:level_0/exit_door"
-        ],
+        [],
         [],
         [],
         [],
@@ -48,15 +44,6 @@
         []
     ],
     "creature_spawn_probability": 0.0,
-    "spawners": {
-        "ambient": [
-            {
-                "type": "mdlrbckrms:hallucination",
-                "weight": 1,
-                "minCount": 1,
-                "maxCount": 1
-            }
-        ]
-    },
+    "spawners": {},
     "spawn_costs": {}
 }

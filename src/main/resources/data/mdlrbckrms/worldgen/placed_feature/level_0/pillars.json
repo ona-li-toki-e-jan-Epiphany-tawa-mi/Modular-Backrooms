@@ -1,0 +1,23 @@
+{
+    "feature": {
+        "type": "mdlrbckrms:pillar_array",
+        "config": {
+            "blockID": "mdlrbckrms:unbreakable_yellowed_wallpaper",
+            "length": 2,
+            "height": 4,
+            "columns": 2,
+            "rows": 2
+        }
+    },
+    "placement": [
+        {
+            "type": "height_range",
+            "height": {
+                "type": "constant",
+                "value": {
+                    "absolute": 62
+                }
+            }
+        }
+    ]
+}
