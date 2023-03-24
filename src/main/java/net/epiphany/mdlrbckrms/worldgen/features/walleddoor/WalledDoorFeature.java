@@ -63,7 +63,7 @@ public class WalledDoorFeature extends Feature<WalledDoorConfig> {
         BlockPos doorOrigin = context.getOrigin();
 
         // Checks if door is being placed in already existing blocks (wall check part 1).
-        if (world.getBlockState(doorOrigin).isAir() || world.getBlockState(doorOrigin.up()).isAir())
+        if (!world.getBlockState(doorOrigin).isSolidBlock(world, doorOrigin) || !world.getBlockState(doorOrigin).isSolidBlock(world, doorOrigin))
             return false;
 
 
@@ -71,16 +71,22 @@ public class WalledDoorFeature extends Feature<WalledDoorConfig> {
         boolean walledInOnXAxis = true
               , walledInOnZAxis = true;
 
-        for (Vec3i possibleWallBlock : X_AXIS_NEIGHBOR_POSITIONS)
-            if (world.getBlockState(doorOrigin.add(possibleWallBlock)).isAir()) {
+        for (Vec3i possibleWallBlock : X_AXIS_NEIGHBOR_POSITIONS) {
+            BlockPos position = doorOrigin.add(possibleWallBlock);
+
+            if (!world.getBlockState(position).isSolidBlock(world, position)) {
                 walledInOnXAxis = false;
                 break;
             }
-        for (Vec3i possibleWallBlock : Z_AXIS_NEIGHBOR_POSITIONS)
-            if (world.getBlockState(doorOrigin.add(possibleWallBlock)).isAir()) {
+        }
+        for (Vec3i possibleWallBlock : Z_AXIS_NEIGHBOR_POSITIONS) {
+            BlockPos position = doorOrigin.add(possibleWallBlock);
+
+            if (!world.getBlockState(position).isSolidBlock(world, position)) {
                 walledInOnZAxis = false;
                 break;
             }
+        }
 
         if ((walledInOnXAxis && walledInOnZAxis) || (!walledInOnXAxis && !walledInOnZAxis))
             return false;
@@ -156,8 +162,8 @@ public class WalledDoorFeature extends Feature<WalledDoorConfig> {
     private Optional<Direction> determineFacing(WorldAccess world, Random random, BlockPos doorOrigin, Direction direction) {
         Direction opposite = direction.getOpposite();
 
-        boolean canFaceDirection = MBFeatures.testPillar(world, doorOrigin.offset(direction), 2, PillarCondition.AIR)
-              , canFaceOpposite  = MBFeatures.testPillar(world, doorOrigin.offset(opposite), 2, PillarCondition.AIR);
+        boolean canFaceDirection = MBFeatures.testPillar(world, doorOrigin.offset(direction), 2, PillarCondition.REPLACABLE)
+              , canFaceOpposite  = MBFeatures.testPillar(world, doorOrigin.offset(opposite), 2, PillarCondition.REPLACABLE);
         
         if (!canFaceDirection && !canFaceOpposite)
             return Optional.empty();

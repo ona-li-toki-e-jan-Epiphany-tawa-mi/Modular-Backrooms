@@ -135,7 +135,7 @@ public class RiftBlock extends NetherPortalBlock {
 
             BlockPos growToPosition = position.offset(growDirection);
 
-            if (world.getBlockState(growToPosition).isAir()) {
+            if (world.getBlockState(growToPosition).isReplaceable()) {
                 // The randomness on distance helps to make portal growth more chaotic.
                 world.setBlockState(growToPosition, state.with(DISTANCE, Math.min(7, distance + random.nextBetween(1, 4))));
                 

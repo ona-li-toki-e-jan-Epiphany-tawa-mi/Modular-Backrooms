@@ -78,15 +78,15 @@ public class DividerWallFeature extends Feature<DividerWallConfig> {
         for (Direction direction : Direction.Type.HORIZONTAL) {
             BlockPos possibleDirection = wallOrigin.offset(direction);
 
-            if (MBFeatures.testPillar(world, possibleDirection, height, PillarCondition.AIR)
+            if (MBFeatures.testPillar(world, possibleDirection, height, PillarCondition.REPLACABLE)
                     && MBFeatures.testPillar( world
                                           , possibleDirection.offset(direction.rotateYClockwise())
                                           , height
-                                          , PillarCondition.AIR)
+                                          , PillarCondition.REPLACABLE)
                     && MBFeatures.testPillar( world
                                           , possibleDirection.offset(direction.rotateYCounterclockwise())
                                           , height
-                                          , PillarCondition.AIR))
+                                          , PillarCondition.REPLACABLE))
                 validDirections.add(direction);
         }
 
@@ -100,7 +100,7 @@ public class DividerWallFeature extends Feature<DividerWallConfig> {
         wallOrigin = wallOrigin.offset(buildDirection);
         
         for (int x = 0; x <= length; x++) {
-            if (!MBFeatures.testPillar(world, wallOrigin, height, PillarCondition.AIR))
+            if (!MBFeatures.testPillar(world, wallOrigin, height, PillarCondition.REPLACABLE))
                 break;
 
             for (int y = 0; y < height - 1; y++)

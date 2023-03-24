@@ -63,13 +63,13 @@ public class MBFeatures {
      */
     public static enum PillarCondition {
         /**
-         * Checks for a completely solid (non-air) pillar of blocks.
+         * Checks for a completely solid pillar of blocks.
          */
         SOILD,
         /**
-         * Checks for a pillar that is completely made of air.
+         * Checks for a pillar that is completely made of replacable blocks.
          */
-        AIR
+        REPLACABLE
     }
 
     /**
@@ -85,12 +85,12 @@ public class MBFeatures {
         for (int i = 0; i < height; i++) {
             switch (condition) {
                 case SOILD:
-                    if (world.getBlockState(pillarOrigin).isAir()) 
+                    if (!world.getBlockState(pillarOrigin).isSolidBlock(world, pillarOrigin)) 
                         return false;
                     break;
 
-                case AIR:
-                    if (!world.getBlockState(pillarOrigin).isAir())
+                case REPLACABLE:
+                    if (!world.getBlockState(pillarOrigin).isReplaceable())
                         return false;
                     break;
             }

@@ -9,10 +9,7 @@
     "AbstractDecorationEntityMixin",
     "ItemEntityMixin",
     "AbstractFurnaceBlockEntityMixin",
-    "CampfireBlockEntityMixin",
-
-    "ChunkGeneratorAccessor",
-    "FlatChunkGeneratorConfigAccessor"
+    "CampfireBlockEntityMixin"
   ],
   "client": [
     "DebugHudAccessor",
