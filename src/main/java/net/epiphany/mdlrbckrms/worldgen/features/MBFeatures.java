@@ -11,6 +11,8 @@ import net.epiphany.mdlrbckrms.worldgen.features.pillararray.PillarArrayConfig;
 import net.epiphany.mdlrbckrms.worldgen.features.pillararray.PillarArrayFeature;
 import net.epiphany.mdlrbckrms.worldgen.features.rift.RiftConfig;
 import net.epiphany.mdlrbckrms.worldgen.features.rift.RiftFeature;
+import net.epiphany.mdlrbckrms.worldgen.features.torch.TorchConfig;
+import net.epiphany.mdlrbckrms.worldgen.features.torch.TorchFeature;
 import net.epiphany.mdlrbckrms.worldgen.features.walleddoor.WalledDoorConfig;
 import net.epiphany.mdlrbckrms.worldgen.features.walleddoor.WalledDoorFeature;
 import net.minecraft.registry.Registries;
@@ -31,6 +33,7 @@ public class MBFeatures {
     public static final Feature<WalledDoorConfig> WALLED_DOOR = new WalledDoorFeature(WalledDoorConfig.CODEC);
     public static final Feature<RiftConfig> RIFT = new RiftFeature(RiftConfig.CODEC);
     public static final Feature<PillarArrayConfig> PILLAR_ARRRAY = new PillarArrayFeature(PillarArrayConfig.CODEC);
+    public static final Feature<TorchConfig> TORCH = new TorchFeature(TorchConfig.CODEC);
 
 
 
@@ -44,6 +47,7 @@ public class MBFeatures {
         registerFeature("walled_door", WALLED_DOOR);
         registerFeature("rift", RIFT);
         registerFeature("pillar_array", PILLAR_ARRRAY);
+        registerFeature("torch", TORCH);
 
         RiftFeature.addToAllBiomes();
     }

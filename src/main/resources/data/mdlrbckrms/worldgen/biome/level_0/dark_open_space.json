@@ -35,7 +35,8 @@
         [],
         [],
         [
-            "mdlrbckrms:level_0/disabled_fluorescent_lights"
+            "mdlrbckrms:level_0/disabled_fluorescent_lights",
+            "mdlrbckrms:level_0/random_torch"
         ],
         [],
         [],

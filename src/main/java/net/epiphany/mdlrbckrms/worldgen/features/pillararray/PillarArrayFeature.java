@@ -11,7 +11,7 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.util.FeatureContext;
 
 /**
- * Used to generate arrays of pillars. TODO
+ * Used to generate arrays of pillars.
  */
 public class PillarArrayFeature extends Feature<PillarArrayConfig> {
     public PillarArrayFeature(Codec<PillarArrayConfig> configCodec) {
