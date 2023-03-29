@@ -11,15 +11,15 @@
         "foliage_color": 0,
         "grass_color": 0,
         "grass_color_modifier": "none",
-        "ambient_sound": "mdlrbckrms:maximum_hum_buzz",
+        "ambient_sound": "mdlrbckrms:ambient.mdlrbckrms.maximum_hum_buzz",
         "music": {
-            "sound": "mdlrbckrms:null_sound",
+            "sound": "mdlrbckrms:mdlrbckrms.null_sound",
             "min_delay": 24000,
             "max_delay": 24000,
             "replace_current_music": true
         },
         "mood_sound": {
-            "sound": "mdlrbckrms:creepy_sounds",
+            "sound": "mdlrbckrms:mood.mdlrbckrms.creepy_sounds",
             "tick_delay": 3000,
             "block_search_extent": 8,
             "offset": 1.0

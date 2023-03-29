@@ -162,8 +162,16 @@ public class WalledDoorFeature extends Feature<WalledDoorConfig> {
     private Optional<Direction> determineFacing(WorldAccess world, Random random, BlockPos doorOrigin, Direction direction) {
         Direction opposite = direction.getOpposite();
 
-        boolean canFaceDirection = MBFeatures.testPillar(world, doorOrigin.offset(direction), 2, PillarCondition.REPLACABLE)
-              , canFaceOpposite  = MBFeatures.testPillar(world, doorOrigin.offset(opposite), 2, PillarCondition.REPLACABLE);
+        // We need to check the opposite direction because the "facing" of the door is to the inside, but it needs to be coded with 
+        //  thinking of it as to the outside for the placement checking to work..
+        boolean canFaceDirection = MBFeatures.testPillar( world
+                                                        , doorOrigin.offset(direction.getOpposite())
+                                                        , 2
+                                                        , PillarCondition.REPLACABLE)
+              , canFaceOpposite  = MBFeatures.testPillar( world
+                                                        , doorOrigin.offset(opposite.getOpposite())
+                                                        , 2
+                                                        , PillarCondition.REPLACABLE);
         
         if (!canFaceDirection && !canFaceOpposite)
             return Optional.empty();
