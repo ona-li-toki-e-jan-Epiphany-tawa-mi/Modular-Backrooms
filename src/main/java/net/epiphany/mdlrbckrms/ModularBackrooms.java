@@ -12,13 +12,12 @@ import org.slf4j.LoggerFactory;
 
 /**
  * TODO List:
- * - Have makeshift light-sources like torches randomly appear in level 0's dark rooms.
- * - Improve array-based features to be able to generate more than in 1 single chunk.
  * - Improve biome distribution
+ * - Update to 1.19.4
  * - Make player-crafted wallpaper flammable and burning it leaves behind sandstone.
  * - Debug placement of divider walls and walled doors (walled doors can face into walls and divider walls can spawn butted up to chunk walls.)
  *
- * viteltukorbeb burubelbul:
+ * viteltukorag burubelbul:
  *  --R
  *  DSG
  *  T-T

@@ -5,7 +5,9 @@
             "lightBlockID": "mdlrbckrms:disabled_unbreakable_fluorescent_light",
             "length": 3,
             "columns": 3,
-            "rows": 3
+            "rows": 3,
+            "xSpacing": 3,
+            "zSpacing": 1
         }
     },
     "placement": [
@@ -16,6 +18,17 @@
                 "value": {
                     "absolute": 66
                 }
+            }
+        },
+        {
+            "type": "random_offset",
+            "xz_spread": {
+                "type": "constant",
+                "value": 8
+            },
+            "y_spread": {
+                "type": "constant",
+                "value": 0
             }
         }
     ]

@@ -45,46 +45,38 @@ public class PillarArrayFeature extends Feature<PillarArrayConfig> {
         if (rows < 1 || rows > 15) 
             throw new IllegalStateException( "Pillar arrays must have between 1 and 15 rows! (recieved " + rows + " rows)");
 
-                                           
+        int xSpacing = config.xSpacing();
+        if (xSpacing < 0) 
+            throw new IllegalStateException( "Pillar arrays must have a spacing on the x-axis that is greater than or equal to 0! "
+                                           + "(recieved spacing of " + xSpacing + ")");
 
-        // Calculates how many blocks need to be in between pillar in each row and column and how far from the wall they 
-        //   should be. Note: does not account for pillar thickness.
-        int columnSpacing = (16 - columns) / (columns + 1);
-        int rowSpacing = (16 - rows) / (rows + 1);
-        int pillarCenterOffset = length / 2;
-        // Offset by (1,0,1) to account for chunk walls.
-        BlockPos columnPosition = context.getOrigin().add(1, 0, 1).south(columnSpacing);
+        int zSpacing = config.zSpacing();
+        if (zSpacing < 0) 
+            throw new IllegalStateException( "Pillar arrays must have a spacing on the z-axis that is greater than or equal to 0! "
+                                           + "(recieved spacing of " + zSpacing + ")");
+
+
+
+        // How much to move the starting position back by to center the array on the origin.
+        int xCenteringOffset = (columns * length + (columns-1) * xSpacing) / 2;
+        int zCenteringOffset = (rows * length    + (rows-1) * zSpacing)    / 2;
         StructureWorldAccess world = context.getWorld();
-        
-        // TODO make not ugly.
-        for (int column = 0; column < columns; column++) {
-            BlockPos rowPosition = columnPosition.east(rowSpacing);
+        BlockPos origin = context.getOrigin();
 
+        BlockPos.Mutable workingPosition = new BlockPos.Mutable();
+
+        for (int column = 0; column < columns; column++)
             for (int row = 0; row < rows; row++) {
-                BlockPos pillarXPosition = rowPosition.add(-pillarCenterOffset, 0, -pillarCenterOffset);
+                int startX = column * length + column * xSpacing + origin.getX() - xCenteringOffset;
+                int startZ = row * length    + row * zSpacing    + origin.getZ() - zCenteringOffset;
 
-                for (int x = 0; x < length; x++) {
-                    BlockPos pillarZPosition = pillarXPosition;
-
-                    for (int z = 0; z < length; z++) {
-                        BlockPos blockPosition = pillarZPosition;
-
-                        for (int y = 0; y < height; y++) {
-                            world.setBlockState(blockPosition, blockState, 0);
-                            blockPosition = blockPosition.up();
+                for (int x = startX; x < startX + length; x++) 
+                    for (int z = startZ; z < startZ + length; z++)
+                        for (int y = origin.getY(); y < origin.getY() + height; y++) {
+                            workingPosition.set(x, y, z);
+                            world.setBlockState(workingPosition, blockState, 0x0);
                         }
-
-                        pillarZPosition = pillarZPosition.east();
-                    }
-
-                    pillarXPosition = pillarXPosition.south();
-                }
-
-                rowPosition = rowPosition.east(rowSpacing + 1);
             }
-
-            columnPosition = columnPosition.south(columnSpacing + 1);
-        }   
 
         return true;
     }

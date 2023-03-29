@@ -3,10 +3,12 @@
         "type": "mdlrbckrms:pillar_array",
         "config": {
             "blockID": "mdlrbckrms:unbreakable_yellowed_wallpaper",
-            "length": 2,
+            "length": 4,
             "height": 4,
             "columns": 2,
-            "rows": 2
+            "rows": 2,
+            "xSpacing": 3,
+            "zSpacing": 3
         }
     },
     "placement": [
@@ -17,6 +19,17 @@
                 "value": {
                     "absolute": 62
                 }
+            }
+        },
+        {
+            "type": "random_offset",
+            "xz_spread": {
+                "type": "constant",
+                "value": 8
+            },
+            "y_spread": {
+                "type": "constant",
+                "value": 0
             }
         }
     ]

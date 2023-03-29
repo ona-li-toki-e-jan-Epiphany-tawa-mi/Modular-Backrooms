@@ -35,43 +35,44 @@ public class FluorescentLightArrayFeature extends Feature<FluorescentLightArrayC
                                            + length + ")");
 
         int columns = config.columns();
-        if (columns < 1 || columns > 15) 
-            throw new IllegalStateException( "Fluorescent light arrays must have between 1 and 15 columns! (recieved " + columns 
+        if (columns < 1) 
+            throw new IllegalStateException( "Fluorescent light arrays must have at least 1 column! (recieved " + columns 
                                            + " columns)");
 
         int rows = config.rows();
-        if (rows < 1 || rows > 15) 
-            throw new IllegalStateException( "Fluorescent light arrays must have between 1 and 15 rows! (recieved " + rows 
-                                           + " rows)");
+        if (rows < 1) 
+            throw new IllegalStateException( "Fluorescent light arrays must have at least 1 row! (recieved " + rows + " rows)");
+
+        int xSpacing = config.xSpacing();
+        if (xSpacing < 0) 
+            throw new IllegalStateException( "Fluorescent light array lights must have a spacing on the x-axis that is greater than or"
+                                           + " equal to 0! (recieved spacing of " + xSpacing + ")");
+
+        int zSpacing = config.zSpacing();
+        if (zSpacing < 0) 
+            throw new IllegalStateException( "Fluorescent light array lights must have a spacing on the z-axis that is greater than or"
+                                           + " equal to 0! (recieved spacing of " + zSpacing + ")");
+
 
                                            
-
-        // Calculates how many blocks need to be in between each light in each row and column and how far from the wall they 
-        //   should be.
-        int columnSpacing = (16 - columns) / (columns + 1);
-        int rowSpacing = (16 - rows) / (rows + 1);
-        // Used to center lights.
-        int lightCenterOffset = length / 2;
-        // Offset by (1,0,1) to account for chunk walls.
-        BlockPos columnPosition = context.getOrigin().add(1, 0, 1).south(columnSpacing);
+        // How much to move the starting position back by to center the array on the origin.
+        int xCenteringOffset = (columns       + (columns-1) * xSpacing) / 2;
+        int zCenteringOffset = (rows * length + (rows-1) * zSpacing)    / 2;
         StructureWorldAccess world = context.getWorld();
-        
-        for (int column = 0; column < columns; column++) {
-            BlockPos rowPosition = columnPosition.east(rowSpacing);
+        BlockPos origin = context.getOrigin();
 
+        BlockPos.Mutable workingPosition = new BlockPos.Mutable();
+
+        for (int column = 0; column < columns; column++)
             for (int row = 0; row < rows; row++) {
-                BlockPos lightPosition = rowPosition.north(lightCenterOffset);
+                int x = column       + column * xSpacing + origin.getX() - xCenteringOffset;
+                int z = row * length + row * zSpacing    + origin.getZ() - zCenteringOffset;
 
-                for (int x = 0; x < length; x++) {
-                    world.setBlockState(lightPosition, lightBlockState, 0x0);
-                    lightPosition = lightPosition.south();
+                for (int i = 0; i < length; i++) {
+                    workingPosition.set(x, origin.getY(), z + i);
+                    world.setBlockState(workingPosition, lightBlockState, 0x0);
                 }
-
-                rowPosition = rowPosition.east(rowSpacing + 1);
             }
-
-            columnPosition = columnPosition.south(columnSpacing + 1);
-        }   
 
         return true;
     }
