@@ -492,13 +492,11 @@
 			"translation": [0, 4.25, 8.25]
 		},
 		"firstperson_righthand": {
-			"rotation": [-30, 0, 0],
-			"translation": [-2, 6.75, 9],
+			"translation": [6.75, -1.5, 9],
 			"scale": [1.5, 1.5, 1.5]
 		},
 		"firstperson_lefthand": {
-			"rotation": [-30, 0, 0],
-			"translation": [-2, 6.75, 9],
+			"translation": [6.75, -1.5, 9],
 			"scale": [1.5, 1.5, 1.5]
 		},
 		"ground": {

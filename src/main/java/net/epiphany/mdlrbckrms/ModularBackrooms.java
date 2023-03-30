@@ -4,6 +4,7 @@ import net.epiphany.mdlrbckrms.blocks.MBBlocks;
 import net.epiphany.mdlrbckrms.entities.MBEntities;
 import net.epiphany.mdlrbckrms.items.MBItems;
 import net.epiphany.mdlrbckrms.levels.Levels;
+import net.epiphany.mdlrbckrms.networking.LeftClickPacket;
 import net.epiphany.mdlrbckrms.utilities.MBSounds;
 import net.epiphany.mdlrbckrms.worldgen.MBWorldGeneration;
 import net.fabricmc.api.ModInitializer;
@@ -34,5 +35,7 @@ public class ModularBackrooms implements ModInitializer {
 		MBSounds.registerSounds();
 
 		GlitchesInReality.registerGlitches();
+
+		LeftClickPacket.registerServerListener();
 	}
 }

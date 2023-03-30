@@ -1,0 +1,4 @@
+The file chicken_entity.png is pulled from minecraft files for use with item models because the item models are unable to access the 
+texture from the original location, minecraft:entity/chicken.
+
+TODO: find a way to insert an id that points to the chicken texture in minecraft and replace the copy with it's use.

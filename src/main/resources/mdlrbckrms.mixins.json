@@ -9,7 +9,9 @@
     "AbstractDecorationEntityMixin",
     "ItemEntityMixin",
     "AbstractFurnaceBlockEntityMixin",
-    "CampfireBlockEntityMixin"
+    "CampfireBlockEntityMixin",
+
+    "SpyglassItemInvoker"
   ],
   "client": [
     "DebugHudAccessor",
@@ -17,7 +19,10 @@
 
     "ModelPredicateProviderRegistryMixin",
     
-    "ClientPlayNetworkHandlerMixin"
+    "ClientPlayNetworkHandlerMixin",
+
+    "MinecraftClientMixin",
+    "KeyBindingAccessor"
   ],
   "server": [],
   "injectors": {

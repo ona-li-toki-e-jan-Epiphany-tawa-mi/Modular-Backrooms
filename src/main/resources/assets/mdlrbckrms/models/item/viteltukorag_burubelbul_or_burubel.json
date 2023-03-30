@@ -4,7 +4,7 @@
 		"1": "block/netherite_block",
 		"3": "block/stripped_dark_oak_log",
 		"4": "block/smooth_stone",
-		"5": "entity/chicken",
+		"5": "mdlrbckrms:item/chicken_entity",
 		"particle": "block/smooth_stone"
 	},
 	"elements": [
@@ -568,11 +568,11 @@
 			"translation": [0, 4.25, 8.25]
 		},
 		"firstperson_righthand": {
-			"translation": [-2, 6.75, 9],
+			"translation": [6.75, -1.5, 9],
 			"scale": [1.5, 1.5, 1.5]
 		},
 		"firstperson_lefthand": {
-			"translation": [-2, 6.75, 9],
+			"translation": [6.75, -1.5, 9],
 			"scale": [1.5, 1.5, 1.5]
 		},
 		"ground": {
