@@ -8,6 +8,7 @@ import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.epiphany.mdlrbckrms.blocks.MBBlocks;
 import net.epiphany.mdlrbckrms.items.predicates.ChickenItemPredicate;
 import net.epiphany.mdlrbckrms.items.predicates.PredicatebebViteloragBurubelbul;
+import net.epiphany.mdlrbckrms.utilities.LeftClickEvent;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -47,6 +48,8 @@ public class MBItems {
         registerItem("viteltukorag_burubelbul", VITELTUKORAG_BURUBELBUL);
 
         CompostingChanceRegistry.INSTANCE.add(CHICKEN, 1.0f); // Compostable chickens ;)
+
+        LeftClickEvent.ON_LEFT_CLICK.register(ViteltukoragBurubelbul::onLeftClick);
 
         ItemGroupEvents.modifyEntriesEvent(BACKROOMS_ITEM_GROUP).register(MBItems::registerItemsUnderGroup);
     }

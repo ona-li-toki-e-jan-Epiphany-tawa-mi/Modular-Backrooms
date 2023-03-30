@@ -41,11 +41,13 @@ public class LeftClickPacket {
             if (timesPressed <= 0)
                 return;
 
-            World world = player.getWorld();
-            ItemStack item = player.getMainHandStack();
+            server.execute(() -> {
+                World world = player.getWorld();
+                ItemStack item = player.getMainHandStack();
 
-            for (int i = 0; i < timesPressed; i++)
-                LeftClickEvent.ON_LEFT_CLICK.invoker().onLeftClick(world, player, item);
+                for (int i = 0; i < timesPressed; i++)
+                    LeftClickEvent.ON_LEFT_CLICK.invoker().onLeftClick(world, player, item);
+            });
         });
     }
 }

@@ -8,7 +8,7 @@ import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.util.Identifier;
 
 /**
- * TODO
+ * πγργηδγμ αλ'βγργβελ διτελτγκ μ'διτελτγκοραη βγργβελβγλ, νβεβον μρεμ.
  */
 @Environment(EnvType.CLIENT)
 public class PredicatebebViteloragBurubelbul {
