@@ -14,13 +14,7 @@ import org.slf4j.LoggerFactory;
  * TODO List:
  * - Update to 1.19.4
  * - Make player-crafted wallpaper flammable and burning it leaves behind sandstone.
- *
- * viteltukorag burubelbul:
- *  --R
- *  DSG
- *  T-T
- *  R - purugtukorbeb rebben, D - trapdoor, S - kruv, G - jeebeb xlemor!ek)), T - selti
- * 
+ * - viteltukorag burubelbul
  * - Add discovery method for recipes using destroyed labs and lab notes.
  * - Give self the ability to open rifts between worlds and display cool particle effects.
  */

@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolItem;
 import net.minecraft.item.ToolMaterial;
+import net.minecraft.item.Vanishable;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -21,7 +22,7 @@ import net.minecraft.world.event.GameEvent;
 /**
  * An item that lets you snatch up chickens as items.
  */
-public class ChickenSnatcherItem extends ToolItem {
+public class ChickenSnatcherItem extends ToolItem implements Vanishable {
     public ChickenSnatcherItem(ToolMaterial material, Settings settings) {
         super(material, settings);
     }

@@ -8,7 +8,7 @@
         "predicate": {
           "damaged": 1.0
         },
-        "model": "mdlrbckrms:item/chicken/damaged"
+        "model": "mdlrbckrms:item/chicken_damaged"
       }
     ]
 }

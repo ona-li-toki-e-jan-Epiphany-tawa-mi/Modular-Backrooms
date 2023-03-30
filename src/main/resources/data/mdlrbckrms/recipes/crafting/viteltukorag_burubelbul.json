@@ -1,0 +1,35 @@
+{
+    "type": "crafting_shaped",
+    "category": "equipment",
+    "pattern": [
+        "GLN",
+        "TSF",
+        "ILN"
+    ],
+    "key": {
+        "G": {
+            "item": "minecraft:spyglass"
+        },
+        "I": {
+            "item": "minecraft:iron_ingot"
+        },
+        "T": {
+            "item": "minecraft:iron_trapdoor"
+        },
+        "S": {
+            "item": "minecraft:smooth_stone"
+        },
+        "L": {
+            "item": "minecraft:leather"
+        },
+        "F": {
+            "item": "minecraft:flint_and_steel"
+        },
+        "N": {
+            "item": "minecraft:nether_brick"
+        }
+    },
+    "result": {
+        "item": "mdlrbckrms:viteltukorag_burubelbul"
+    }
+}

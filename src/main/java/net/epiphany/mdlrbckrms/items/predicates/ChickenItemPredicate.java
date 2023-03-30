@@ -1,5 +1,7 @@
-package net.epiphany.mdlrbckrms.items;
+package net.epiphany.mdlrbckrms.items.predicates;
 
+import net.epiphany.mdlrbckrms.items.ChickenItem;
+import net.epiphany.mdlrbckrms.items.MBItems;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.item.ModelPredicateProviderRegistry;

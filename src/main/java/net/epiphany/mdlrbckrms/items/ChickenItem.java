@@ -49,20 +49,12 @@ public class ChickenItem extends Item {
 
     @Override
     public ItemStack getDefaultStack() {
-        ItemStack jee = new ItemStack(this);
-        addNbtData(jee);
-        return jee;
-    }
+        ItemStack stack = new ItemStack(this);
+        NbtCompound nbt = stack.getOrCreateNbt();
 
-    /**
-     * Updates a ChickenItem itemstack to have the needed nbt data. Call on creation and tick events to make sure 
-     *      it's present
-     * 
-     * @param item The ChickenItem itemstack to add the nbt to.
-     */
-    private void addNbtData(ItemStack item) {
-        NbtCompound nbt = item.getOrCreateNbt();
         nbt.putInt(DAMAGE_TIME_NBT, 0);
+
+        return stack;
     }
 
 
@@ -106,14 +98,14 @@ public class ChickenItem extends Item {
             return;
 
         
-        // Updates damage time and ensures that it is present on chicken items.
+        // Updates damage time.
         NbtCompound nbt = item.getNbt();
+
         if (nbt != null) {
             int damageTime = nbt.getInt(DAMAGE_TIME_NBT);
             if (damageTime > 0)
                 nbt.putInt(DAMAGE_TIME_NBT, damageTime - 1);
-        } else
-            addNbtData(item);
+        }
 
         
         Random random = world.getRandom();
@@ -208,9 +200,9 @@ public class ChickenItem extends Item {
         if (chickenLootTable != LootTable.EMPTY) {
             ObjectArrayList<ItemStack> drops = chickenLootTable.generateLoot(
                 new LootContext.Builder(world).parameter(LootContextParameters.THIS_ENTITY, entity)
-                                                .parameter(LootContextParameters.DAMAGE_SOURCE, DamageSource.GENERIC)
-                                                .parameter(LootContextParameters.ORIGIN, entity.getPos())
-                                                .build(chickenLootTable.getType()));
+                                              .parameter(LootContextParameters.DAMAGE_SOURCE, DamageSource.GENERIC)
+                                              .parameter(LootContextParameters.ORIGIN, entity.getPos())
+                                              .build(chickenLootTable.getType()));
         
             for (ItemStack drop : drops) {
                 ItemEntity dropItemEntity = new ItemEntity(world, entity.getX(), entity.getY(), entity.getZ(), drop);
@@ -289,17 +281,22 @@ public class ChickenItem extends Item {
      */
     private static boolean damageChicken(ItemStack item, World world, BlockPos position, @Nullable LivingEntity wielder) {
         NbtCompound nbt = item.getNbt();
+
         // "Damage" cannot occur until cooldown is up.
         if (nbt != null && nbt.getInt(DAMAGE_TIME_NBT) > 0)
             return false;
 
+
         playChickenSound(world, position, SoundEvents.ENTITY_CHICKEN_HURT);
+
 
         int cooldown = MAX_DAMAGE_TIME;
         if (wielder instanceof PlayerEntity player)
             player.getItemCooldownManager().set(MBItems.CHICKEN, cooldown);
-        if (nbt != null) 
-            nbt.putInt(DAMAGE_TIME_NBT, cooldown);
+
+        nbt = item.getOrCreateNbt();
+        nbt.putInt(DAMAGE_TIME_NBT, cooldown);
+
 
         return true;
     }

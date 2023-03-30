@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.epiphany.mdlrbckrms.blocks.MBBlocks;
+import net.epiphany.mdlrbckrms.items.predicates.ChickenItemPredicate;
+import net.epiphany.mdlrbckrms.items.predicates.PredicatebebViteloragBurubelbul;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -26,6 +28,40 @@ import net.minecraft.util.Identifier;
  * Common methods and fields for all custom non-block items.
  */
 public class MBItems {
+    public static final ChickenSnatcherItem CHICKEN_SNATCHER = new ChickenSnatcherItem(ToolMaterials.WOOD, new FabricItemSettings().maxDamage(64));
+    public static final ChickenItem CHICKEN = new ChickenItem(new FabricItemSettings().maxCount(1));
+    public static final SuspicousWaterItem SUSPICOUS_WATER = new SuspicousWaterItem(new FabricItemSettings());
+    public static final Item BURUBEL_VITELTUK = new Item(new FabricItemSettings().maxCount(4));
+    public static final ViteltukoragBurubelbul VITELTUKORAG_BURUBELBUL = new ViteltukoragBurubelbul(new FabricItemSettings().maxDamage(256));
+
+
+
+    /**
+     * Registers custom items.
+     */
+    public static void registerItems() {
+        registerItem("chicken_snatcher", CHICKEN_SNATCHER);
+        registerItem("chicken", CHICKEN);
+        registerItem("suspicous_water", SUSPICOUS_WATER);
+        registerItem("burubel_viteltuk", BURUBEL_VITELTUK);
+        registerItem("viteltukorag_burubelbul", VITELTUKORAG_BURUBELBUL);
+
+        CompostingChanceRegistry.INSTANCE.add(CHICKEN, 1.0f); // Compostable chickens ;)
+
+        ItemGroupEvents.modifyEntriesEvent(BACKROOMS_ITEM_GROUP).register(MBItems::registerItemsUnderGroup);
+    }
+
+    /**
+     * Registers custom item predicates for dynamic item models.
+     */
+    @Environment(EnvType.CLIENT)
+    public static void registerItemPredicates() {
+        ChickenItemPredicate.register();
+        PredicatebebViteloragBurubelbul.register();
+    }
+
+
+
     public static final ItemGroup BACKROOMS_ITEM_GROUP = 
         FabricItemGroup.builder(new Identifier(ModularBackrooms.MOD_ID, "backrooms_item_group"))
                        .icon(() -> new ItemStack(MBBlocks.YELLOWED_WALLPAPER))
@@ -36,7 +72,7 @@ public class MBItems {
      * TODO Note: if there are preformance issues when opening the creative inventory for the first time with a lot of mods, you 
      *      know why.
      */
-    private static void registerItemUnderGroup(FabricItemGroupEntries content) {
+    private static void registerItemsUnderGroup(FabricItemGroupEntries content) {
         List<Item> items = new ArrayList<>();
 
         // Possibly sketchy scan through the item registry to find all Modular Backrooms items and adding them to the creative menu.
@@ -49,35 +85,6 @@ public class MBItems {
 
         for (Item item : items) 
             content.add(item.getDefaultStack());
-    }
-
-
-    
-    public static final ChickenSnatcherItem CHICKEN_SNATCHER = new ChickenSnatcherItem(ToolMaterials.WOOD, new FabricItemSettings().maxDamage(64));
-    public static final ChickenItem CHICKEN = new ChickenItem(new FabricItemSettings().maxCount(1));
-    public static final SuspicousWaterItem SUSPICOUS_WATER = new SuspicousWaterItem(new FabricItemSettings());
-
-
-
-    /**
-     * Registers custom items.
-     */
-    public static void registerItems() {
-        registerItem("chicken_snatcher", CHICKEN_SNATCHER);
-        registerItem("chicken", CHICKEN);
-        registerItem("suspicous_water", SUSPICOUS_WATER);
-
-        CompostingChanceRegistry.INSTANCE.add(CHICKEN, 1.0f); // Compostable chickens ;)
-
-        ItemGroupEvents.modifyEntriesEvent(BACKROOMS_ITEM_GROUP).register(MBItems::registerItemUnderGroup);
-    }
-
-    /**
-     * Registers custom item predicates for dynamic item models.
-     */
-    @Environment(EnvType.CLIENT)
-    public static void registerItemPredicates() {
-        ChickenItemPredicate.register();
     }
 
     
