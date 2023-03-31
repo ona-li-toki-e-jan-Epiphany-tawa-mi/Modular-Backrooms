@@ -1,0 +1,27 @@
+{
+    "type": "crafting_shaped",
+    "category": "equipment",
+    "pattern": [
+        " C ",
+        "PIP",
+        "GIG"
+    ],
+    "key": {
+        "C": {
+            "item": "mdlrbckrms:chicken"
+        },
+        "I": {
+            "item": "minecraft:iron_ingot"
+        },
+        "G": {
+            "item": "minecraft:gunpowder"
+        },
+        "P": {
+            "item": "minecraft:paper"
+        }
+    },
+    "result": {
+        "item": "mdlrbckrms:burubel_viteltuk",
+        "count": 4
+    }
+}

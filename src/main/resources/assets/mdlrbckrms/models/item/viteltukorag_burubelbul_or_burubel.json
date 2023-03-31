@@ -2,6 +2,7 @@
 	"credit": "Made with Blockbench",
 	"textures": {
 		"1": "block/netherite_block",
+		"2": "mdlrbckrms:item/rocket_body",
 		"3": "block/stripped_dark_oak_log",
 		"4": "block/smooth_stone",
 		"5": "mdlrbckrms:item/chicken_entity",
@@ -558,6 +559,19 @@
 				"up": {"uv": [4, 2, 5, 2.5], "rotation": 180, "texture": "#5"},
 				"down": {"uv": [4, 3.5, 5, 4], "rotation": 180, "texture": "#5"}
 			}
+		},
+		{
+			"name": "rocket",
+			"from": [7, 6, -4],
+			"to": [9, 8, 14],
+			"faces": {
+				"north": {"uv": [3, 2, 2, 3], "texture": "#2"},
+				"east": {"uv": [0, 0, 9, 1], "texture": "#2"},
+				"south": {"uv": [3, 3, 2, 4], "texture": "#2"},
+				"west": {"uv": [0, 1, 9, 2], "texture": "#2"},
+				"up": {"uv": [0, 2, 1, 11], "texture": "#2"},
+				"down": {"uv": [2, 2, 1, 11], "texture": "#2"}
+			}
 		}
 	],
 	"display": {
@@ -636,6 +650,7 @@
 				43,
 				44
 			]
-		}
+		},
+		45
 	]
 }

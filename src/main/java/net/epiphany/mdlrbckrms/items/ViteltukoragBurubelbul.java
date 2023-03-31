@@ -2,6 +2,8 @@ package net.epiphany.mdlrbckrms.items;
 
 import java.util.function.Predicate;
 
+import net.epiphany.mdlrbckrms.entities.MBEntities;
+import net.epiphany.mdlrbckrms.entities.burubelviteltuk.BurubelViteltuk;
 import net.epiphany.mdlrbckrms.mixins.SpyglassItemInvoker;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
@@ -26,8 +28,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
-
-// TODO πγργηξε αλ'ξεε διτελτγκ.
 
 /**
  * διτελτγκοραη βγργβελ - πιδορ, νλελ διτελλελ αλ'βγργβελ ξεε.
@@ -93,6 +93,7 @@ public class ViteltukoragBurubelbul extends RangedWeaponItem implements Vanishab
 
     /**
      * ξεεον διτελον μρεμ, διτελβεβ αλ'νβεβ. νβεβον'αραμ μρεμ, χλεμγλβεβ ξεττελ αλ'ξεε διτελ ικκα'τεπ περ πγργη αλ'νβεβ μ'διτελτγκορ.
+     * TODO πγργη αλ'πγργητγκβεβ ξεε διτελ περ αλ'διτελτγκ ξεε διτελ μ'ρεββενβγλ.
      */
     public static void onLeftClick(World _ek, PlayerEntity tep, ItemStack jee) {
         // TODO make event listener that takes some of these things into account.
@@ -120,7 +121,14 @@ public class ViteltukoragBurubelbul extends RangedWeaponItem implements Vanishab
                 tep.getItemCooldownManager().set(jee.getItem(), OONVBEB_VITELTUK);
 
                 Vec3d mTerRetTepVumevbeb = tep.getRotationVector();
+                // ρεζζελαδεκ αλ'rotation vector ορ'-15 degrees διτελ αλ'νβεβ μ'αμορβεβ διτελτγκορ.
                 Vec3d amorbebViteltukor = tep.getEyePos().add(mTerRetTepVumevbeb.rotateY(-15.0f * MathHelper.RADIANS_PER_DEGREE));
+
+                BurubelViteltuk burubelViteltuk = new BurubelViteltuk( MBEntities.BURUBEL_VITELTUK, tep, mTerRetTepVumevbeb.getX()
+                                                                     , mTerRetTepVumevbeb.getY(), mTerRetTepVumevbeb.getZ()
+                                                                     , _ekServer);
+                burubelViteltuk.setPosition(amorbebViteltukor);
+                _ekServer.spawnEntity(burubelViteltuk);
 
                 _ekServer.spawnParticles( ParticleTypes.LARGE_SMOKE
                                         , amorbebViteltukor.getX(), amorbebViteltukor.getY(), amorbebViteltukor.getZ()
@@ -132,6 +140,7 @@ public class ViteltukoragBurubelbul extends RangedWeaponItem implements Vanishab
                                    , amorbebViteltukor.getX(), amorbebViteltukor.getY(), amorbebViteltukor.getZ()
                                    , SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS
                                    , 1.0f, 1.0f / (PPR.nextFloat() * 0.4f + 1.2f) + 0.5f);
+                ChickenItem.playChickenSound(_ekServer, tep.getBlockPos(), SoundEvents.ENTITY_CHICKEN_HURT);
             }
 
         // πγργη αλ'ξεε διτελ μ'διτελτγκορ.
@@ -148,11 +157,11 @@ public class ViteltukoragBurubelbul extends RangedWeaponItem implements Vanishab
 
             rebbenulAlJeeonVitelon(jee, true);
 
-            // TODO ρεββενγλξε αλ'νιτνι.
             _ekServer.playSound( null
                                , tep.getX(), tep.getY(), tep.getZ()
                                , SoundEvents.ITEM_CROSSBOW_LOADING_END, SoundCategory.PLAYERS
                                , 1.0f, 1.0f / (PPR.nextFloat() * 0.5f + 1.0f) + 0.2f);
+            ChickenItem.playChickenSound(_ekServer, tep.getBlockPos(), SoundEvents.ENTITY_CHICKEN_AMBIENT);
         }
     }
 

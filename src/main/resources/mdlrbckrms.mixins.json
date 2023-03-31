@@ -22,7 +22,9 @@
     "ClientPlayNetworkHandlerMixin",
 
     "MinecraftClientMixin",
-    "KeyBindingAccessor"
+    "KeyBindingAccessor",
+
+    "ChickenEntityModelAccessor"
   ],
   "server": [],
   "injectors": {

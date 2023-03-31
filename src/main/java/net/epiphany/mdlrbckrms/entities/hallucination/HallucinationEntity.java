@@ -4,16 +4,12 @@ import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
 
-import net.epiphany.mdlrbckrms.entities.MBEntities;
-import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.piston.PistonBehavior;
 import net.minecraft.command.argument.EntityAnchorArgumentType.EntityAnchor;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LightningEntity;
-import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -31,19 +27,6 @@ import net.minecraft.world.World;
  * A visual hallucination. Entities that watch you from the corner of your eye but dissapear when you take a look.
  */
 public class HallucinationEntity extends MobEntity {
-    public static final EntityType<HallucinationEntity> HALLUCINATION = 
-            FabricEntityTypeBuilder.create(SpawnGroup.AMBIENT, HallucinationEntity::new)
-                                   .disableSaving() // No need to save them because they will just disappear sooner or later.
-                                   .spawnableFarFromPlayer()
-                                   .dimensions(EntityDimensions.fixed(0.6f, 1.8f))
-                                   .build();
-
-    public static void register() {
-        MBEntities.registerLivingEntityType("hallucination", HALLUCINATION, MobEntity.createMobAttributes());
-    }
-
-    
-
     /**
      * The maximum range that a player can be stared at from and to test for players looking at it.
      */

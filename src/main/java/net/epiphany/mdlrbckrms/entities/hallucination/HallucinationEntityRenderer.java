@@ -3,7 +3,6 @@ package net.epiphany.mdlrbckrms.entities.hallucination;
 import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.render.entity.EntityRendererFactory.Context;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
@@ -21,9 +20,7 @@ public class HallucinationEntityRenderer extends LivingEntityRenderer<Hallucinat
                                                , BipedEntityModel<HallucinationEntity>> {
     public static final Identifier TEXTURE_ID = new Identifier(ModularBackrooms.MOD_ID, "textures/entity/hallucination.png");
 
-    public static void register() {
-        EntityRendererRegistry.register(HallucinationEntity.HALLUCINATION, HallucinationEntityRenderer::new);
-    }
+
     
     public HallucinationEntityRenderer(Context context) {
         super( context
@@ -32,9 +29,11 @@ public class HallucinationEntityRenderer extends LivingEntityRenderer<Hallucinat
     }
 
     @Override
-    public Identifier getTexture(HallucinationEntity var1) {
+    public Identifier getTexture(HallucinationEntity entity) {
         return TEXTURE_ID;
     }
+
+
 
     /**
      * Needed to prevent the name from being rendered above the hallucination for some reason.

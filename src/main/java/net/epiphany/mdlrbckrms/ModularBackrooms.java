@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ModularBackrooms implements ModInitializer {
 	public static final String MOD_ID = "mdlrbckrms";
+	public static final String MINECRAFT_NAMESPACE = "minecraft";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	@Override
