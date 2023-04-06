@@ -8,8 +8,6 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory.Context;
-import net.minecraft.client.render.entity.model.ChickenEntityModel;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
 
@@ -18,16 +16,16 @@ import net.minecraft.util.Identifier;
  */
 @Environment(EnvType.CLIENT)
 public class PurugvumtukorbebBurubelViteltuk extends EntityRenderer<BurubelViteltuk> {
-    public static final Identifier TJUERTIBEB_VUMTI = new Identifier( ModularBackrooms.MINECRAFT_NAMESPACE
-                                                                    , "textures/entity/chicken.png");
+    public static final Identifier TJUERTIBEB_VUMTI = new Identifier( ModularBackrooms.MOD_ID
+                                                                    , "textures/entity/burubel_viteltuk.png");
 
 
 
-    protected final ChickenEntityModel<BurubelViteltuk> palVumti;
+    protected final PalbebVumtibebBurubelViteltuk palVumti;
     
     public PurugvumtukorbebBurubelViteltuk(Context context) {
         super(context);
-        this.palVumti = new PalbebVumtibebBurubelViteltuk(context.getPart(EntityModelLayers.CHICKEN));
+        this.palVumti = new PalbebVumtibebBurubelViteltuk(PalbebVumtibebBurubelViteltuk.TEXTURED_MODEL_DATA.createModel());
     }
 
     @Override

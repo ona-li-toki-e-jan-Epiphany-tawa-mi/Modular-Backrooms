@@ -3,6 +3,7 @@ package net.epiphany.mdlrbckrms.items;
 import org.jetbrains.annotations.Nullable;
 
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
+import net.epiphany.mdlrbckrms.utilities.MBLootTables;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.AbstractFurnaceBlockEntity;
 import net.minecraft.entity.Entity;
@@ -26,7 +27,6 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
@@ -185,8 +185,7 @@ public class ChickenItem extends Item {
             }
         }
     }
-
-    private static final Identifier CHICKEN_LOOT_TABLE_ID = new Identifier("minecraft", "entities/chicken");
+    
     /**
      * Plays chicken death sounds and drops loot when a chicken item entity is destroyed.
      */
@@ -196,7 +195,7 @@ public class ChickenItem extends Item {
         BlockPos position = entity.getBlockPos();
         
         // Generates chicken drops.
-        LootTable chickenLootTable = world.getServer().getLootManager().getTable(CHICKEN_LOOT_TABLE_ID);
+        LootTable chickenLootTable = world.getServer().getLootManager().getTable(MBLootTables.CHICKEN_LOOT_TABLE);
         if (chickenLootTable != LootTable.EMPTY) {
             ObjectArrayList<ItemStack> drops = chickenLootTable.generateLoot(
                 new LootContext.Builder(world).parameter(LootContextParameters.THIS_ENTITY, entity)

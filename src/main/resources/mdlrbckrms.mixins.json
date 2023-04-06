@@ -24,7 +24,8 @@
     "MinecraftClientMixin",
     "KeyBindingAccessor",
 
-    "ChickenEntityModelAccessor"
+    "ChickenEntityModelAccessor",
+    "TexturedModelDataAccessor"
   ],
   "server": [],
   "injectors": {
