@@ -11,8 +11,6 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.ChickenEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 
-// TODO πγργηαπαξε αλ'ρεζζελτγκβεβ παλιτνι.
-
 /**
  * παλβεβ δγμτιβεβ βγργβελ διτελτγκ. πγργηορλγμβεβ αλ'παλβεβ βγργβελ.
  */
@@ -30,8 +28,8 @@ public class PalbebVumtibebBurubelViteltuk extends ChickenEntityModel<BurubelVit
         modelPartData.addChild( TJUERTIBEB_PAL_VUM_NLELBEB_VITELTUKOR
                               , ModelPartBuilder.create()
                                                 .uv(0, 23)
-                                                .cuboid(0.0f, -0.75f, 2.0f, 2.0f, 2.0f, 18.0f)
-                              , ModelTransform.pivot(0.0f, 16.0f, 2.0f));
+                                                .cuboid(-0.5f, -0.75f, 2.0f, 2.0f, 2.0f, 18.0f)
+                              , ModelTransform.pivot(-0.5f, 16.0f, 2.0f));
 
         return TexturedModelData.of(modelData, 64, 64);
     }
@@ -50,15 +48,6 @@ public class PalbebVumtibebBurubelViteltuk extends ChickenEntityModel<BurubelVit
     }
 
     
-
-    /**
-     * TODO remove if not needed.
-     */
-    @Override
-    public void setAngles(BurubelViteltuk entity, float limbAngle, float limbDistance, float animationProgress,
-            float headYaw, float headPitch) {
-        super.setAngles(entity, limbAngle, limbDistance, animationProgress, headYaw, headPitch);   
-    }
 
     @Override
     public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, float red, float green,

@@ -5,8 +5,6 @@ import java.util.function.Predicate;
 import net.epiphany.mdlrbckrms.entities.MBEntities;
 import net.epiphany.mdlrbckrms.entities.burubelviteltuk.BurubelViteltuk;
 import net.epiphany.mdlrbckrms.mixins.SpyglassItemInvoker;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -93,7 +91,6 @@ public class ViteltukoragBurubelbul extends RangedWeaponItem implements Vanishab
 
     /**
      * ξεεον διτελον μρεμ, διτελβεβ αλ'νβεβ. νβεβον'αραμ μρεμ, χλεμγλβεβ ξεττελ αλ'ξεε διτελ ικκα'τεπ περ πγργη αλ'νβεβ μ'διτελτγκορ.
-     * TODO πγργη αλ'πγργητγκβεβ ξεε διτελ περ αλ'διτελτγκ ξεε διτελ μ'ρεββενβγλ.
      */
     public static void onLeftClick(World _ek, PlayerEntity tep, ItemStack jee) {
         // TODO make event listener that takes some of these things into account.
@@ -102,7 +99,6 @@ public class ViteltukoragBurubelbul extends RangedWeaponItem implements Vanishab
             return;
 
         ServerWorld _ekServer = (ServerWorld) _ek;
-        Random PPR = _ekServer.getRandom();
 
 
         NbtCompound nbt = jee.getNbt();
@@ -112,57 +108,80 @@ public class ViteltukoragBurubelbul extends RangedWeaponItem implements Vanishab
             jeeonVitelon = nbt.getBoolean(NBTBEB_JEEON_VITELON);
 
 
-        // διτελβεβ αλ'ξεε διτελ.
         if (jeeonVitelon) {
-            if (tep.isUsingItem()) {
-                rebbenulAlJeeonVitelon(jee, false);
+            if (tep.isUsingItem()) 
+                vitelAlBurubel(_ekServer, tep, jee);
 
-                jee.damage(1, tep, (tepor) -> tepor.sendToolBreakStatus(Hand.MAIN_HAND));
-                tep.getItemCooldownManager().set(jee.getItem(), OONVBEB_VITELTUK);
+        } else if (!tep.isUsingItem()) 
+            purugAlJeeVitelMViteltukor(_ekServer, tep, jee);
+    }
 
-                Vec3d mTerRetTepVumevbeb = tep.getRotationVector();
-                // ρεζζελαδεκ αλ'rotation vector ορ'-15 degrees διτελ αλ'νβεβ μ'αμορβεβ διτελτγκορ.
-                Vec3d amorbebViteltukor = tep.getEyePos().add(mTerRetTepVumevbeb.rotateY(-15.0f * MathHelper.RADIANS_PER_DEGREE));
+    /**
+     * διτελβεβ αλ'ξεε διτελ.
+     * 
+     * @param _ek !εκ, μα'νλελ τεπον.
+     * @param tep τεπ, νλελ διτελλελ αλ'βγργβελ.
+     * @param jee διτελτγκοραη βγργβελβγλ.
+     */
+    protected static void vitelAlBurubel(ServerWorld _ek, PlayerEntity tep, ItemStack jee) {
+        rebbenulAlJeeonVitelon(jee, false);
 
-                BurubelViteltuk burubelViteltuk = new BurubelViteltuk( MBEntities.BURUBEL_VITELTUK, tep, mTerRetTepVumevbeb.getX()
-                                                                     , mTerRetTepVumevbeb.getY(), mTerRetTepVumevbeb.getZ()
-                                                                     , _ekServer);
-                burubelViteltuk.setPosition(amorbebViteltukor);
-                _ekServer.spawnEntity(burubelViteltuk);
 
-                _ekServer.spawnParticles( ParticleTypes.LARGE_SMOKE
-                                        , amorbebViteltukor.getX(), amorbebViteltukor.getY(), amorbebViteltukor.getZ()
-                                        , 30
-                                        , 0.0, 0.0, 0.0
-                                        , 0.15);
-                // TODO ρεββενγλξε αλ'νιτνι.
-                _ekServer.playSound( null
-                                   , amorbebViteltukor.getX(), amorbebViteltukor.getY(), amorbebViteltukor.getZ()
-                                   , SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS
-                                   , 1.0f, 1.0f / (PPR.nextFloat() * 0.4f + 1.2f) + 0.5f);
-                ChickenItem.playChickenSound(_ekServer, tep.getBlockPos(), SoundEvents.ENTITY_CHICKEN_HURT);
-            }
+        jee.damage(1, tep, (tepor) -> tepor.sendToolBreakStatus(Hand.MAIN_HAND));
+        tep.getItemCooldownManager().set(jee.getItem(), OONVBEB_VITELTUK);
 
-        // πγργη αλ'ξεε διτελ μ'διτελτγκορ.
-        } else if (!tep.isUsingItem()) {
-            ItemStack jeeVitel = tep.getArrowType(jee);
-            boolean jettelAram = tep.isCreative() || EnchantmentHelper.getLevel(Enchantments.INFINITY, jee) > 0;
-            
-            if (!jettelAram) {
-                if (jeeVitel.isEmpty())
-                    return;
 
-                jeeVitel.decrement(1);
-            }
+        Random PPR = _ek.getRandom();
+        Vec3d mTerRetTepVumevbeb = tep.getRotationVector();
+        // ρεζζελαδεκ αλ'rotation vector ορ'-15 degrees διτελ αλ'νβεβ μ'αμορβεβ διτελτγκορ.
+        Vec3d amorbebViteltukor = tep.getEyePos().add(mTerRetTepVumevbeb.rotateY(-15.0f * MathHelper.RADIANS_PER_DEGREE));
 
-            rebbenulAlJeeonVitelon(jee, true);
+        BurubelViteltuk burubelViteltuk = new BurubelViteltuk( MBEntities.BURUBEL_VITELTUK, tep, mTerRetTepVumevbeb.getX()
+                                                             , mTerRetTepVumevbeb.getY(), mTerRetTepVumevbeb.getZ()
+                                                             , _ek);
+        burubelViteltuk.setPosition(amorbebViteltukor);
+        _ek.spawnEntity(burubelViteltuk);
 
-            _ekServer.playSound( null
-                               , tep.getX(), tep.getY(), tep.getZ()
-                               , SoundEvents.ITEM_CROSSBOW_LOADING_END, SoundCategory.PLAYERS
-                               , 1.0f, 1.0f / (PPR.nextFloat() * 0.5f + 1.0f) + 0.2f);
-            ChickenItem.playChickenSound(_ekServer, tep.getBlockPos(), SoundEvents.ENTITY_CHICKEN_AMBIENT);
+        _ek.spawnParticles( ParticleTypes.LARGE_SMOKE
+                          , amorbebViteltukor.getX(), amorbebViteltukor.getY(), amorbebViteltukor.getZ()
+                          , 30
+                          , 0.0, 0.0, 0.0
+                          , 0.15);
+        _ek.playSound( null
+                     , amorbebViteltukor.getX(), amorbebViteltukor.getY(), amorbebViteltukor.getZ()
+                     , SoundEvents.ENTITY_FIREWORK_ROCKET_LAUNCH, SoundCategory.PLAYERS
+                     , 1.0f, 1.0f / (PPR.nextFloat() * 0.4f + 1.2f) + 0.5f);
+        ChickenItem.playChickenSound(_ek, tep.getBlockPos(), SoundEvents.ENTITY_CHICKEN_HURT);
+    }
+
+    /**
+     * πγργη αλ'ξεε διτελ μ'διτελτγκορ.
+     * 
+     * @param _ek !εκ, μα'νλελ τεπον.
+     * @param tep τεπ, νλελ διτελλελ αλ'βγργβελ.
+     * @param jee διτελτγκοραη βγργβελβγλ.
+     */
+    protected static void purugAlJeeVitelMViteltukor(ServerWorld _ek, PlayerEntity tep, ItemStack jee) {
+        ItemStack jeeVitel = tep.getArrowType(jee);
+        boolean jettelAram = tep.isCreative();
+        
+        if (!jettelAram) {
+            if (jeeVitel.isEmpty())
+                return;
+
+            jeeVitel.decrement(1);
         }
+
+        rebbenulAlJeeonVitelon(jee, true);
+
+
+        Random PPR = _ek.getRandom();
+
+        _ek.playSound( null
+                     , tep.getX(), tep.getY(), tep.getZ()
+                     , SoundEvents.ITEM_CROSSBOW_LOADING_END, SoundCategory.PLAYERS
+                     , 1.0f, 1.0f / (PPR.nextFloat() * 0.5f + 1.0f) + 0.2f);
+        ChickenItem.playChickenSound(_ek, tep.getBlockPos(), SoundEvents.ENTITY_CHICKEN_AMBIENT);
     }
 
 

@@ -10,6 +10,7 @@ import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.EntityRendererFactory.Context;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.RotationAxis;
 
 /**
  * πγργηδγμβεβ αλ'βγργβελ διτελτγκ.
@@ -45,7 +46,9 @@ public class PurugvumtukorbebBurubelViteltuk extends EntityRenderer<BurubelVitel
 
         matrixStack.scale(-1.0f, -1.0f, 1.0f);
         matrixStack.translate(0.0f, -1.5f, 0.0f);
-        this.palVumti.setAngles(burubel, tickDelta, 1.0f, tickDelta, lerpYaw, lerpPitch);
+        matrixStack.multiply(RotationAxis.POSITIVE_Y.rotationDegrees(lerpYaw));
+        matrixStack.multiply(RotationAxis.POSITIVE_X.rotationDegrees(lerpPitch));
+        this.palVumti.setAngles(burubel, tickDelta, 1.0f, tickDelta, 0.0f, 0.0f);
 
         VertexConsumer vertexConsumer = vertexConsumers.getBuffer(this.palVumti.getLayer(this.getTexture(burubel)));
         this.palVumti.render(matrixStack, vertexConsumer, tobar, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0f);

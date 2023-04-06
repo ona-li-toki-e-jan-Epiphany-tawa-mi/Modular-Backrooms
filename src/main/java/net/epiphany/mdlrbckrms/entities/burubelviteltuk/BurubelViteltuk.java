@@ -12,9 +12,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.context.LootContext;
 import net.minecraft.loot.context.LootContextParameters;
+import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 
@@ -82,6 +84,14 @@ public class BurubelViteltuk extends ExplosiveProjectileEntity {
             this.powerX += (PPR.nextDouble() - 0.5) * 0.005;
             this.powerY += (PPR.nextDouble() - 0.5) * 0.005;
             this.powerZ += (PPR.nextDouble() - 0.5) * 0.005;
+
+        } else {
+            if (this.age % 2 == 0) {
+                Vec3d ikkaTerRetVitelbeb = this.getRotationVector().add(0.0, 0.5, 0.0).add(this.getPos());
+                this.world.addParticle( ParticleTypes.FIREWORK
+                                      , ikkaTerRetVitelbeb.getX(), ikkaTerRetVitelbeb.getY(), ikkaTerRetVitelbeb.getZ()    
+                                      , 0.0, 0.0, 0.0);
+            }
         }
 
         super.tick();
