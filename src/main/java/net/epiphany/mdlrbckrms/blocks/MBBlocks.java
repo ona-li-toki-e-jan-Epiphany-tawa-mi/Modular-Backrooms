@@ -4,13 +4,13 @@ import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.epiphany.mdlrbckrms.blocks.exitdoor.ExitDoorBlock;
 import net.epiphany.mdlrbckrms.blocks.exitdoor.ExitDoorBlockEntity;
 import net.epiphany.mdlrbckrms.blocks.rift.RiftBlock;
-import net.epiphany.mdlrbckrms.utilities.MBSounds;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.registry.FlammableBlockRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockSetType;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.Material;
@@ -23,7 +23,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Identifier;
 
 /**
@@ -56,8 +55,8 @@ public class MBBlocks {
     public static final MoistCarpetBlock MOIST_CARPET = new MoistCarpetBlock(FabricBlockSettings.of(Material.WOOL).strength(0.8f).sounds(BlockSoundGroup.MOSS_BLOCK));
     public static final MoistCarpetBlock UNBREAKABLE_MOIST_CARPET = new MoistCarpetBlock(FabricBlockSettings.copyOf(MOIST_CARPET).strength(UNBREAKABLE, UNBLASTABLE));
     // Office doors.
-    public static final DoorBlock OFFICE_DOOR = new DoorBlock(FabricBlockSettings.of(Material.WOOD).strength(3.0f).sounds(BlockSoundGroup.WOOD), MBSounds.DOOR_CREAKS, MBSounds.DOOR_CREAKS);
-    public static final DoorBlock UNBREAKABLE_OFFICE_DOOR = new DoorBlock(FabricBlockSettings.copyOf(OFFICE_DOOR).strength(UNBREAKABLE, UNBLASTABLE), MBSounds.DOOR_CREAKS, MBSounds.DOOR_CREAKS);
+    public static final DoorBlock OFFICE_DOOR = new DoorBlock(FabricBlockSettings.of(Material.WOOD).strength(3.0f).sounds(BlockSoundGroup.WOOD), MBBlockSetTypes.CREAKY_WOOD);
+    public static final DoorBlock UNBREAKABLE_OFFICE_DOOR = new DoorBlock(FabricBlockSettings.copyOf(OFFICE_DOOR).strength(UNBREAKABLE, UNBLASTABLE), MBBlockSetTypes.CREAKY_WOOD);
     // Yellowed wallpaper.
     public static final Block YELLOWED_WALLPAPER = new Block(FabricBlockSettings.of(Material.STONE).strength(0.8f).requiresTool());
     public static final SlabBlock YELLOWED_WALLPAPER_SLAB = new SlabBlock(FabricBlockSettings.copyOf(YELLOWED_WALLPAPER));
@@ -68,8 +67,8 @@ public class MBBlocks {
     public static final StairsBlock UNBREAKABLE_YELLOWED_WALLPAPER_STAIRS = new StairsBlock(UNBREAKABLE_YELLOWED_WALLPAPER.getDefaultState(), FabricBlockSettings.copyOf(UNBREAKABLE_YELLOWED_WALLPAPER));
     public static final WallBlock UNBREAKABLE_YELLOWED_WALLPAPER_WALL = new WallBlock(FabricBlockSettings.copyOf(UNBREAKABLE_YELLOWED_WALLPAPER));
     // Exit doors.
-    public static final OpenableMetalDoorBlock EXIT_DOOR = new OpenableMetalDoorBlock(FabricBlockSettings.of(Material.METAL).strength(5.0f, 5.0f).requiresTool().sounds(BlockSoundGroup.METAL), SoundEvents.BLOCK_IRON_DOOR_CLOSE, SoundEvents.BLOCK_IRON_DOOR_OPEN);
-    public static final ExitDoorBlock INTERDIMENSIONAL_EXIT_DOOR = new ExitDoorBlock(FabricBlockSettings.copyOf(EXIT_DOOR).strength(UNBREAKABLE, UNBLASTABLE).luminance(ExitDoorBlock::getLuminance), SoundEvents.BLOCK_IRON_DOOR_CLOSE, SoundEvents.BLOCK_IRON_DOOR_OPEN);
+    public static final OpenableMetalDoorBlock EXIT_DOOR = new OpenableMetalDoorBlock(FabricBlockSettings.of(Material.METAL).strength(5.0f, 5.0f).requiresTool().sounds(BlockSoundGroup.METAL), BlockSetType.IRON);
+    public static final ExitDoorBlock INTERDIMENSIONAL_EXIT_DOOR = new ExitDoorBlock(FabricBlockSettings.copyOf(EXIT_DOOR).strength(UNBREAKABLE, UNBLASTABLE).luminance(ExitDoorBlock::getLuminance), BlockSetType.IRON);
 
 
 

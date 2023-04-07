@@ -12,10 +12,10 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.math.BlockPos;
@@ -195,7 +195,7 @@ public class HallucinationEntity extends MobEntity {
         if (this.world.isClient || this.isRemoved()) 
             return false;
 
-        if (DamageSource.OUT_OF_WORLD.equals(source)) 
+        if (source.isOf(DamageTypes.OUT_OF_WORLD))
             this.kill();
 
         return false;
@@ -240,9 +240,6 @@ public class HallucinationEntity extends MobEntity {
      *  auditory.
      */
     @Override
-    protected void playEquipSound(ItemStack stack) {}
-
-    @Override
     @Nullable
     protected SoundEvent getHurtSound(DamageSource source) {
         return null;
@@ -267,7 +264,7 @@ public class HallucinationEntity extends MobEntity {
      * In the event that the hallucination takes damage we want to make sure it isn't shown to keep the feel.
      */
     @Override
-    public void animateDamage() {
+    public void animateDamage(float yaw) {
         return;
     }
 }

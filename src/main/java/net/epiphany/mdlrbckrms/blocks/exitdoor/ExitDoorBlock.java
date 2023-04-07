@@ -4,6 +4,7 @@ import net.epiphany.mdlrbckrms.blocks.OpenableMetalDoorBlock;
 import net.epiphany.mdlrbckrms.blocks.exitdoor.ExitDoorEvents.PortalDestination;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockEntityProvider;
+import net.minecraft.block.BlockSetType;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.ShapeContext;
@@ -16,7 +17,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.StateManager.Builder;
 import net.minecraft.state.property.BooleanProperty;
@@ -41,8 +41,8 @@ public class ExitDoorBlock extends OpenableMetalDoorBlock implements BlockEntity
      */
     public static final BooleanProperty PORTAL = BooleanProperty.of("portal");
 
-    public ExitDoorBlock(Settings settings, SoundEvent closeSound, SoundEvent openSound) {
-        super(settings, closeSound, openSound);
+    public ExitDoorBlock(Settings settings, BlockSetType blockSetType) {
+        super(settings, blockSetType);
         this.setDefaultState(getDefaultState().with(PORTAL, false));
     }
 

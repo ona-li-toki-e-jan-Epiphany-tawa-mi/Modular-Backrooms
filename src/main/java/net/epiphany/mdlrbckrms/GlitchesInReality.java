@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -52,7 +53,7 @@ public class GlitchesInReality {
             return false;
 
         // Entrance by void death.
-        } else if (damageSource.isOutOfWorld() && DimensionHelper.isInVoid(player)) { 
+        } else if (damageSource.isOf(DamageTypes.OUT_OF_WORLD) && DimensionHelper.isInVoid(player)) { 
             player.setHealth(player.getMaxHealth() * (random.nextFloat() * 0.2f + 0.2f));
             DimensionHelper.teleportToDimension(player, Level0.LEVEL_0, random);
 

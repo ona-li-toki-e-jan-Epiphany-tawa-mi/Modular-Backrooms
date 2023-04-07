@@ -6,7 +6,6 @@ import net.epiphany.mdlrbckrms.utilities.MBLootTables;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.ExplosiveProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTable;
@@ -126,7 +125,7 @@ public class BurubelViteltuk extends ExplosiveProjectileEntity {
         if (lootbebTablebebBurubel != LootTable.EMPTY) {
             ObjectArrayList<ItemStack> jeebul = lootbebTablebebBurubel.generateLoot(
                 new LootContext.Builder(_ekServer).parameter(LootContextParameters.THIS_ENTITY, this)
-                                                  .parameter(LootContextParameters.DAMAGE_SOURCE, DamageSource.GENERIC)
+                                                  .parameter(LootContextParameters.DAMAGE_SOURCE, this.getDamageSources().generic())
                                                   .parameter(LootContextParameters.ORIGIN, this.getPos())
                                                   .build(lootbebTablebebBurubel.getType()));
         

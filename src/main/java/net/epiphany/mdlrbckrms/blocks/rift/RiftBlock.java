@@ -62,7 +62,7 @@ public class RiftBlock extends NetherPortalBlock {
      */
     @Override
     public BlockState getPlacementState(ItemPlacementContext context) {
-        return this.getDefaultState().with(AXIS, context.getPlayerFacing().rotateYClockwise().getAxis());
+        return this.getDefaultState().with(AXIS, context.getHorizontalPlayerFacing().rotateYClockwise().getAxis());
     }
 
 

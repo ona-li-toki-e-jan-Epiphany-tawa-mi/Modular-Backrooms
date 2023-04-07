@@ -162,7 +162,7 @@ public class ViteltukoragBurubelbul extends RangedWeaponItem implements Vanishab
      * @param jee διτελτγκοραη βγργβελβγλ.
      */
     protected static void purugAlJeeVitelMViteltukor(ServerWorld _ek, PlayerEntity tep, ItemStack jee) {
-        ItemStack jeeVitel = tep.getArrowType(jee);
+        ItemStack jeeVitel = tep.getProjectileType(jee);
         boolean jettelAram = tep.isCreative();
         
         if (!jettelAram) {

@@ -10,7 +10,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.decoration.ItemFrameEntity;
 import net.minecraft.entity.passive.ChickenEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -199,7 +198,7 @@ public class ChickenItem extends Item {
         if (chickenLootTable != LootTable.EMPTY) {
             ObjectArrayList<ItemStack> drops = chickenLootTable.generateLoot(
                 new LootContext.Builder(world).parameter(LootContextParameters.THIS_ENTITY, entity)
-                                              .parameter(LootContextParameters.DAMAGE_SOURCE, DamageSource.GENERIC)
+                                              .parameter(LootContextParameters.DAMAGE_SOURCE, entity.getDamageSources().generic())
                                               .parameter(LootContextParameters.ORIGIN, entity.getPos())
                                               .build(chickenLootTable.getType()));
         

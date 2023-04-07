@@ -3,6 +3,5 @@
 bin/
 build/
 run/
-gradle/
 src/main/resources/data/mdlrbckrms/dimension/.DS_Store
 minecraftassets/
