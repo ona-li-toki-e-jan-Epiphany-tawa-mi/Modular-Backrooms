@@ -23,6 +23,7 @@
 
     "MinecraftClientMixin",
     "KeyBindingAccessor",
+    "MinecraftClientAccessor",
 
     "TexturedModelDataAccessor"
   ],

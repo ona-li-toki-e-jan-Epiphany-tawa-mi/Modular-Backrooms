@@ -14,8 +14,6 @@ import org.slf4j.LoggerFactory;
 /**
  * TODO List:
  * - Make player-crafted wallpaper flammable and burning it leaves behind sandstone.
- * - viteltukorag burubelbul
- * - Have opening and closing of office doors use distinct sounds.
  * - Add discovery method for recipes using destroyed labs and lab notes.
  * - Give self the ability to open rifts between worlds and display cool particle effects.
  */

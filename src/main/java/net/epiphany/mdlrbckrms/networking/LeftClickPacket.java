@@ -1,7 +1,7 @@
 package net.epiphany.mdlrbckrms.networking;
 
 import net.epiphany.mdlrbckrms.ModularBackrooms;
-import net.epiphany.mdlrbckrms.utilities.LeftClickEvent;
+import net.epiphany.mdlrbckrms.utilities.LeftClickEvents;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -23,11 +23,13 @@ public class LeftClickPacket {
      * Sends left-clicks to the server.
      * 
      * @param timesPressed The number of times that the left-click button was pressed prior to sending the packet.
+     * @param isValid      Whether the left-click was a valid attack (barring whether the player is actively using an item.)
      */
     @Environment(EnvType.CLIENT)
-    public static void sendToServer(int timesPressed) {
+    public static void sendToServer(int timesPressed, boolean isValid) {
         PacketByteBuf buffer = PacketByteBufs.create();
         buffer.writeInt(timesPressed);
+        buffer.writeBoolean(isValid);
 
         ClientPlayNetworking.send(LEFT_CLICK_PACKET_ID, buffer);
     }
@@ -41,12 +43,19 @@ public class LeftClickPacket {
             if (timesPressed <= 0)
                 return;
 
+            boolean isValid = buffer.readBoolean();
+
+
             server.execute(() -> {
                 World world = player.getWorld();
                 ItemStack item = player.getMainHandStack();
 
                 for (int i = 0; i < timesPressed; i++)
-                    LeftClickEvent.ON_LEFT_CLICK.invoker().onLeftClick(world, player, item);
+                    LeftClickEvents.ON_LEFT_CLICK.invoker().onLeftClick(world, player, item);
+
+                if (isValid)
+                    for (int i = 0; i < timesPressed; i++)
+                        LeftClickEvents.ON_VALID_LEFT_CLICK.invoker().onLeftClick(world, player, item);
             });
         });
     }

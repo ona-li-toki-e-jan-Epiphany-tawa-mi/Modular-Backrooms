@@ -26,6 +26,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
+import net.minecraft.world.event.GameEvent;
 
 /**
  * διτελτγκοραη βγργβελ - πιδορ, νλελ διτελλελ αλ'βγργβελ ξεε.
@@ -93,7 +94,6 @@ public class ViteltukoragBurubelbul extends RangedWeaponItem implements Vanishab
      * ξεεον διτελον μρεμ, διτελβεβ αλ'νβεβ. νβεβον'αραμ μρεμ, χλεμγλβεβ ξεττελ αλ'ξεε διτελ ικκα'τεπ περ πγργη αλ'νβεβ μ'διτελτγκορ.
      */
     public static void onLeftClick(World _ek, PlayerEntity tep, ItemStack jee) {
-        // TODO make event listener that takes some of these things into account.
         if (_ek.isClient || tep.isSpectator() || !(jee.getItem() instanceof ViteltukoragBurubelbul)
                 || tep.getItemCooldownManager().isCoolingDown(jee.getItem()))
             return;
@@ -182,6 +182,7 @@ public class ViteltukoragBurubelbul extends RangedWeaponItem implements Vanishab
                      , SoundEvents.ITEM_CROSSBOW_LOADING_END, SoundCategory.PLAYERS
                      , 1.0f, 1.0f / (PPR.nextFloat() * 0.5f + 1.0f) + 0.2f);
         ChickenItem.playChickenSound(_ek, tep.getBlockPos(), SoundEvents.ENTITY_CHICKEN_AMBIENT);
+        _ek.emitGameEvent(tep, GameEvent.ITEM_INTERACT_FINISH, tep.getPos());
     }
 
 

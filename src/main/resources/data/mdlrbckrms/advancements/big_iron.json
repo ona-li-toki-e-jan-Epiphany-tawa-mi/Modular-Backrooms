@@ -1,0 +1,32 @@
+{
+    "display": {
+        "icon": {
+            "item": "mdlrbckrms:viteltukorag_burubelbul"
+        },
+        "title": {
+            "translate": "advancements.mdlrbckrms.big_iron.title"
+        },
+        "frame": "challenge",
+        "description": {
+            "translate": "advancements.mdlrbckrms.big_iron.description"
+        },
+        "show_toast": true,
+        "announce_to_chat": true,
+        "hidden": true
+    },
+    "parent": "mdlrbckrms:catch_chicken",
+    "criteria": {
+        "catched_chicken": {
+            "conditions": {
+                "items": [
+                    {
+                        "items": [
+                            "mdlrbckrms:viteltukorag_burubelbul"
+                        ]
+                    }
+                ]
+            },
+            "trigger": "minecraft:inventory_changed"
+        }
+    }
+}
