@@ -3,7 +3,6 @@ package net.epiphany.mdlrbckrms.items;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.epiphany.mdlrbckrms.blocks.MBBlocks;
 import net.epiphany.mdlrbckrms.items.predicates.ChickenItemPredicate;
@@ -22,13 +21,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ToolMaterials;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
 import net.minecraft.util.Identifier;
 
 /**
  * Common methods and fields for all custom non-block items.
  */
 public class MBItems {
+    /**
+     * Stores the items to load into the backrooms item group.
+     */
+    public static final List<Item> items = new ArrayList<>();
+
     public static final ChickenSnatcherItem CHICKEN_SNATCHER = new ChickenSnatcherItem(ToolMaterials.WOOD, new FabricItemSettings().maxDamage(64));
     public static final ChickenItem CHICKEN = new ChickenItem(new FabricItemSettings().maxCount(1));
     public static final SuspicousWaterItem SUSPICOUS_WATER = new SuspicousWaterItem(new FabricItemSettings());
@@ -41,11 +44,11 @@ public class MBItems {
      * Registers custom items.
      */
     public static void registerItems() {
-        registerItem("chicken_snatcher", CHICKEN_SNATCHER);
-        registerItem("chicken", CHICKEN);
-        registerItem("suspicous_water", SUSPICOUS_WATER);
-        registerItem("burubel_viteltuk", BURUBEL_VITELTUK);
-        registerItem("viteltukorag_burubelbul", VITELTUKORAG_BURUBELBUL);
+        registerItem("chicken_snatcher", CHICKEN_SNATCHER, true);
+        registerItem("chicken", CHICKEN, true);
+        registerItem("suspicous_water", SUSPICOUS_WATER, true);
+        registerItem("burubel_viteltuk", BURUBEL_VITELTUK, false);
+        registerItem("viteltukorag_burubelbul", VITELTUKORAG_BURUBELBUL, false);
 
         CompostingChanceRegistry.INSTANCE.add(CHICKEN, 1.0f); // Compostable chickens ;)
 
@@ -72,18 +75,8 @@ public class MBItems {
 
     /**
      * Registers the Backrooms items under their item group for the creative menu.
-     * TODO Note: if there are preformance issues when opening the creative inventory for the first time with a lot of mods, you 
-     *      know why.
      */
     private static void registerItemsUnderGroup(FabricItemGroupEntries content) {
-        List<Item> items = new ArrayList<>();
-
-        // Possibly sketchy scan through the item registry to find all Modular Backrooms items and adding them to the creative menu.
-        // Nothing could possibly go wrong here, right? ;)
-        for (Map.Entry<RegistryKey<Item>, Item> entry : Registries.ITEM.getEntrySet()) 
-            if (ModularBackrooms.MOD_ID.equals(entry.getKey().getValue().getNamespace()))
-                items.add(entry.getValue());
-
         Collections.sort(items, (item1, item2) -> Item.getRawId(item1) - Item.getRawId(item2));
 
         for (Item item : items) 
@@ -95,12 +88,16 @@ public class MBItems {
     /**
      * Registers an item.
      * 
-     * @param <I>    The item type.
-     * @param idPath The path of the item's ID (do not include namespace, it will do it for you.) 
-     * @param item   The item.
+     * @param <I>            The item type.
+     * @param idPath         The path of the item's ID (do not include namespace, it will do it for you.) 
+     * @param item           The item.
+     * @param addToItemGroup Whether to add the item to the backrooms item group.
      * @return The item, for chaining.
      */
-    public static <I extends Item> I registerItem(String idPath, I item) {
+    public static <I extends Item> I registerItem(String idPath, I item, boolean addToItemGroup) {
+        if (addToItemGroup)
+            items.add(item);
+
         return Registry.register(Registries.ITEM, new Identifier(ModularBackrooms.MOD_ID, idPath), item);
     }  
 }

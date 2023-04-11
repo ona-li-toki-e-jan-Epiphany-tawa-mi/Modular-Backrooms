@@ -4,6 +4,7 @@ import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.epiphany.mdlrbckrms.blocks.exitdoor.ExitDoorBlock;
 import net.epiphany.mdlrbckrms.blocks.exitdoor.ExitDoorBlockEntity;
 import net.epiphany.mdlrbckrms.blocks.rift.RiftBlock;
+import net.epiphany.mdlrbckrms.items.MBItems;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
@@ -76,28 +77,28 @@ public class MBBlocks {
      * Registers all custom blocks and related bits.
      */
     public static void registerBlocks() {
-        registerBlock("random_number_generator", RNG);
-        registerBlock("ceiling_tile", CEILING_TILE);
-        registerBlock("unbreakable_ceiling_tile", UNBREAKABLE_CEILING_TILE);
-        registerBlock("disabled_fluorescent_light", DISABLED_FLUORESCENT_LIGHT);
-        registerBlock("disabled_unbreakable_fluorescent_light", DISABLED_UNBREAKABLE_FLUORESCENT_LIGHT);
-        registerBlock("fluorescent_light", FLUORESCENT_LIGHT);
-        registerBlock("unbreakable_fluorescent_light", UNBREAKABLE_FLUORESCENT_LIGHT);
-        registerBlock("moist_carpet", MOIST_CARPET);
-        registerBlock("unbreakable_moist_carpet", UNBREAKABLE_MOIST_CARPET);
-        registerBlock("office_door", OFFICE_DOOR);
-        registerBlock("unbreakable_office_door", UNBREAKABLE_OFFICE_DOOR);
-        registerBlock("yellowed_wallpaper", YELLOWED_WALLPAPER);
-        registerBlock("yellowed_wallpaper_slab", YELLOWED_WALLPAPER_SLAB);
-        registerBlock("yellowed_wallpaper_stairs", YELLOWED_WALLPAPER_STAIRS);
-        registerBlock("yellowed_wallpaper_wall", YELLOWED_WALLPAPER_WALL);
-        registerBlock("unbreakable_yellowed_wallpaper", UNBREAKABLE_YELLOWED_WALLPAPER);
-        registerBlock("unbreakable_yellowed_wallpaper_slab", UNBREAKABLE_YELLOWED_WALLPAPER_SLAB);
-        registerBlock("unbreakable_yellowed_wallpaper_stairs", UNBREAKABLE_YELLOWED_WALLPAPER_STAIRS);
-        registerBlock("unbreakable_yellowed_wallpaper_wall", UNBREAKABLE_YELLOWED_WALLPAPER_WALL);
-        registerBlock("exit_door", EXIT_DOOR);
-        registerBlock("interdimensional_exit_door", INTERDIMENSIONAL_EXIT_DOOR);
-        registerBlock("rift", RIFT);
+        registerBlock("random_number_generator", RNG, true);
+        registerBlock("ceiling_tile", CEILING_TILE, true);
+        registerBlock("unbreakable_ceiling_tile", UNBREAKABLE_CEILING_TILE, true);
+        registerBlock("disabled_fluorescent_light", DISABLED_FLUORESCENT_LIGHT, true);
+        registerBlock("disabled_unbreakable_fluorescent_light", DISABLED_UNBREAKABLE_FLUORESCENT_LIGHT, true);
+        registerBlock("fluorescent_light", FLUORESCENT_LIGHT, true);
+        registerBlock("unbreakable_fluorescent_light", UNBREAKABLE_FLUORESCENT_LIGHT, true);
+        registerBlock("moist_carpet", MOIST_CARPET, true);
+        registerBlock("unbreakable_moist_carpet", UNBREAKABLE_MOIST_CARPET, true);
+        registerBlock("office_door", OFFICE_DOOR, true);
+        registerBlock("unbreakable_office_door", UNBREAKABLE_OFFICE_DOOR, true);
+        registerBlock("yellowed_wallpaper", YELLOWED_WALLPAPER, true);
+        registerBlock("yellowed_wallpaper_slab", YELLOWED_WALLPAPER_SLAB, true);
+        registerBlock("yellowed_wallpaper_stairs", YELLOWED_WALLPAPER_STAIRS, true);
+        registerBlock("yellowed_wallpaper_wall", YELLOWED_WALLPAPER_WALL, true);
+        registerBlock("unbreakable_yellowed_wallpaper", UNBREAKABLE_YELLOWED_WALLPAPER, true);
+        registerBlock("unbreakable_yellowed_wallpaper_slab", UNBREAKABLE_YELLOWED_WALLPAPER_SLAB, true);
+        registerBlock("unbreakable_yellowed_wallpaper_stairs", UNBREAKABLE_YELLOWED_WALLPAPER_STAIRS, true);
+        registerBlock("unbreakable_yellowed_wallpaper_wall", UNBREAKABLE_YELLOWED_WALLPAPER_WALL, true);
+        registerBlock("exit_door", EXIT_DOOR, true);
+        registerBlock("interdimensional_exit_door", INTERDIMENSIONAL_EXIT_DOOR, true);
+        registerBlock("rift", RIFT, true);
 
         FlammableBlockRegistry registry = FlammableBlockRegistry.getDefaultInstance();
         registry.add(CEILING_TILE, 30, 60);
@@ -130,15 +131,19 @@ public class MBBlocks {
     /**
      * Registers a block and a block item for it.
      * 
-     * @param <B>   The block type.
-     * @param id    The path of the block's ID (do not include namespace, it will do it for you.)
-     * @param block The block.
+     * @param <B>            The block type.
+     * @param id             The path of the block's ID (do not include namespace, it will do it for you.)
+     * @param block          The block.
+     * @param addToItemGroup Whether to add the block's item to the backrooms item group.
      * @return The block, for chaining.
      */
-    public static <B extends Block> B registerBlock(String idPath, B block) {
+    public static <B extends Block> B registerBlock(String idPath, B block, boolean addToItemGroup) {    
         Identifier id = new Identifier(ModularBackrooms.MOD_ID, idPath);
 
-        Registry.register(Registries.ITEM, id, new BlockItem(block, new FabricItemSettings()));
+        BlockItem blockItem = Registry.register(Registries.ITEM, id, new BlockItem(block, new FabricItemSettings()));
+        if (addToItemGroup)
+            MBItems.items.add(blockItem);
+
         return Registry.register(Registries.BLOCK, id, block);
     }
 
