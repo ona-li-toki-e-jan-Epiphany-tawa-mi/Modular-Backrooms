@@ -13,8 +13,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * TODO List:
- * - Make player-crafted wallpaper flammable and burning it leaves behind sandstone.
  * - Add discovery method for recipes using destroyed labs and lab notes.
+ * - Turn power code in GodOfTheBackrooms into a special item or something.
  */
 public class ModularBackrooms implements ModInitializer {
 	public static final String MOD_ID = "mdlrbckrms";

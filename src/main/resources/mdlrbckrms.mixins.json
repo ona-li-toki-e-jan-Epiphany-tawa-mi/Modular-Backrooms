@@ -11,7 +11,9 @@
     "AbstractFurnaceBlockEntityMixin",
     "CampfireBlockEntityMixin",
 
-    "SpyglassItemInvoker"
+    "SpyglassItemInvoker",
+
+    "FireBlockMixin"
   ],
   "client": [
     "DebugHudAccessor",

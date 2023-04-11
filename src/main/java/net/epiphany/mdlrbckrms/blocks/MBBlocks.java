@@ -102,6 +102,10 @@ public class MBBlocks {
         FlammableBlockRegistry registry = FlammableBlockRegistry.getDefaultInstance();
         registry.add(CEILING_TILE, 30, 60);
         registry.add(MOIST_CARPET, 15, 60);
+        registry.add(YELLOWED_WALLPAPER, 30, 60);
+        registry.add(YELLOWED_WALLPAPER_SLAB, 30, 60);
+        registry.add(YELLOWED_WALLPAPER_STAIRS, 30, 60);
+        registry.add(YELLOWED_WALLPAPER_WALL, 30, 60);
 
         registerBlockEntities();
     }
