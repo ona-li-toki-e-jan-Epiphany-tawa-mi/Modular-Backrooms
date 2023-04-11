@@ -16,7 +16,7 @@ public class MBWorldGeneration {
     /**
      * Registers special worldgen-related items like chunk generators.
      */
-    public static void registerWordGenerationStuffs() {
+    public static void registerWorldGenerationStuffs() {
         registerChunkGenerator("multibiome_flat", MultibiomeFlatChunkGenerator.CODEC);
 
         MBFeatures.registerFeatures();

@@ -2,6 +2,7 @@ package net.epiphany.mdlrbckrms.blocks.rift;
 
 import net.epiphany.mdlrbckrms.blocks.MBBlocks;
 import net.epiphany.mdlrbckrms.utilities.DimensionHelper;
+import net.epiphany.mdlrbckrms.utilities.MiscellaneousHelpers;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.NetherPortalBlock;
@@ -17,7 +18,9 @@ import net.minecraft.state.StateManager.Builder;
 import net.minecraft.state.property.IntProperty;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.Direction;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
@@ -159,8 +162,17 @@ public class RiftBlock extends NetherPortalBlock {
     
         if (worldTo == null) {
             world.scheduleBlockTick(position, this, 2);
-        } else
-            DimensionHelper.teleportToDimension(entity, worldTo, position.getX(), position.getY(), position.getZ(), true);
+
+        } else {
+            World newWorld = world.getServer().getWorld(worldTo);
+            Vec3d destination = newWorld != null ? MiscellaneousHelpers.findValidPosition(newWorld, new ChunkPos(position), entity) 
+                                                 : null;
+
+            if (destination != null) 
+                DimensionHelper.teleportToDimension( entity
+                                                   , worldTo, destination.getX(), destination.getY(), destination.getZ()
+                                                   , true);
+        }
     }
 
 

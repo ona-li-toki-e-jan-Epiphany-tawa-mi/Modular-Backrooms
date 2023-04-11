@@ -6,19 +6,16 @@ import net.epiphany.mdlrbckrms.ModularBackrooms;
 import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnRestriction;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
-import net.minecraft.world.SpawnHelper;
 import net.minecraft.world.TeleportTarget;
 import net.minecraft.world.World;
 import net.minecraft.world.border.WorldBorder;
@@ -222,43 +219,18 @@ public class DimensionHelper {
     @Nullable
     public static <E extends Entity> E teleportToDimension(E entity, ServerWorld world, Random random) {
         WorldBorder newWorldBorder = world.getWorldBorder();
-        int minimumY = world.getBottomY()
-          , maximumY = world.getTopY();
-
-        BlockPos.Mutable possibleDestination = new BlockPos.Mutable();
-        double x = Double.NaN, y = Double.NaN, z = Double.NaN;
-        boolean foundSafeDestination = false;
         
-    FindSafeTeleportDestination:
         for (int attempts = 3; attempts > 0; attempts--) {
             double xAxisSize = random.nextBoolean() ? newWorldBorder.getBoundSouth() : newWorldBorder.getBoundNorth()
                  , zAxisSize = random.nextBoolean() ? newWorldBorder.getBoundEast()  : newWorldBorder.getBoundWest();
             ChunkPos randomChunk = new ChunkPos( ChunkSectionPos.getSectionCoordFloored(random.nextDouble() * xAxisSize)
                                                , ChunkSectionPos.getSectionCoordFloored(random.nextDouble() * zAxisSize));
 
-            // Iterates through EVERY SINGLE possible location within the chunk to find a safe location.
-            for (int i = randomChunk.getStartX(); i <= randomChunk.getEndX(); i++)
-                for (int j = randomChunk.getStartZ(); j <= randomChunk.getEndZ(); j++) 
-                    for (int k = minimumY; k < maximumY; k++) {
-                        possibleDestination.set(i, k, j);
-                        
-                        if (SpawnHelper.canSpawn( SpawnRestriction.Location.ON_GROUND
-                                                , world, possibleDestination
-                                                , entity.getType())) {
-                            x = possibleDestination.getX();
-                            y = possibleDestination.getY();
-                            z = possibleDestination.getZ();
+            Vec3d destination = MiscellaneousHelpers.findValidPosition(world, randomChunk, entity);
 
-                            foundSafeDestination = true;
-                            break FindSafeTeleportDestination;
-                        }
-                    }
-        }
-
-
-        // Make sure to spawn entity in middle of block to prevent suffocation.
-        if (foundSafeDestination)
-            return teleportToDimension(entity, world, x + 0.5, y + 0.5, z + 0.5, false);
+            if (destination != null) 
+                return teleportToDimension(entity, world, destination, false);
+        }   
 
         return null;
     }

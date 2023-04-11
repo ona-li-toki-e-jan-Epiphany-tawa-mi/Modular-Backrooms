@@ -15,7 +15,6 @@ import org.slf4j.LoggerFactory;
  * TODO List:
  * - Make player-crafted wallpaper flammable and burning it leaves behind sandstone.
  * - Add discovery method for recipes using destroyed labs and lab notes.
- * - Give self the ability to open rifts between worlds and display cool particle effects.
  */
 public class ModularBackrooms implements ModInitializer {
 	public static final String MOD_ID = "mdlrbckrms";
@@ -29,7 +28,7 @@ public class ModularBackrooms implements ModInitializer {
 		MBEntities.registerEntities();
 
 		Levels.registerLevels();
-		MBWorldGeneration.registerWordGenerationStuffs();
+		MBWorldGeneration.registerWorldGenerationStuffs();
 
 		MBSounds.registerSounds();
 
