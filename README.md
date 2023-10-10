@@ -1,5 +1,7 @@
 ![icon](icon-400x400.png)
 
+**!!NOTICE!!:** I have chosen to abandon this project and will no longer work on it.
+
 # Modular Backrooms
 
 Modular Backrooms is a mod for Mineraft that adds the Backrooms. The idea being that when you generate the world you can choose what kind of experience you'd like to have.
