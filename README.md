@@ -49,11 +49,6 @@ gradlew.bat build
 
 The complied jar file should appear in build/libs/.
 
-## Links
-
-- [Planet Minecraft page](https://www.planetminecraft.com/mod/modular-backrooms-fabric-1-19-4 "Modular Backrooms' page on Planet Minecraft")
-- [CurseForge page](https://www.curseforge.com/minecraft/mc-mods/modular-backrooms "Modular Backrooms' page on CurseForge")
-
 ## Screenshots
 
 ![a rift](screenshots/rift.png)
